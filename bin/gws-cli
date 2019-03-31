@@ -6,8 +6,8 @@ let fs = require('fs');
 
 const cwd = process.cwd();
 console.log(cwd);
-console.log(__dirname)
-console.log(__filename)
+console.log(__dirname);
+console.log(__filename);
 
 // /Users/xiayuting/workBase/gws
 // /Users/xiayuting/workBase/gws/bin
@@ -72,4 +72,4 @@ inquirer.prompt(promptList).then(answers => {
       console.log(JSON.parse(data));
     });
   });
-})
+});
