@@ -1,6 +1,6 @@
 {
   "name": "gws-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "generate website by react-mobx",
   "homepage": "https://github.com/edwardxyt/gws-cli",
   "main": "index.js",
