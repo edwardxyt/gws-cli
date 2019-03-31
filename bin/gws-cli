@@ -2,6 +2,7 @@
 "use strict";
 
 let inquirer = require('inquirer');
+let fs = require('fs');
 
 // let name = process.argv[2];
 // let exec = require("child_process").exec;
@@ -15,11 +16,12 @@ const promptList = [{
   type: 'input',
   message: '设置一个用户名:',
   name: 'name',
-  default: "test_user" // 默认值
+  default: "myProject" // 默认值
 },{
   type: 'input',
   message: '请输入手机号:',
   name: 'phone',
+  default: '15840264410', // 默认值
   validate(val) {
     if(val.match(/\d{11}/g)) { // 校验位数
       return true;
@@ -42,5 +44,21 @@ const promptList = [{
 }];
 
 inquirer.prompt(promptList).then(answers => {
-    console.log(answers); // 返回的结果
+  console.log(answers); // 返回的结果
+
+  // 写入文件内容（如果文件不存在会创建一个文件）
+  // 写入时会先清空文件
+  fs.writeFile('./answers.json', JSON.stringify(answers), function(err) {
+    if (err) {
+      throw err;
+    }
+
+    // 写入成功后读取测试
+    fs.readFile('./answers.json', 'utf-8', function(err, data) {
+      if (err) {
+        throw err;
+      }
+      console.log(JSON.parse(data));
+    });
+  });
 })
