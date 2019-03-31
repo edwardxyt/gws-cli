@@ -1,11 +1,11 @@
 {
   "name": "gws-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "generate website by react-mobx",
   "homepage": "https://github.com/edwardxyt/gws-cli",
   "main": "index.js",
   "bin": {
-    "alyoss": "bin/gws-cli"
+    "gws-cli": "bin/gws-cli"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
