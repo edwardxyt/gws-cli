@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+"use strict";
+
+let inquirer = require('inquirer');
+
+let name = process.argv[2];
+let exec = require("child_process").exec;
+
+let child = exec("echo hello " + name, function(err, stdout, stderr) {
+  if (err) throw err;
+  console.log(stdout);
+});
