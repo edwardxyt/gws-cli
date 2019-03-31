@@ -3,10 +3,44 @@
 
 let inquirer = require('inquirer');
 
-let name = process.argv[2];
-let exec = require("child_process").exec;
+// let name = process.argv[2];
+// let exec = require("child_process").exec;
+//
+// let child = exec("echo hello " + name, function(err, stdout, stderr) {
+//   if (err) throw err;
+//   console.log(stdout);
+// });
 
-let child = exec("echo hello " + name, function(err, stdout, stderr) {
-  if (err) throw err;
-  console.log(stdout);
-});
+const promptList = [{
+  type: 'input',
+  message: '设置一个用户名:',
+  name: 'name',
+  default: "test_user" // 默认值
+},{
+  type: 'input',
+  message: '请输入手机号:',
+  name: 'phone',
+  validate(val) {
+    if(val.match(/\d{11}/g)) { // 校验位数
+      return true;
+    }
+    return "请输入11位数字";
+  }
+},{
+  type: "confirm",
+  message: "是否使用监听？",
+  name: "watch",
+  prefix: "前缀"
+},{
+  type: "confirm",
+  message: "是否进行文件过滤？",
+  name: "filter",
+  suffix: "后缀",
+  when(answers) { // 当watch为true的时候才会提问当前问题
+    return answers.watch
+  }
+}];
+
+inquirer.prompt(promptList).then(answers => {
+    console.log(answers); // 返回的结果
+})
