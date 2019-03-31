@@ -1,0 +1,20 @@
+{
+  "name": "gws-cli",
+  "version": "1.0.0",
+  "description": "generate website by react-mobx",
+  "homepage": "https://github.com/edwardxyt/aly-oss",
+  "main": "index.js",
+  "bin": {
+    "alyoss": "bin/alyoss"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "react",
+    "mobx"
+  ],
+  "author": "edwardxyt",
+  "license": "ISC"
+}
