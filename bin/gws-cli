@@ -25,32 +25,24 @@ let child = exec("echo hello " + name, function(err, stdout, stderr) {
 
 const promptList = [{
   type: 'input',
-  message: '设置一个用户名:',
+  message: '项目名称:',
   name: 'name',
   default: "myProject" // 默认值
 },{
   type: 'input',
-  message: '请输入手机号:',
-  name: 'phone',
-  default: '15840264410', // 默认值
-  validate(val) {
-    if(val.match(/\d{11}/g)) { // 校验位数
-      return true;
-    }
-    return "请输入11位数字";
-  }
+  message: '描述:',
+  name: 'description',
+  default: "" // 默认值
 },{
-  type: "confirm",
-  message: "是否使用监听？",
-  name: "watch",
-  prefix: "前缀"
-},{
-  type: "confirm",
-  message: "是否进行文件过滤？",
-  name: "filter",
-  suffix: "后缀",
-  when(answers) { // 当watch为true的时候才会提问当前问题
-    return answers.watch
+  type: 'list',
+  message: '模式选择:',
+  name: 'pattern',
+  choices: [
+    "Simple",
+    "Base"
+  ],
+  filter: function (val) { // 使用filter将回答变为小写
+    return val.toLowerCase();
   }
 }];
 
@@ -59,17 +51,17 @@ inquirer.prompt(promptList).then(answers => {
 
   // 写入文件内容（如果文件不存在会创建一个文件）
   // 写入时会先清空文件
-  fs.writeFile(`${cwd}/answers.json`, JSON.stringify(answers), function(err) {
+  fs.writeFile(`${cwd}/package.json`, JSON.stringify(answers), function(err) {
     if (err) {
       throw err;
     }
 
     // 写入成功后读取测试
-    fs.readFile(`${cwd}/answers.json`, 'utf-8', function(err, data) {
+    fs.readFile(`${cwd}/package.json`, 'utf-8', function(err, data) {
       if (err) {
         throw err;
       }
-      console.log(JSON.parse(data));
+      console.log('生成文件：', JSON.parse(data));
     });
   });
 });

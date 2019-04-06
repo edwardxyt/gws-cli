@@ -1,6 +1,7 @@
-const oss = require('./core/oss-factory.js');
-const version = require("./package.json").version;
+let {globalLoader} = require('./utils/global-loader');
+let shell = require('shelljs');
+let fs = require('fs-extra');
 
-
-exports = module.exports = oss;
-exports.version = version;
+globalLoader(`${__dirname}/template/**/*.js`).then(result => {
+    console.log(result)
+});
