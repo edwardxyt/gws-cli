@@ -88,6 +88,8 @@ inquirer.prompt(promptList).then(answers => {
         console.log(chalk.blue('npm run start --ENTRY=news/demo --ENV=mock'));
         console.log(chalk.blue('npm run watch --ENTRY=news/git --ENV=mock'));
         console.log(chalk.blue('npm run tree'));
+        console.log(chalk.blue('npm run compile --ENTRY=news/demo --ENV=test'));
+        console.log(chalk.blue('npm run node:server --ENTRY=news/demo'));
       });
     });
   });
