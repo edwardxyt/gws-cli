@@ -20,7 +20,7 @@ let initConfig = async () => {
     // 组装部署-webpack配置
     let wbConfig = {
         entry: {
-            app: ["babel-polyfill", "whatwg-fetch", app_config.main]
+            app: ["@babel/polyfill", "whatwg-fetch", app_config.main]
         },
         mode: "production",
         output: {
@@ -166,28 +166,15 @@ let initConfig = async () => {
                     {
                         loader: "babel-loader",
                         options: {
-                            cacheDirectory: true, //开启缓存
                             presets: [
-                                [
-                                    "env",
-                                    {
-                                        targets: {
-                                            browsers:
-                                                app_config.PRESETS_ENV_BROWSERS,
-                                            useBuiltIns: true,
-                                            uglify: false,
-                                            // include: ["transform-es2015-arrow-functions"],
-                                            debug: false
-                                        }
-                                    }
-                                ],
-                                "react",
-                                "stage-2"
+                                '@babel/preset-env',
+                                '@babel/preset-react'
                             ],
                             plugins: [
-                                "transform-decorators-legacy",
-                                "transform-remove-console",
-                                "transform-runtime",
+                                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                                ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+                                "@babel/plugin-transform-runtime",
+                                "@babel/plugin-syntax-dynamic-import",
                                 app_config.antd
                             ]
                         }

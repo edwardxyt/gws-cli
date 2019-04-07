@@ -52,7 +52,7 @@ module.exports = {
                     api_path: "//bizapitest.aibao.com",
                     console: true,
                     eslint: false,
-                    cdn_path: "/static/website2018/news/demo/"
+                    cdn_path: "./"
                 },
                 production: {
                     api_path: "//biz.aibao.com",
@@ -61,33 +61,6 @@ module.exports = {
                     cdn_path: "/static/website2018/news/demo/"
                 }
             }
-        },
-        swiper: {
-            library: ["antd-mobile"],
-            console: true,
-            mobile: true,
-            eslint: false,
-            api_path: "//m.9888.cn",
-            y_api_path: "//m.9888.cn",
-            cdn_path: "/static/news/git/"
-        },
-        prize: {
-            library: ["antd"],
-            console: false,
-            mobile: false,
-            eslint: false,
-            api_path: "//m.9888.cn",
-            y_api_path: "//m.9888.cn",
-            cdn_path: "/"
-        },
-        hook: {
-            library: ["antd"],
-            console: false,
-            mobile: false,
-            eslint: false,
-            api_path: "//m.9888.cn",
-            y_api_path: "//m.9888.cn",
-            cdn_path: "/"
         }
     }
 };
