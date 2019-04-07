@@ -2,7 +2,11 @@
   "name": "gws-cli",
   "version": "2.0.0",
   "description": "generate website by react-mobx",
-  "homepage": "https://github.com/edwardxyt/gws-cli",
+  "homepage": "https://github.com/edwardxyt/gws-cli#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwardxyt/gws-cli"
+  },
   "main": "index.js",
   "bin": {
     "gws-cli": "bin/gws-cli"
