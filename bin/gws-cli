@@ -1,17 +1,21 @@
 #!/usr/bin/env node
 "use strict";
 
-let inquirer = require('inquirer');
-let fs = require('fs');
+const inquirer = require('inquirer');
+const fs = require('fs');
+const path = require("path");
+const ora = require('ora');
+const chalk = require('chalk');
+const {globalLoader} = require('../utils/global-loader');
+const shell = require('shelljs');
+
+const rootPath = path.resolve(__dirname, "../");
 
 const cwd = process.cwd();
 console.log(cwd);
+// console.log(shell.pwd());
 console.log(__dirname);
 console.log(__filename);
-
-// /Users/xiayuting/workBase/gws
-// /Users/xiayuting/workBase/gws/bin
-// /Users/xiayuting/workBase/gws/bin/gws-cli
 
 /*
 let name = process.argv[2];
@@ -27,7 +31,7 @@ const promptList = [{
   type: 'input',
   message: '项目名称:',
   name: 'name',
-  default: "myProject" // 默认值
+  default: "website2018" // 默认值
 },{
   type: 'input',
   message: '描述:',
@@ -47,21 +51,43 @@ const promptList = [{
 }];
 
 inquirer.prompt(promptList).then(answers => {
-  console.log(answers); // 返回的结果
+  globalLoader(`${rootPath}/src/${answers.pattern}/package.json`).then( async (result) => {
+    const spinner = ora(`generate ${answers.name}...  `);
+    spinner.start();
 
-  // 写入文件内容（如果文件不存在会创建一个文件）
-  // 写入时会先清空文件
-  fs.writeFile(`${cwd}/package.json`, JSON.stringify(answers), function(err) {
-    if (err) {
-      throw err;
-    }
+    let pa = Object.assign({}, result[0], answers);
 
-    // 写入成功后读取测试
-    fs.readFile(`${cwd}/package.json`, 'utf-8', function(err, data) {
+    await shell.mkdir('-p', `${cwd}/${answers.name}`);
+    await shell.cp('-R',`${rootPath}/src/${answers.pattern}/*`, `${cwd}/${answers.name}`);
+    await shell.cd(`${cwd}/${answers.name}`);
+
+    // 写文件内容（如果文件不存在会创建一个文件）
+    // 写入时会先入清空文件
+    await fs.writeFile(`${cwd}/${answers.name}/package.json`, JSON.stringify(pa), function(err) {
       if (err) {
         throw err;
       }
-      console.log('生成文件：', JSON.parse(data));
+
+      console.log(chalk.blue('npm install...'));
+
+      // 写入成功后读取测试
+      fs.readFile(`${cwd}/${answers.name}/package.json`, 'utf-8', function(err, data) {
+        if (err) {
+          throw err;
+        }
+        // console.log('生成文件：', JSON.parse(data));
+
+        // 安装包
+        if (shell.exec('npm install', {silent:true}).code !== 0) {//执行npm run build 命令
+          shell.echo('Error: Npm instll failed');
+          shell.exit(1);
+        }
+
+        spinner.stop();
+        console.log(chalk.blue('npm run start --ENTRY=news/demo --ENV=mock'));
+        console.log(chalk.blue('npm run watch --ENTRY=news/git --ENV=mock'));
+        console.log(chalk.blue('npm run tree'));
+      });
     });
   });
 });
