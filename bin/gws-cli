@@ -8,12 +8,12 @@ const ora = require('ora');
 const chalk = require('chalk');
 const {globalLoader} = require('../utils/global-loader');
 const shell = require('shelljs');
+const log = console.log;
 
 const rootPath = path.resolve(__dirname, "../");
 
 const cwd = process.cwd();
-console.log(chalk.bgBlack(cwd));
-
+// console.log(chalk.red(`[INFO] ${cwd}`));
 // console.log(shell.pwd());
 // console.log(__dirname);
 // console.log(__filename);
@@ -69,7 +69,7 @@ inquirer.prompt(promptList).then(answers => {
         throw err;
       }
 
-      console.log(chalk.blue('npm install...'));
+      log(chalk.blue('npm install...'));
 
       // 写入成功后读取测试
       fs.readFile(`${cwd}/${answers.name}/package.json`, 'utf-8', function(err, data) {
@@ -85,12 +85,18 @@ inquirer.prompt(promptList).then(answers => {
         }
 
         spinner.stop();
-        console.log(chalk.blue(`cd ${answers.name}`));
-        console.log(chalk.blue('npm run start --ENTRY=news/demo --ENV=mock'));
-        console.log(chalk.blue('npm run watch --ENTRY=news/git --ENV=mock'));
-        console.log(chalk.blue('npm run tree'));
-        console.log(chalk.blue('npm run compile --ENTRY=news/demo --ENV=test'));
-        console.log(chalk.blue('npm run node:server --ENTRY=news/demo'));
+
+        log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[进入项目]')} ${chalk.green(answers.name)}`);
+        log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[查看项目树]')} ${chalk.green('npm run tree')}`);
+        log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
+        log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[运行入口news/demo、启动mock环境]')} ${chalk.yellow('npm run start --ENTRY=news/demo --ENV=mock')}`);
+        log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[运行入口news/git、启动mock环境]')} ${chalk.yellow('npm run start --ENTRY=news/git --ENV=mock')}`);
+        log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
+
+        log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
+        log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[编译news/demo、启动test环境]')} ${chalk.yellow('npm run compile --ENTRY=news/demo --ENV=test')}`);
+        log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[启动http服务器、项目news/demo]')} ${chalk.yellow('npm run node:server --ENTRY=news/demo')}`);
+        log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
       });
     });
   });
