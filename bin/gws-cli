@@ -12,7 +12,7 @@ const shell = require('shelljs');
 const rootPath = path.resolve(__dirname, "../");
 
 const cwd = process.cwd();
-console.log(bgBlack.blue(cwd));
+console.log(chalk.bgBlack(cwd));
 
 // console.log(shell.pwd());
 // console.log(__dirname);
