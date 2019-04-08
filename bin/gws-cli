@@ -12,10 +12,11 @@ const shell = require('shelljs');
 const rootPath = path.resolve(__dirname, "../");
 
 const cwd = process.cwd();
-console.log(cwd);
+console.log(bgBlack.blue(cwd));
+
 // console.log(shell.pwd());
-console.log(__dirname);
-console.log(__filename);
+// console.log(__dirname);
+// console.log(__filename);
 
 /*
 let name = process.argv[2];
