@@ -58,9 +58,7 @@ inquirer.prompt(promptList).then(answers => {
 
     let pa = Object.assign({}, result[0], answers);
 
-    await shell.mkdir('-p', `${cwd}/${answers.name}`);
-    // await shell.cp('-R',`${rootPath}/src/${answers.pattern}/*`, `${cwd}/${answers.name}`);
-    await shell.exec(`cp -R ${rootPath}/src/${answers.pattern}/* ${cwd}/${answers.name}`).stdout;
+    await shell.cp('-Rf',`${rootPath}/src/${answers.pattern}/`, `${cwd}/${answers.name}`);
     await shell.cd(`${cwd}/${answers.name}`);
 
     // 写文件内容（如果文件不存在会创建一个文件）
