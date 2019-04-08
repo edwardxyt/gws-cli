@@ -86,7 +86,7 @@ inquirer.prompt(promptList).then(answers => {
 
         spinner.stop();
 
-        log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[进入项目]')} ${chalk.green(`cd {answers.name}`)}`);
+        log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[进入项目]')} ${chalk.green(`cd ${answers.name}`)}`);
         log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[查看项目树]')} ${chalk.green('npm run tree')}`);
         log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
         log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[运行入口news/demo、启动mock环境]')} ${chalk.yellow('npm run start --ENTRY=news/demo --ENV=mock')}`);
