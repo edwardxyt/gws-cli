@@ -4,7 +4,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs-extra');
 const path = require("path");
-const ora = require('ora');
 const chalk = require('chalk');
 const {globalLoader} = require('../utils/global-loader');
 const shell = require('shelljs');
@@ -69,15 +68,11 @@ const promptList = [{
 
 inquirer.prompt(promptList).then(answers => {
   globalLoader(`${rootPath}/src/${answers.pattern}/package.json`).then( async (result) => {
-    const spinner = ora(`generate ${answers.name}...  `);
-    spinner.start();
-
     let pa = Object.assign({}, result[0], answers);
 
     // 判断项目文件是否已存在
     if (fs.pathExistsSync(`${cwd}/${answers.name}`)) {
       log(`${chalk.red('[ERROR]')} ${chalk.blue.bold('[目录已存在]')} ${chalk.green(`${cwd}/${answers.name}`)}`);
-      spinner.stop();
       return false;
     }
 
@@ -93,8 +88,6 @@ inquirer.prompt(promptList).then(answers => {
         throw err;
       }
 
-
-
       // 写入成功后读取测试
       fs.readFile(`${cwd}/${answers.name}/package.json`, 'utf-8', (err, data) => {
         if (err) {
@@ -109,12 +102,12 @@ inquirer.prompt(promptList).then(answers => {
           log(`\n${chalk.cyan('[INFO]')} ${chalk.blue.bold('[未安装依赖请手动执行]')} ${chalk.green(`npm install`)}`);
         }
 
-        if (answers.watch && shell.exec(`${answers.npm} install`, {silent:true}).code !== 0) {//执行npm run build 命令
+        if (answers.watch && shell.exec(`${answers.npm} install`, {silent: false}).code !== 0) {//执行npm run build 命令
           shell.echo(`Error: ${answers.npm} instll failed`);
           shell.exit(1);
         }
 
-        spinner.stop();
+        log(chalk.blue(`${answers.npm} install success!`));
 
         log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[进入项目]')} ${chalk.green(`cd ${answers.name}`)}`);
         log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[查看项目树]')} ${chalk.green('npm run tree')}`);
