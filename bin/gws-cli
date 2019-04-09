@@ -107,7 +107,9 @@ inquirer.prompt(promptList).then(answers => {
           shell.exit(1);
         }
 
-        log(chalk.blue(`${answers.npm} install success!`));
+        if (answers.npm) {
+          log(chalk.blue(`${answers.npm} install success!`));
+        }
 
         log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[进入项目]')} ${chalk.green(`cd ${answers.name}`)}`);
         log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[查看项目树]')} ${chalk.green('npm run tree')}`);
