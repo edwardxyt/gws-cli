@@ -112,7 +112,7 @@ inquirer.prompt(promptList).then(answers => {
         }
 
         log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[进入项目]')} ${chalk.green(`cd ${answers.name}`)}`);
-        if (answers.npm) {
+        if (!answers.npm) {
           log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[安装依赖]')} ${chalk.green(`npm run install}`)}`);
         }
         log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[查看项目树]')} ${chalk.green('npm run tree')}`);
