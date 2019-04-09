@@ -99,10 +99,10 @@ inquirer.prompt(promptList).then(answers => {
         if (answers.watch) {//执行npm run build 命令
           log(chalk.blue(`\n${answers.npm} install...`));
         } else {
-          log(`\n${chalk.cyan('[INFO]')} ${chalk.blue.bold('[未安装依赖请手动执行]')} ${chalk.green(`npm install`)}`);
+          log(`\n${chalk.cyan('[INFO]')} ${chalk.blue.bold('[未安装依赖请手动执行]')}`);
         }
 
-        if (answers.watch && shell.exec(`${answers.npm} install`, {silent: false}).code !== 0) {//执行npm run build 命令
+        if (answers.npm && answers.watch && shell.exec(`${answers.npm} install`, {silent: false}).code !== 0) {//执行npm run build 命令
           shell.echo(`Error: ${answers.npm} instll failed`);
           shell.exit(1);
         }
