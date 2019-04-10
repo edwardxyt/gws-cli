@@ -5,10 +5,10 @@ const log = console.log;
 
 let cpu = {
     totalPercent: 90,
-    used:100,
-    total:3,
+    used: 100,
+    total: 3,
 
-}
+};
 
 globalLoader(`${__dirname}/utils/**/*.js`).then(result => {
     console.log(result)
@@ -52,3 +52,14 @@ log(chalk`
 log(chalk.keyword('orange')('Yay for orange colored text!'));
 log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
 log(chalk.hex('#DEADED').bold('Bold gray!'));
+
+log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[查看项目树]')} ${chalk.green('npm run tree')}`);
+log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
+log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[运行入口news/demo、启动mock环境]')} ${chalk.yellow('npm run start --ENTRY=news/demo --ENV=mock')}`);
+log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[运行入口news/git、启动mock环境]')} ${chalk.yellow('npm run start --ENTRY=news/git --ENV=mock')}`);
+log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
+
+log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
+log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[编译news/demo、启动test环境]')} ${chalk.yellow('npm run compile --ENTRY=news/demo --ENV=test')}`);
+log(`${chalk.cyan('[INFO]')} ${chalk.blue.bold('[启动http服务器、项目news/demo]')} ${chalk.yellow('npm run node:server --ENTRY=news/demo')}`);
+log(`${chalk.cyan('[INFO]')} --------------------------------------------------------------------------------`);
