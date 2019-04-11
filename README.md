@@ -1,4 +1,5 @@
-# Getting Started
+Official React bindings for gws-cli, with mobx@5. react-router@5. webpack@4. antd
+## Getting Started
 Install:
 
 ```
@@ -11,4 +12,4 @@ Create a project:
 ```
 gws-cli
 ```
-![WX20190411-180931](media/WX20190411-180931.png)
+![WX20190411-180931](media/15549621575960/WX20190411-180931.png)
