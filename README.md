@@ -1,5 +1,5 @@
 Official React bindings for gws-cli, with mobx@5. react-router@5. webpack@4. antd
-## Getting Started
+# Getting Started
 Install:
 
 ```
