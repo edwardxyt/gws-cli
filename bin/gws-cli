@@ -12,7 +12,7 @@ const log = console.log;
 const rootPath = path.resolve(__dirname, "../");
 
 const cwd = process.cwd();
-log(chalk.blue(`version: ${version}`));
+log(chalk.blue(`gws-cli version: ${version}`));
 /*
 log(chalk.red(`[INFO] ${cwd}`));
 log(shell.pwd());
