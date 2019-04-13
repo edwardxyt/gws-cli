@@ -45,8 +45,8 @@ const promptList = [{
     message: '模式选择:',
     name: 'pattern',
     choices: [
-        "Simple",
-        "Base"
+        // "Base",
+        "Simple"
     ],
     filter: function (val) { // 使用filter将回答变为小写
         return val.toLowerCase();
