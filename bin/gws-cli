@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 "use strict";
-const version = require("./package.json").version;
+const version = require("../package.json").version;
 const inquirer = require('inquirer');
 const fs = require('fs-extra');
 const path = require("path");
@@ -12,7 +12,7 @@ const log = console.log;
 const rootPath = path.resolve(__dirname, "../");
 
 const cwd = process.cwd();
-log(version);
+log(chalk.blue(`version: ${version}`));
 /*
 log(chalk.red(`[INFO] ${cwd}`));
 log(shell.pwd());
