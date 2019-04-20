@@ -1,6 +1,6 @@
 {
   "name": "@edwardxyt/gws-cli",
-  "version": "2.0.27",
+  "version": "2.0.29",
   "description": "generate website by react-mobx",
   "homepage": "https://github.com/edwardxyt/gws-cli#readme",
   "repository": {
@@ -23,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.2",
+    "@edwardxyt/gws-utils": "^1.0.0",
     "fs-extra": "^7.0.1",
     "glob": "^7.1.3",
     "inquirer": "^6.2.2",

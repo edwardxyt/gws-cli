@@ -1,4 +1,4 @@
-let {globalLoader} = require('./utils/global-loader');
+let {globalLoader} = require('@edwardxyt/gws-utils');
 let shell = require('shelljs');
 const chalk = require('chalk');
 const log = console.log;
@@ -12,7 +12,6 @@ let cpu = {
 
 globalLoader(`${__dirname}/utils/**/*.js`).then(result => {
     console.log(result)
-
 });
 
 // Combine styled and normal strings

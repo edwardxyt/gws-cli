@@ -5,7 +5,7 @@ const inquirer = require('inquirer');
 const fs = require('fs-extra');
 const path = require("path");
 const chalk = require('chalk');
-const {globalLoader} = require('../utils/global-loader');
+const {globalLoader} = require('@edwardxyt/gws-utils');
 const shell = require('shelljs');
 const log = console.log;
 
