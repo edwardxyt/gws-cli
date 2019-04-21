@@ -93,7 +93,7 @@ let app_config = (rootDir = "/") => {
                 project,
                 "index.html"
             ), // 编译后入口
-            node_module_dir: path.resolve(rootDir, "node_module"), // 依赖模块目录
+            node_module_dir: path.resolve(rootDir, "node_modules"), // 依赖模块目录
             template_path: path.join(rootDir, "src", `${entry}`, "index.hbs"),
             templates_dir: path.join(rootDir, "src", `${entry}`, "/templates"),
 
