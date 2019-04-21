@@ -37,6 +37,7 @@
     "node:server": "cross-env DEBUG=test:* NODE_ENV='test' nodemon bin/express.server"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-proposal-decorators": "^7.4.0",
@@ -45,6 +46,7 @@
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.4.0",
     "autoprefixer": "^9.3.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-import": "^1.11.0",
@@ -82,7 +84,6 @@
   "dependencies": {
     "@edwardxyt/gws-utils": "^1.0.0",
     "@edwardxyt/gws-javascripts": "^1.0.0",
-    "@edwardxyt/gws-components": "^1.0.0",
     "antd": "^3.11.6",
     "antd-mobile": "^2.2.6",
     "axios": "^0.18.0",
