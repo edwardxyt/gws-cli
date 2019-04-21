@@ -74,8 +74,8 @@ let initConfig = async () => {
                             }
                         }
                     ],
-                    exclude: [CONSTANTS.node_module_dir],
-                    include: [CONSTANTS.src]
+                    // exclude: [CONSTANTS.node_module_dir],
+                    include: [CONSTANTS.src, `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`]
                 },
                 {
                     test: /\.hbs/,
