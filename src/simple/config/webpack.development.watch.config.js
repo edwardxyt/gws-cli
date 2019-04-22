@@ -73,7 +73,6 @@ let initConfig = async () => {
                 },
                 {
                     test: /\.hbs/,
-                    test: /\.hbs/,
                     loader: "handlebars-loader",
                     options: {
                         partialDirs: [CONSTANTS.templates_dir]
@@ -101,7 +100,7 @@ let initConfig = async () => {
                         },
                         "less-loader"
                     ],
-                    include: [CONSTANTS.src]
+                    include: [CONSTANTS.src, `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`]
                 },
                 {
                     test: /\.css$/,

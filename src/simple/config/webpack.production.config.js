@@ -67,7 +67,7 @@ let initConfig = async () => {
                         },
                         "less-loader"
                     ],
-                    include: [app_config.src]
+                    include: [app_config.src, `${app_config.node_module_dir}/@edwardxyt/gws-components`]
                 },
                 {
                     test: /\.css$/,
