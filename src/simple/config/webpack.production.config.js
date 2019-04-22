@@ -168,7 +168,14 @@ let initConfig = async () => {
                         loader: "babel-loader",
                         options: {
                             presets: [
-                                '@babel/preset-env',
+                                [
+                                    "@babel/preset-env",
+                                    {
+                                        "targets": {
+                                            "esmodules": true
+                                        }
+                                    }
+                                ],
                                 '@babel/preset-react'
                             ],
                             plugins: [
