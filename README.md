@@ -3,9 +3,9 @@ Official React bindings for gws-cli, with mobx@5. react-router@5. webpack@4. ant
 Install:
 
 ```
-npm install -g gws-cli
+npm install -g @edwardxyt/gws-cli
 OR
-yarn global add gws-cli
+yarn global add @edwardxyt/gws-cli
 ```
 Create a project:
 
