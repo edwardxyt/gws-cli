@@ -1,5 +1,4 @@
-def CDN_DIR = '/srv/dev/picc'
-def DELIVERY_PATH = '/srv/delivery/picc'
+def CDN_DIR = '/srv/dev/website2018'
 
 node() {
     stage('Variable'){
@@ -28,16 +27,13 @@ node() {
         sh "echo JENKINS_URL = $JENKINS_URL"
         sh "echo BUILD_URL = $BUILD_URL"
         sh "echo JOB_URL = $JOB_URL"
-
-        sh 'git status'
-        sh 'git branch'
     }
 
     stage('Checkout'){
-        git branch: 'dev-server', url: 'ssh://git@139.224.151.200:22022/Aibao/AiClaim/picc-shenzhen-lossAssessment.git'
+        git branch: 'dev-server', url: 'ssh://git@139.224.151.200:22022/Aibao/DataGroup/reimbursement/frontReimburse.git'
         sh 'git fetch'
         sh 'git status'
-        sh 'git branch'
+        sh 'git branch -a'
 
         def GIT_RECENT_TAG_HASH = sh (
             script: 'git rev-list --tags --max-count=1',
@@ -54,23 +50,43 @@ node() {
     }
 
     stage('Initialize'){
-        if (params.INSTALL){
-            sh "rm -rf node_modules"
-            sh "cnpm i"
-        }
+      if (params.FORCE){
+          sh 'sh $WORKSPACE/init.sh'
+          sh "rm -rf node_modules"
+          // sh "npm run clean"
+          sh "npm i"
+      }
+      if (params.INIT){
+          sh 'sh $WORKSPACE/init.sh'
+      }
+      if (params.INSTALL){
+        sh "rm -rf node_modules"
+          // sh "npm run clean"
+          sh "npm i"
+      }
+    }
+
+    stage('Preparation') {
+        sh "npm run tree"
     }
 
     stage('build'){
-        sh "npm run build:dev"
+      sh "npm run compile --ENTRY=${params.PROJECT} --ENV=${params.ENV}"
+
+      if (fileExists("${WORKSPACE}/dist/${params.PROJECT}/index.html")){
+        sh("ls -al")
+      }else{
+        error "webpack compile fail 编译错误！"
+      }
     }
 
-    stage('Results') {
+    // stage('Results') {
       // sh "mkdir -p ${WORKSPACE}/archive"
       // sh "mkdir -p ${WORKSPACE}/archive/${BUILD_ID}"
       // sh "zip -r ${WORKSPACE}/archive/${BUILD_ID}/${JOB_NAME}-${BUILD_ID}.zip ${WORKSPACE}/dist/*"
       // archiveArtifacts artifacts: 'archive/**/*.zip', onlyIfSuccessful: true
       // archiveArtifacts artifacts: "archive/${BUILD_ID}/*.zip", onlyIfSuccessful: true
-    }
+    // }
 
     //stage('SCP 139.224.151.233') {
         // /srv/delivery/picc/optimusH5Rebuild
@@ -80,6 +96,6 @@ node() {
     stage('Publish') {
         sh "mkdir -p /srv"
         sh "mkdir -p ${CDN_DIR}/${params.PROJECT}"
-        sh "cp -r ${WORKSPACE}/dist/. ${CDN_DIR}/${params.PROJECT}/"
+        sh "cp -r ${WORKSPACE}/dist/. ${CDN_DIR}/"
     }
 }

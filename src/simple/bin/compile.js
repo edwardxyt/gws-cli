@@ -17,18 +17,17 @@ webpack_production_config().then(config => {
 
 		fs.pathExists(app_config.distHtml).then(exists => {
 			if (!exists) {
-				echo(
-					`status is ${exists}!!!! "webpack compile fail 编译错误！"`
-				);
+				// process.exit(0);
+				throw new Error(`status is ${exists}!!!! "webpack compile fail 编译错误！"`);
 			} else {
-                process.stdout.write(stats.toString({
-                    colors: true,
-                    modules: false,
-                    children: false,
-                    chunks: false,
-                    warnings: false,
-                    chunkModules: false
-                }) + '\n\n')
+				process.stdout.write(stats.toString({
+					colors: true,
+					modules: false,
+					children: false,
+					chunks: false,
+					warnings: false,
+					chunkModules: false
+				}) + '\n\n')
 				echo("webpack compile complete 编译完成");
 			}
 		});

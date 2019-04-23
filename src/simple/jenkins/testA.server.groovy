@@ -1,5 +1,5 @@
-def CDN_DIR = '/srv/testA/picc'
-def DELIVERY_PATH = '/srv/delivery/picc'
+def CDN_DIR = '/srv/testA/website2018'
+def DELIVERY_PATH = '/srv/delivery/website2018'
 
 node() {
 
@@ -31,15 +31,26 @@ node() {
         sh "echo JENKINS_URL = $JENKINS_URL"
         sh "echo BUILD_URL = $BUILD_URL"
         sh "echo JOB_URL = $JOB_URL"
-
-        sh 'git status'
-        sh 'git branch'
     }
 
     stage('Checkout'){
-        git branch: 'testA-server', url: 'ssh://git@139.224.151.200:22022/Aibao/AiClaim/picc-shenzhen-lossAssessment.git'
+        git branch: 'testA-server', url: 'ssh://git@139.224.151.200:22022/Aibao/DataGroup/reimbursement/frontReimburse.git'
+        sh 'git fetch'
         sh 'git status'
         sh 'git branch -a'
+
+        def GIT_RECENT_TAG_HASH = sh (
+            script: 'git rev-list --tags --max-count=1',
+            returnStdout: true
+        ).trim()
+
+        def GIT_RECENT_TAG_NAME = sh (
+            script: "git describe --tags ${GIT_RECENT_TAG_HASH}",
+            returnStdout: true
+        ).trim()
+
+        sh "echo GIT_RECENT_TAG_HASH = $GIT_RECENT_TAG_HASH"
+        sh "echo GIT_RECENT_TAG_NAME = $GIT_RECENT_TAG_NAME"
     }
 
     stage('Initialize'){
@@ -60,27 +71,32 @@ node() {
     }
 
     stage('testA build'){
-        sh "npm run build:test"
+        sh "npm run compile --ENTRY=${params.PROJECT} --ENV=${params.ENV}"
+        if (fileExists("index.html")){
+            sh("ls -al")
+        }else{
+            error "webpack compile fail 编译错误！"
+      }
     }
 
     // jenkins task workspace 归档zip
-    stage('archive') {
+    // stage('archive') {
     //     sh "mkdir -p ${WORKSPACE}/archive"
     //     sh "mkdir -p ${WORKSPACE}/archive/A-${BUILD_ID}"
     //     sh "zip -r ${WORKSPACE}/archive/A-${BUILD_ID}/${JOB_NAME}-A-${BUILD_ID}.zip ${WORKSPACE}/dist/*"
     //     archiveArtifacts artifacts: 'archive/**/*.zip', onlyIfSuccessful: true
     //     archiveArtifacts artifacts: "archive/A-${BUILD_ID}/*.zip", onlyIfSuccessful: true
-    }
+    // }
 
     // 发布到测试服务器
     stage('Publish') {
-        sh "mkdir -p /srv"
-        sh "mkdir -p ${CDN_DIR}/${params.PROJECT}"
-        sh "cp -r ${WORKSPACE}/dist/. ${CDN_DIR}/${params.PROJECT}/"
+      sh "mkdir -p /srv"
+      sh "mkdir -p ${CDN_DIR}/${params.PROJECT}"
+      sh "cp -r ${WORKSPACE}/dist/. ${CDN_DIR}/"
     }
 
     stage('delivery build'){
-        sh "npm run build:release"
+      sh "npm run compile --ENTRY=${params.PROJECT} --ENV=production"
     }
 
     // delivery 归档ID
@@ -89,8 +105,8 @@ node() {
         sh "rm -rf ${DELIVERY_PATH}/${params.PROJECT}/current/*"
 
         sh "mkdir -p ${DELIVERY_PATH}/${params.PROJECT}/A-$BUILD_ID/"
-        sh "cp -r ${WORKSPACE}/dist/. ${DELIVERY_PATH}/${params.PROJECT}/current/"
-        sh "cp -r ${WORKSPACE}/dist/. ${DELIVERY_PATH}/${params.PROJECT}/A-$BUILD_ID/"
+        sh "cp -r ${WORKSPACE}/dist/${params.PROJECT}/. ${DELIVERY_PATH}/${params.PROJECT}/current/"
+        sh "cp -r ${WORKSPACE}/dist/${params.PROJECT}/. ${DELIVERY_PATH}/${params.PROJECT}/A-$BUILD_ID/"
     }
 
     // 发布到 Gitlab Bucket
@@ -100,7 +116,7 @@ node() {
             sh 'git config user.email "56833517@qq.com"'
             sh 'git config user.name "delivery"'
             sh 'git add -A'
-            sh 'git commit -am ${BUILD_ID}'
+            sh 'git commit -am A-${BUILD_ID}'
             sh 'git pull origin master'
             sh 'git push origin master'
         }
