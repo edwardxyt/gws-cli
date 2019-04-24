@@ -120,12 +120,6 @@ let initConfig = async () => {
                                     "[name]__[local]--[hash:base64:6]"
                             }
                         },
-                        // {
-                        //     loader: "resolve-url-loader",
-                        //     options: {
-                        //         debug: true
-                        //     }
-                        // },
                         {
                             loader: "postcss-loader",
                             options: {
