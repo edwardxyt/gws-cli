@@ -20,6 +20,7 @@ webpack_production_config().then(config => {
 				// process.exit(0);
 				throw new Error(`status is ${exists}!!!! "webpack compile fail 编译错误！"`);
 			} else {
+                echo(`------------------------------ start ------------------------------`);
 				process.stdout.write(stats.toString({
 					colors: true,
 					modules: false,
@@ -27,8 +28,9 @@ webpack_production_config().then(config => {
 					chunks: false,
 					warnings: false,
 					chunkModules: false
-				}) + '\n\n')
-				echo("webpack compile complete 编译完成");
+				}) + '\n\n');
+                echo("webpack compile complete 编译完成");
+                echo(`-------------------------------  end  ------------------------------`);
 			}
 		});
 	});

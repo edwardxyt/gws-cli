@@ -2,7 +2,7 @@
 import React from 'react'
 
 import commonStyle from '../../common/css/css.css'
-import style from './css.css'
+import './css.css'
 import Icon from '../../image/icon.svg'
 import { observer, inject } from 'mobx-react'
 
@@ -39,9 +39,9 @@ import { observer, inject } from 'mobx-react'
 	}
 	render() {
 		return (
-			<div className ={commonStyle.container}>
-				<div className={commonStyle.index} onClick={()=>{this._addHandle()}}>
-				<img src={Icon}  className={style.icon} />
+			<div className ="container">
+				<div className="index" onClick={()=>{this._addHandle()}}>
+				<img src={Icon}  className="icon" />
 				{this._renderData()}
 				</div>
 			</div>

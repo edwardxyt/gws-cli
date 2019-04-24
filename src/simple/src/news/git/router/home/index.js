@@ -3,9 +3,9 @@ import React from "react";
 import enUS from "antd-mobile/lib/calendar/locale/en_US";
 import zhCN from "antd-mobile/lib/calendar/locale/zh_CN";
 import { List, Switch, Calendar } from "antd-mobile";
-import style from "./css.css";
+import "./css.css";
 // 公用属性
-import commonStyle from "../../common/css/css.css";
+import "../../common/css/css.css";
 import { observer, inject } from "mobx-react";
 
 @inject("clickTimes")
@@ -20,14 +20,14 @@ class Component extends React.Component {
 	}
 	render() {
 		return (
-			<div className={commonStyle.container}>
+			<div className="container">
                 <div
-                    className={commonStyle.index}
+                    className="index"
                     onClick={() => {
                         this._addHandle(1);
                     }}
                 >
-                    <div className={style.icon} />
+                    <div className="icon" />
                     点击次数：{this.props.clickTimes.times}
                 </div>
                 <Test />

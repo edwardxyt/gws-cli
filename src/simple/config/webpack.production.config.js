@@ -40,7 +40,6 @@ let initConfig = async () => {
                     test: /\.(js|jsx)$/,
                     use: "happypack/loader?id=jsx",
                     // exclude: [app_config.node_module_dir],
-                    // include: [app_config.src]
                     include: [app_config.src, `${app_config.node_module_dir}/@edwardxyt/gws-components`]
                 },
                 {
@@ -49,7 +48,7 @@ let initConfig = async () => {
                     options: {
                         partialDirs: [app_config.templates_dir]
                     },
-                    exclude: [app_config.node_module_dir],
+                    // exclude: [app_config.node_module_dir],
                     include: [app_config.src]
                 },
                 {
@@ -77,32 +76,13 @@ let initConfig = async () => {
                             loader: "css-loader",
                             options: {
                                 // minimize: true,
-                                modules: true,
-                                localIdentName:
-                                    "src.[name]__[local]--[hash:base64:6]"
-                            }
-                        },
-                        // "resolve-url-loader",
-                        "postcss-loader"
-                    ],
-                    include: [app_config.src]
-                },
-                {
-                    test: /\.css$/,
-                    use: [
-                        MiniCssExtractPlugin.loader,
-                        {
-                            loader: "css-loader",
-                            options: {
-                                // minimize: true,
                                 modules: false,
                                 localIdentName:
                                     "node_modules.[name]__[local]--[hash:base64:6]"
                             }
                         },
                         "postcss-loader"
-                    ],
-                    include: [app_config.node_module_dir]
+                    ]
                 },
                 {
                     test: /\.(png|svg|jpg|gif)$/,
@@ -115,8 +95,8 @@ let initConfig = async () => {
                             }
                         }
                     ],
-                    exclude: [app_config.node_module_dir],
-                    include: [app_config.src]
+                    // exclude: [app_config.node_module_dir],
+                    include: [app_config.src, `${app_config.node_module_dir}/@edwardxyt/gws-components`]
                 }
             ]
         },

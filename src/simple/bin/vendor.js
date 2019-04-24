@@ -9,7 +9,17 @@ webpack_production_config().then(config => {
 			echo("webpack compile vendor fail 编译错误！");
 			echo(err);
 		} else {
-			echo("webpack compile vendor complete 编译完成");
+            echo(`------------------------------ start ------------------------------`);
+            process.stdout.write(stats.toString({
+                colors: true,
+                modules: false,
+                children: false,
+                chunks: false,
+                warnings: false,
+                chunkModules: false
+            }) + '\n\n');
+            echo("webpack compile vendor complete 编译完成");
+            echo(`-------------------------------  end  ------------------------------`);
 		}
 	});
 });

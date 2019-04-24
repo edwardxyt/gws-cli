@@ -77,7 +77,7 @@ let initConfig = async () => {
                     options: {
                         partialDirs: [CONSTANTS.templates_dir]
                     },
-                    exclude: [CONSTANTS.node_module_dir],
+                    // exclude: [CONSTANTS.node_module_dir],
                     include: [CONSTANTS.src]
                 },
                 {
@@ -115,33 +115,6 @@ let initConfig = async () => {
                             loader: "css-loader",
                             options: {
                                 sourceMap: true,
-                                modules: true,
-                                localIdentName:
-                                    "[name]__[local]--[hash:base64:6]"
-                            }
-                        },
-                        {
-                            loader: "postcss-loader",
-                            options: {
-                                sourceMap: true
-                            }
-                        }
-                    ],
-                    include: [CONSTANTS.src]
-                },
-                {
-                    test: /\.css$/,
-                    use: [
-                        {
-                            loader: "style-loader",
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
-                            loader: "css-loader",
-                            options: {
-                                sourceMap: true,
                                 modules: false,
                                 localIdentName:
                                     "[name]__[local]--[hash:base64:6]"
@@ -153,8 +126,7 @@ let initConfig = async () => {
                                 sourceMap: true
                             }
                         }
-                    ],
-                    include: [CONSTANTS.node_module_dir]
+                    ]
                 },
                 {
                     test: /\.(png|svg|jpg|gif)$/,
@@ -168,8 +140,8 @@ let initConfig = async () => {
                             }
                         }
                     ],
-                    exclude: [CONSTANTS.node_module_dir],
-                    include: [CONSTANTS.src]
+                    // exclude: [CONSTANTS.node_module_dir],
+                    include: [CONSTANTS.src, `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`]
                 }
             ]
         },

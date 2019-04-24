@@ -5,6 +5,7 @@
     overflow:hidden;
     background-color: #f7f7f7;
     border-top: 1px solid #e7e7e7;
+    bottom: 0;
 }
 .navBtn{
     composes:nav;
@@ -18,6 +19,7 @@
 }
 
 .navBtnUnActive{
+  padding:20px;
     composes:navBtn;
     color: #545454;
 }

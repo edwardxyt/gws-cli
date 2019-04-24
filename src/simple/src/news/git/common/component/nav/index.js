@@ -1,6 +1,6 @@
 "use strict";
 import React from "react";
-import style from "./css.css";
+import "./css.css";
 import { NavLink } from "react-router-dom";
 
 class Nav extends React.Component {
@@ -9,28 +9,28 @@ class Nav extends React.Component {
     }
     render() {
         return (
-            <div className={style.nav}>
+            <div className="nav">
                 <NavLink
                     exact
                     to="/"
-                    activeClassName={style.navBtnActive}
-                    className={style.navBtnUnActive}
+                    activeClassName="navBtnActive"
+                    className="navBtnUnActive"
                 >
                     首页
                 </NavLink>
                 <NavLink
                     exact
                     to="/user"
-                    activeClassName={style.navBtnActive}
-                    className={style.navBtnUnActive}
+                    activeClassName="navBtnActive"
+                    className="navBtnUnActive"
                 >
                     用户
                 </NavLink>
                 <NavLink
                     exact
                     to="/tabs"
-                    activeClassName={style.navBtnActive}
-                    className={style.navBtnUnActive}
+                    activeClassName="navBtnActive"
+                    className="navBtnUnActive"
                 >
                     TABS
                 </NavLink>

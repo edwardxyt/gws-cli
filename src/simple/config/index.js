@@ -118,7 +118,6 @@ let app_config = (rootDir = "/") => {
                 "mobx-react",
                 "react",
                 "react-dom",
-                "react-css-modules",
                 "react-router-dom",
                 "axios",
                 "ua-parser-js",

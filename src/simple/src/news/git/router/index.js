@@ -2,14 +2,20 @@
 // import "whatwg-fetch";
 import React from "react";
 import { Provider } from "mobx-react";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import {
+    HashRouter as Router,
+    // BrowserRouter as Router,
+    Route,
+    Switch,
+    Link
+} from "react-router-dom";
 
 import Home from "./home";
 import Nav from "../common/component/nav";
 import Load from "../common/component/load";
 import Error from "../common/component/error";
 import asyncComponent from "../common/component/async";
-import commonStyle from "../common/css/css.css";
+import "../common/css/css.css";
 import stores from "../stores";
 const userRouter = asyncComponent(() =>
 	import("./user/index")
@@ -33,18 +39,18 @@ class Component extends React.Component {
 	render() {
 		return (
 			<Provider {...stores}>
-                <BrowserRouter>
-                    <div className={commonStyle.container}>
+                <Router>
+                    <div className="container">
+                        <Nav />
+                        <Load />
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/user" component={userRouter} />
                             <Route exact path="/tabs" component={tabsRouter} />
                             <Route component={Error} />
                         </Switch>
-                        <Nav />
-                        <Load />
                     </div>
-                </BrowserRouter>
+                </Router>
             </Provider>
 		);
 	}

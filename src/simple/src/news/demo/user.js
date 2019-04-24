@@ -1,9 +1,8 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import CSSModules from "react-css-modules";
 import { DatePicker } from "antd";
 
-import styles from "./css.css";
+import "./css.css";
 
 const edward = {
 	edward: "xiayuting"
@@ -13,7 +12,6 @@ window.console.log(window.__API__, window.__CDN__, window.__ENV__, window.__DEBU
 
 @inject("fetchData")
 @observer
-@CSSModules(styles, { allowMultiple: true, handleNotFoundStyleName: "ignore" })
 class User extends React.Component {
 	_AjaxHandle() {
 		let { fetchAjax } = this.props.fetchData;
@@ -37,13 +35,13 @@ class User extends React.Component {
 		let data = { a: 10, ...edward };
 		return (
 			<div>
-                <div styleName="table">
-                    <div styleName="row">
-                        <div styleName="cell">A0</div>
-                        <div styleName="cell">B0</div>
+                <div className="table">
+                    <div className="row">
+                        <div className="cell">A0</div>
+                        <div className="cell">B0</div>
                     </div>
                 </div>
-                <div className={this.props.styles["title"]}>
+                <div className="title">
                     <ul>
                         <li>{data.edward}</li>
                     </ul>
