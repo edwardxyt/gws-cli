@@ -5,11 +5,11 @@ import UAParser from "ua-parser-js";
 
 let parser = new UAParser();
 window.console.log(parser.getResult());
-window.console.log(window.__API__, window.__Y__, window.__CDN__, window.__ENV__, window.__DEBUG__, window.__PROJECT__);
+window.console.log(__API__, __CDN__, __ENV__, __DEBUG__, __PROJECT__);
 
 let main = function() {
-	ReactDOM.render(<App />, document.getElementById("main"));
+    ReactDOM.render(<App />, document.getElementById("main"));
 };
 window.onload = function() {
-	main();
+    main();
 };
