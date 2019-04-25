@@ -72,11 +72,12 @@ node() {
 
     stage('testA build'){
         sh "npm run compile --ENTRY=${params.PROJECT} --ENV=${params.ENV}"
-        if (fileExists("index.html")){
+
+        if (fileExists("${WORKSPACE}/dist/${params.PROJECT}/index.html")){
             sh("ls -al")
         }else{
             error "webpack compile fail 编译错误！"
-      }
+        }
     }
 
     // jenkins task workspace 归档zip
