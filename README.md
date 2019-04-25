@@ -14,7 +14,7 @@ gws-cli
 ```
 ![WX20190411-180931](media/15549621575960/WX20190411-180931.png)
 
-### 来自 "edward-React-Mobx" 结构简单、功能强大、扩展性强的脚手架
+###  "@edwardxyt/gws-cli" 来自 "edward-React-Mobx" 结构简单、功能强大、扩展性强的脚手架
 
 ## 需求配置 2
 
@@ -25,7 +25,7 @@ gws-cli
 
 ## 一、简介
 
-edward-React-Mobx, 是基于 webpack4 react16.2 mobx5 react-router4 搭建的一套 spa 静态文件编译的脚手架。
+@edwardxyt/gws-cli, 是基于 webpack4 react16.2 mobx5 react-router4 搭建的一套 spa 静态文件编译的脚手架。
 
 主要特性包括：
 
