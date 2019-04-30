@@ -105,7 +105,7 @@ let initConfig = async () => {
                 new UglifyJsPlugin({
                     cache: true,
                     parallel: true, // 并行
-                    sourceMap: app_config.debug // set to true if you want JS source maps
+                    sourceMap: true // set to true if you want JS source maps
                 })
             ],
             splitChunks: {

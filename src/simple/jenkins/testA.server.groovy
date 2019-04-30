@@ -74,7 +74,7 @@ node() {
         sh "npm run compile --ENTRY=${params.PROJECT} --ENV=${params.ENV}"
 
         if (fileExists("${WORKSPACE}/dist/${params.PROJECT}/index.html")){
-            sh("ls -al")
+            sh("ls -al ${WORKSPACE}/dist/${params.PROJECT}")
         }else{
             error "webpack compile fail 编译错误！"
         }
@@ -97,7 +97,13 @@ node() {
     }
 
     stage('delivery build'){
-      sh "npm run compile --ENTRY=${params.PROJECT} --ENV=production"
+        sh "npm run compile --ENTRY=${params.PROJECT} --ENV=release"
+
+        if (fileExists("${WORKSPACE}/dist/${params.PROJECT}/index.html")){
+            sh("ls -al ${WORKSPACE}/dist/${params.PROJECT}")
+        }else{
+            error "webpack compile fail 编译错误！"
+        }
     }
 
     // delivery 归档ID

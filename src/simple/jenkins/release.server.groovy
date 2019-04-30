@@ -1,4 +1,4 @@
-def DELIVERY_PATH = '/srv/delivery/picc'
+def DELIVERY_PATH = '/srv/delivery/website2018'
 
 node() {
 
@@ -30,13 +30,10 @@ node() {
         sh "echo JENKINS_URL = $JENKINS_URL"
         sh "echo BUILD_URL = $BUILD_URL"
         sh "echo JOB_URL = $JOB_URL"
-
-        sh 'git status'
-        sh 'git branch'
     }
 
     stage('Checkout'){
-        git branch: 'release-server', url: 'ssh://git@139.224.151.200:22022/Aibao/AiClaim/picc-shenzhen-lossAssessment.git'
+        git branch: 'release-server', url: 'ssh://git@139.224.151.200:22022/Aibao/DataGroup/reimbursement/frontReimburse.git'
         sh 'git fetch'
         sh 'git status'
         sh 'git branch'
@@ -58,7 +55,7 @@ node() {
     stage('Initialize'){
       if (params.INSTALL){
         sh "rm -rf node_modules"
-        sh "cnpm i"
+        sh "npm i"
       }
     }
 
@@ -80,7 +77,7 @@ node() {
             }
         }else {
             sh 'git checkout $TAG'
-            sh "npm run build:release"
+            sh "npm run compile --ENTRY=${params.PROJECT} --ENV=${params.ENV}"
 
             stage('Publish Delivery') {
                  sh "echo TAG = $TAG"
