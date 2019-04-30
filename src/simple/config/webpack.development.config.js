@@ -159,6 +159,12 @@ let initConfig = async () => {
             ]
         },
         plugins: [
+            //这些变量不必再import了
+            new webpack.ProvidePlugin({
+                React: 'react',
+                ReactDOM: 'react-dom',
+                Component: ['react','Component'] // 导出react模块中的Component
+            }),
             // 热启动
             new webpack.HotModuleReplacementPlugin(),
             new webpack.DefinePlugin(CONSTANTS.inject),
