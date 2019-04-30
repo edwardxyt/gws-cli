@@ -32,8 +32,8 @@ let initConfig = async () => {
         resolve: app_config.resolve,
         externals: app_config.externals,
         devtool: app_config.debug
-            ? "cheap-module-eval-source-map"
-            : "source-map",
+            ? "cheap-module-eval-source-map"  // 1.09 MiB
+            : false,
         module: {
             rules: [
                 {
@@ -100,35 +100,16 @@ let initConfig = async () => {
                 }
             ]
         },
-        optimization: {
-            minimizer: [
-                new UglifyJsPlugin({
-                    cache: true,
-                    parallel: true, // 并行
-                    sourceMap: true // set to true if you want JS source maps
-                })
-            ],
-            splitChunks: {
-                chunks: "async", //默认只作用于异步模块，为`all`时对所有模块生效,`initial`对同步模块有效
-                minSize: 30000, //合并前模块文件的体积
-                minChunks: 1, //最少被引用次数
-                maxAsyncRequests: 5, //根据需要加载块时的最大并行请求数将小于或等于5
-                maxInitialRequests: 3, //初始页面加载时的最大并行请求数将小于或等于3
-                automaticNameDelimiter: "~", //自动命名连接符
-                cacheGroups: {
-                    //缓存组可以从 splitChunks 继承和/或覆盖任何选项
-                    vendors: {
-                        test: /[\\/]node_modules[\\/]/,
-                        priority: -10
-                    },
-                    default: {
-                        minChunks: 2,
-                        priority: -20,
-                        reuseExistingChunk: true
-                    }
-                }
-            }
-        },
+        // optimization: {
+        //     minimizer: [
+        //         new UglifyJsPlugin({
+        //             cache: true,
+        //             parallel: true, // 并行
+        //             // sourceMap: true, // set to true if you want JS source maps
+        //             include: [`${app_config.src}/${app_config.entry}/`, `${app_config.node_module_dir}/@edwardxyt/gws-components`]
+        //         })
+        //     ]
+        // },
         plugins: [
             // new BundleAnalyzerPlugin({
             // 	analyzerPort: 27003,

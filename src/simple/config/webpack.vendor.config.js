@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const debug = require("debug");
 const echo = debug("compile:webpack-vendor");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 // 加载全局配置文件
 echo("加载配置文件");
@@ -19,6 +20,15 @@ module.exports = function(CONFIG = {}) {
                 library: "_dll_[name]"
             },
             resolve: app_config.resolve,
+            optimization: {
+                minimizer: [
+                    new UglifyJsPlugin({
+                        cache: true,
+                        parallel: true, // 并行
+                        // sourceMap: true // set to true if you want JS source maps
+                    })
+                ]
+            },
             plugins: [
                 new webpack.DllPlugin({
                     path: path.join(

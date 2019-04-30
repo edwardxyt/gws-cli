@@ -27,7 +27,7 @@ module.exports = {
                     api_path: "//biz.aibao.com",
                     console: false,
                     eslint: false,
-                    cdn_path: "/static/website2018/news/demo/"
+                    cdn_path: "./"
                 }
             }
         },
