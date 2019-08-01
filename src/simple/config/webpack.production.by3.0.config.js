@@ -164,7 +164,6 @@ let initConfig = async () => {
             }),
             new HappyPack({
                 id: "jsx",
-                threads: 4,
                 loaders: [
                     {
                         loader: "babel-loader",
