@@ -64,25 +64,35 @@ let initConfig = async () => {
                                     [
                                         "@babel/preset-env",
                                         {
-                                            "targets": {
-                                                "esmodules": true
+                                            targets: {
+                                                esmodules: true
                                             }
                                         }
                                     ],
-                                    '@babel/preset-react'
+                                    "@babel/preset-react"
                                 ],
                                 plugins: [
-                                    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-                                    ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+                                    [
+                                        "@babel/plugin-proposal-decorators",
+                                        {legacy: true}
+                                    ],
+                                    [
+                                        "@babel/plugin-proposal-class-properties",
+                                        {loose: true}
+                                    ],
                                     "@babel/plugin-transform-runtime",
                                     "@babel/plugin-syntax-dynamic-import",
+                                    "@babel/plugin-transform-arrow-functions",
                                     CONSTANTS.antd
                                 ]
                             }
                         }
                     ],
                     // exclude: [CONSTANTS.node_module_dir],
-                    include: [CONSTANTS.src, `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`]
+                    include: [
+                        CONSTANTS.src,
+                        `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`
+                    ]
                 },
                 {
                     test: /\.hbs/,
@@ -113,7 +123,10 @@ let initConfig = async () => {
                         },
                         "less-loader"
                     ],
-                    include: [CONSTANTS.src, `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`]
+                    include: [
+                        CONSTANTS.src,
+                        `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`
+                    ]
                 },
                 {
                     test: /\.css$/,
@@ -154,16 +167,19 @@ let initConfig = async () => {
                         }
                     ],
                     // exclude: [CONSTANTS.node_module_dir],
-                    include: [CONSTANTS.src, `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`]
+                    include: [
+                        CONSTANTS.src,
+                        `${CONSTANTS.node_module_dir}/@edwardxyt/gws-components`
+                    ]
                 }
             ]
         },
         plugins: [
             //这些变量不必再import了
             new webpack.ProvidePlugin({
-                React: 'react',
-                ReactDOM: 'react-dom',
-                Component: ['react','Component'] // 导出react模块中的Component
+                React: "react",
+                ReactDOM: "react-dom",
+                Component: ["react", "Component"] // 导出react模块中的Component
             }),
             // 热启动
             new webpack.HotModuleReplacementPlugin(),
@@ -191,7 +207,7 @@ let initConfig = async () => {
 
     // 启动代码优化
     if (CONSTANTS.eslint) {
-        wbConfig.module.rules[0].use.push({ loader: "eslint-loader" });
+        wbConfig.module.rules[0].use.push({loader: "eslint-loader"});
     }
 
     // 端口监测

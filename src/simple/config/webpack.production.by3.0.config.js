@@ -32,22 +32,27 @@ let initConfig = async () => {
         resolve: app_config.resolve,
         externals: app_config.externals,
         devtool: app_config.debug
-            ? "cheap-module-eval-source-map"  // 1.09 MiB
+            ? "cheap-module-eval-source-map" // 1.09 MiB
             : "eval", // 354
-            // : "cheap-eval-source-map",   //904
-            // : "eval-source-map",   //952
-            // : "cheap-source-map",   // fail
-            // : "cheap-module-source-map", // fail
-            // : "source-map", // fail
-            // : "hidden-source-map", // fail
-            // : "nosources-source-map", // fail
+        // : "cheap-eval-source-map",   //904
+        // : "eval-source-map",   //952
+        // : "cheap-source-map",   // fail
+        // : "cheap-module-source-map", // fail
+        // : "source-map", // fail
+        // : "hidden-source-map", // fail
+        // : "nosources-source-map", // fail
         module: {
             rules: [
                 {
                     test: /\.(js|jsx)$/,
                     use: "happypack/loader?id=jsx",
                     // exclude: [app_config.node_module_dir],
-                    include: [app_config.src, `${app_config.node_module_dir}/@edwardxyt/gws-components`]
+                    include: [
+                        app_config.src,
+                        `${
+                            app_config.node_module_dir
+                        }/@edwardxyt/gws-components`
+                    ]
                 },
                 {
                     test: /\.hbs/,
@@ -73,7 +78,12 @@ let initConfig = async () => {
                         },
                         "less-loader"
                     ],
-                    include: [app_config.src, `${app_config.node_module_dir}/@edwardxyt/gws-components`]
+                    include: [
+                        app_config.src,
+                        `${
+                            app_config.node_module_dir
+                        }/@edwardxyt/gws-components`
+                    ]
                 },
                 {
                     test: /\.css$/,
@@ -103,7 +113,12 @@ let initConfig = async () => {
                         }
                     ],
                     // exclude: [app_config.node_module_dir],
-                    include: [app_config.src, `${app_config.node_module_dir}/@edwardxyt/gws-components`]
+                    include: [
+                        app_config.src,
+                        `${
+                            app_config.node_module_dir
+                        }/@edwardxyt/gws-components`
+                    ]
                 }
             ]
         },
@@ -158,18 +173,25 @@ let initConfig = async () => {
                                 [
                                     "@babel/preset-env",
                                     {
-                                        "targets": {
-                                            "esmodules": true
+                                        targets: {
+                                            esmodules: true
                                         }
                                     }
                                 ],
-                                '@babel/preset-react'
+                                "@babel/preset-react"
                             ],
                             plugins: [
-                                ["@babel/plugin-proposal-decorators", { "legacy": true }],
-                                ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+                                [
+                                    "@babel/plugin-proposal-decorators",
+                                    {legacy: true}
+                                ],
+                                [
+                                    "@babel/plugin-proposal-class-properties",
+                                    {loose: true}
+                                ],
                                 "@babel/plugin-transform-runtime",
                                 "@babel/plugin-syntax-dynamic-import",
+                                "@babel/plugin-transform-arrow-functions",
                                 app_config.antd
                             ]
                         }
@@ -177,7 +199,7 @@ let initConfig = async () => {
                 ]
             }),
             new webpack.optimize.ModuleConcatenationPlugin(),
-            new webpack.LoaderOptionsPlugin({ minimize: true }),
+            new webpack.LoaderOptionsPlugin({minimize: true}),
             new webpack.DefinePlugin(app_config.inject),
             new OptimizeCSSAssetsPlugin(),
             new MiniCssExtractPlugin({

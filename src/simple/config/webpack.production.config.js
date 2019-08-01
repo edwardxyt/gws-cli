@@ -178,6 +178,7 @@ let initConfig = async () => {
                                 ],
                                 "@babel/plugin-transform-runtime",
                                 "@babel/plugin-syntax-dynamic-import",
+                                "@babel/plugin-transform-arrow-functions",
                                 app_config.antd
                             ]
                         }
