@@ -21,8 +21,9 @@ let app_config = (rootDir = "/") => {
     // 合并本地与全局
     const CONSTANTS = Object.assign({}, projects, settings);
 
-    let entry = process.env.npm_config_ENTRY;
-    let env = process.env.npm_config_ENV || process.env.NODE_ENV;
+    let entry = process.env.npm_config_ENTRY || process.env.ENTRY;
+    let env =
+        process.env.npm_config_ENV || process.env.ENV || process.env.NODE_ENV;
 
     let [cluster, project] = R.split("/", entry);
     let debugging = env !== "production";
@@ -63,21 +64,21 @@ let app_config = (rootDir = "/") => {
             main: path.join(rootDir, "src", `${entry}`, "main.js"), // 启动入口文件
             antd: mobile
                 ? [
-                    //不能同时按需加载两个库，第二个会失去样式。建议移动采用手动按需加载
-                    "import",
-                    {
-                        libraryName: "antd-mobile",
-                        style: "css"
-                    }
-                ]
+                      //不能同时按需加载两个库，第二个会失去样式。建议移动采用手动按需加载
+                      "import",
+                      {
+                          libraryName: "antd-mobile",
+                          style: "css"
+                      }
+                  ]
                 : [
-                    "import",
-                    {
-                        libraryName: "antd",
-                        libraryDirectory: "es",
-                        style: "css"
-                    }
-                ],
+                      "import",
+                      {
+                          libraryName: "antd",
+                          libraryDirectory: "es",
+                          style: "css"
+                      }
+                  ],
             console: Vconsole
                 ? path.join(rootDir, "config", "console.js")
                 : Vconsole, // console入口文件
