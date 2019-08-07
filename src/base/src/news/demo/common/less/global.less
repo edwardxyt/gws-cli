@@ -1,0 +1,33 @@
+@import "./_extend.less";
+a {
+  color: #49a8ff;
+}
+
+.root-main,
+.ant-layout {
+  width: 100%;
+  min-height: 100vh;
+
+  h1 {
+      color: #49a8ff;
+  }
+
+  // 面包屑
+  .layout-breadcrumb {
+    background: #fff; // padding: 16px 48px 0;
+    &:extend(.left-right-48);
+    padding-top: 16px;
+    height: auto;
+    > .ant-breadcrumb {
+      padding-bottom: 16px;
+    }
+  }
+
+  .ant-layout-content {
+    min-height: auto;
+  }
+}
+
+.cursor-p {
+  cursor: pointer;
+}

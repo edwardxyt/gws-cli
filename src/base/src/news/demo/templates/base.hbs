@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--[if lt IE 9 ]>
+<html lang="zh-cn" class="not-support-ie8">
+<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+    {{#each htmlWebpackPlugin.files.css}}
+        <link href={{{this}}} rel="stylesheet">
+    {{/each}}
+<body>
+    {{> exception-handler}}
+    <div id="main"></div>
+    <input type="hidden"  id="hd" value={{{htmlWebpackPlugin.options.config.COMPILED_AT}}} />
+    <!-- {{#if htmlWebpackPlugin.options.config.debug }}
+        <div id="if">{{{htmlWebpackPlugin.options.config.COMPILED_AT}}}</div>
+    {{/if}} -->
+
+    <!-- {{#unless htmlWebpackPlugin.options.config.debug}}
+        <div id="unless">{{{htmlWebpackPlugin.options.config.COMPILED_AT}}}</div>
+    {{/unless}} -->
+    </body>
+</html>

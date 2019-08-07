@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--[if lt IE 9 ]>
+<html lang="zh-cn" class="not-support-ie8">
+<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+    {{#each htmlWebpackPlugin.files.css}}
+        <link href={{{this}}} rel="stylesheet">
+    {{/each}}
+<body>
+    {{> exception-handler}}
+    <div id="main"></div>
+    {{#if htmlWebpackPlugin.options.CONFIG.dll }}
+    	<script src="./static/dll/MyDll.vendor.js" charset="utf-8"></script>
+    {{/if}}
+    </body>
+</html>

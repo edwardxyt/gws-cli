@@ -1,0 +1,54 @@
+@import './_extend.less';
+/*
+ * wholeheader组件
+ */
+.subprotol-header,
+.whole-header {
+  background-color: #fff;
+  border-bottom: solid 1px rgba(0,21,41,0.08);
+  // padding: 0 48px;
+  // &:extend(.left-right-48);
+  .logo {
+    display: flex;
+    align-items: center;
+
+    .logo-pic {
+      width: 40px;
+    }
+
+    span {
+      display: inline-block;
+      font-size: 25px;
+      font-weight: bold;
+      margin-left: 16px;
+    }
+  }
+
+  .right-menu {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    float: right;
+
+    div {
+      display: inline-block;
+    }
+
+    .icon-user {
+      margin-left: 20px;
+    }
+
+    .ant-menu-horizontal {
+      border-bottom: none;
+      line-height: 61px;
+    }
+  }
+}
+
+.subprotol-header {
+  &:extend(.left-right-32);
+}
+
+.whole-header {
+  &:extend(.left-right-48);
+}
