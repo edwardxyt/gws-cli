@@ -167,6 +167,18 @@ module.exports = async () => {
                                             {loose: true}
                                         ],
                                         "@babel/plugin-proposal-function-bind",
+                                        "@babel/plugin-proposal-do-expressions",
+                                        "@babel/plugin-proposal-optional-chaining",
+                                        "@babel/plugin-proposal-nullish-coalescing-operator",
+                                        "@babel/plugin-proposal-numeric-separator",
+                                        "@babel/plugin-proposal-throw-expressions",
+                                        "@babel/plugin-proposal-partial-application",
+                                        "@babel/plugin-proposal-export-default-from",
+                                        "@babel/plugin-proposal-export-namespace-from",
+                                        [
+                                            "@babel/plugin-proposal-pipeline-operator",
+                                            {proposal: "minimal"}
+                                        ],
                                         // ES2015 ES2016 ES2017 ES2018
                                         "@babel/plugin-transform-runtime",
                                         "@babel/plugin-transform-arrow-functions",
@@ -183,6 +195,7 @@ module.exports = async () => {
                                         "@babel/plugin-transform-sticky-regex",
                                         "@babel/plugin-transform-async-to-generator",
                                         "@babel/plugin-proposal-async-generator-functions",
+                                        "@babel/plugin-proposal-object-rest-spread",
                                         // others
                                         "@babel/plugin-transform-object-assign",
                                         "@babel/plugin-transform-jscript",
