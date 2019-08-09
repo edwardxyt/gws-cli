@@ -1,6 +1,6 @@
 def CDN_DIR = '/workspace/docker/nginx/srv'
 
-node('172.17.249.222-39.106.39.232') {
+node('39.97.233.92') {
     stage('Variable'){
         sh "echo changeLogSets = $currentBuild.changeSets"
         sh "echo changeLogSets = $currentBuild.description"

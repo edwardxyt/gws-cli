@@ -35,7 +35,7 @@ const promptList = [
         type: "input",
         message: "项目名称:",
         name: "name",
-        default: "website2018" // 默认值
+        default: "website2019" // 默认值
     },
     {
         type: "input",
@@ -47,7 +47,7 @@ const promptList = [
         type: "list",
         message: "模式选择:",
         name: "pattern",
-        choices: ["Base", "Simple"],
+        choices: ["Base-2019(Alpha)", "Simple-2018"],
         filter: function(val) {
             // 使用filter将回答变为小写
             return val.toLowerCase();

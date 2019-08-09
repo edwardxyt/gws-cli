@@ -5,7 +5,7 @@ module.exports = {
             env: {
                 mock: {
                     api_path: "123123",
-                    console: false,
+                    console: true,
                     cdn_path: "./"
                 },
                 development: {

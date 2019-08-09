@@ -16,6 +16,8 @@ import Loadable from "react-loadable";
 const Loading = () => "Loading...";
 
 import Home from "./home";
+import Nav from "./nav";
+
 const About = Loadable({
     loader: () => import("./about"),
     loading: Loading,
@@ -26,6 +28,11 @@ const Topics = Loadable({
     loading: Loading,
     delay: 150
 });
+const Antd = Loadable({
+    loader: () => import("./antd"),
+    loading: Loading,
+    delay: 150
+});
 
 class Component extends React.Component {
     render() {
@@ -33,32 +40,12 @@ class Component extends React.Component {
             <Provider {...stores}>
                 <Router>
                     <div className="root-main">
-                        <ul>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to={{
-                                        pathname: "/about",
-                                        search: "?sort=name",
-                                        hash: "#the-hash",
-                                        state: {fromDashboard: true}
-                                    }}
-                                >
-                                    About
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/topics/xiayuting">Topics</Link>
-                            </li>
-                        </ul>
-
-                        <hr />
+                        <Nav />
 
                         <Route exact path="/" component={Home} />
                         <Route path="/about" component={About} />
                         <Route path="/topics/:name" component={Topics} />
+                        <Route path="/antd" component={Antd} />
                     </div>
                 </Router>
             </Provider>

@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<!--[if lt IE 9 ]>
-<html lang="zh-cn" class="not-support-ie8">
-<![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
 <html>
-<!--<![endif]-->
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{title}}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    
+    <!-- Full screen mode -->
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+
     {{#each htmlWebpackPlugin.files.css}}
         <link href={{{this}}} rel="stylesheet">
     {{/each}}
