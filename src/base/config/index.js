@@ -16,8 +16,6 @@ let app_config = (rootDir = "/") => {
     let [cluster, project] = R.split("/", entry);
     let debugging = env !== "production";
 
-    let mobile = projects[cluster][project].mobile;
-
     let api_path = projects[cluster][project].env[env].api_path;
     let cdn_path = projects[cluster][project].env[env].cdn_path;
     let Vconsole = projects[cluster][project].env[env].console;
@@ -25,7 +23,6 @@ let app_config = (rootDir = "/") => {
     if (isNotEmpty(entry) && isNotNil(entry)) {
         echo(`根路径：${rootDir}`);
         echo(`VConsole：${Vconsole}`);
-        echo(`是否移动开发：${mobile}`);
         echo(`启动项目：${cluster} - ${project}`);
         echo(`API_PATH：${api_path}`);
         echo(`CDN_PATH：${cdn_path}`);
@@ -42,7 +39,6 @@ let app_config = (rootDir = "/") => {
             entry, // 启动时传入的参数，既项目目录
             entryDir: path.join(rootDir, "src", `${entry}`),
             env,
-            mobile,
             IP: ip.address(),
             main: [path.join(rootDir, "src", `${entry}`, "main.js")], // 启动入口文件
             console: Vconsole

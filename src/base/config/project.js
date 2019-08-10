@@ -1,7 +1,6 @@
 module.exports = {
     news: {
         demo: {
-            mobile: false,
             env: {
                 mock: {
                     api_path: "123123",

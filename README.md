@@ -1,113 +1,164 @@
-Official React bindings for gws-cli, with mobx@5. react-router@5. webpack@4. antd
-# Getting Started
-Install:
-
+# @edwardxyt/gws-cli
+Official React bindings for @edwardxyt/gws-cli, with mobx@5. react-router@5. webpack@4. antd
+## Getting Started
+### Installing globally:
+Using npm:
 ```
-npm install -g @edwardxyt/gws-cli
-OR
 yarn global add @edwardxyt/gws-cli
 ```
-Create a project:
+Using yarn:
+```
+yarn global add @edwardxyt/gws-cli
+```
+### Usage:
 
 ```
 gws-cli
 ```
+执行后填写配置，回车执行生产一个脚手架文件夹。
+> 注意：gws-cli已经放弃，请安装 @edwardxyt/gws-cli
+
+## Example
+
 ![WX20190411-180931](media/15549621575960/WX20190411-180931.png)
 
-###  "@edwardxyt/gws-cli" 来自 "edward-React-Mobx" 结构简单、功能强大、扩展性强的脚手架
 
-## 需求配置 2
+```
+xiayuting@xiayutingdeMacBook-Pro  ~  gws-cli
+[gws-cli] version: 2.0.51
+? 项目名称: website2019
+? 描述:
+? 模式选择: Base-2019(Alpha)
+? 是否安装依赖: No
+cp: no such file or directory: /Users/xiayuting/.nvm/versions/node/v10.14.2/lib/node_modules/@edwardxyt/gws-cli/src/base-2019(alpha)/
+cd: no such file or directory: /Users/xiayuting/website2019
+mv: no such file or directory: /Users/xiayuting/website2019/gitignore
 
--   node ">= 10"
--   babel
--   webpack
--   no eslint 如果你喜欢可以自己添加
+[gws-cli] [未安装依赖请手动执行]
+[gws-cli] [进入项目] cd website2019
+[gws-cli] [安装依赖] npm run install
+[gws-cli] [查看项目树] npm run tree
+[INFO] --------------------------------------------------------------------------------
+[gws-cli] [运行入口news/demo、 启动mock环境] npm run start --ENTRY=news/demo --ENV=mock
+[gws-cli] [运行入口news/git、启动mock环境] npm run watch --ENTRY=news/git --ENV=mock
+[INFO] --------------------------------------------------------------------------------
+[INFO] --------------------------------------------------------------------------------
+[gws-cli] [编译news/demo、启动test环境] npm run compile --ENTRY=news/demo --ENV=test
+[gws-cli] [启动http服务器、项目news/demo] npm run node:server --ENTRY=news/demo
+[INFO] --------------------------------------------------------------------------------
+ xiayuting@xiayutingdeMacBook-Pro  ~ 
+```
+请选择Base-2019(Alpha)模式，这是最新版react脚手架，使用技术如下
 
-## 一、简介
+| 模块名称 | 版本 |
+| --- | --- |
+| Webpack | 4 |
+| Babel | 7 |
+| react | 16.8 |
+| antd | 3 |
+| antd-mobile | 2 |
+| mobx | 5 |
+| react-router-dom | 5 |
 
-@edwardxyt/gws-cli, 是基于 webpack4 react16.2 mobx5 react-router4 搭建的一套 spa 静态文件编译的脚手架。
+### Detail
+cd website2019(该名称为默认)，目录结构如下：
+.
+├── Dockerfile
+├── bin
+│   ├── compile.js
+│   ├── del.js
+│   ├── koa.server.js
+│   ├── oss.js
+│   ├── tag.js
+│   └── tree.js
+├── config
+│   ├── console.js
+│   ├── index.js
+│   ├── project.js
+│   ├── webpack.development.config.js
+│   └── webpack.production.config.js
+├── dist
+│   └── news
+│       └── demo
+│           ├── README.md
+│           ├── favicon.ico
+│           ├── index.html
+│           └── static
+├── jenkins
+│   └── release.server.docker.groovy
+├── package.json
+├── postcss.config.js
+└── src
+    └── news
+        └── demo
+            ├── README.md
+            ├── common
+            ├── favicon.ico
+            ├── index.hbs
+            ├── main.js
+            ├── mobileRouter
+            ├── pcRouter
+            ├── stores
+            └── templatess
+### Config & Use
+上面目录目录结构中，/config/project.js，是您的项目启动配置文件。里面已有案例news/git 项目。如下：
 
-主要特性包括：
+```
+news: {
+        // 对应 __PROJECT__ 例：news/demo
+        demo: {
+            env: {
+                // mock 对应 __ENV__
+                mock: {
+                    // 对应 __API__
+                    api_path: "//127.0.0.1:3000",
+                    // 对应 Vconsole
+                    console: true,
+                    // 对应 __CDN__ 修正路径作用
+                    cdn_path: "./"
+                },
+                development: {
+                    api_path: "//bizdev.aibao.com",
+                    console: false,
+                    cdn_path: "/devStatic/website2018/news/demo/"
+                },
+                test: {
+                    api_path: "//bizapitest.aibao.com",
+                    console: true,
+                    cdn_path: "./"
+                },
+                production: {
+                    api_path: "//biz.aibao.com",
+                    console: false,
+                    cdn_path: "./"
+                }
+            }
+        }
+    }
+```
+> news/demo 就是 src目录下的目录结构。
 
-1.  支持多域名，多项目下，一套 Ract 全家桶静态部署开发。
-2.  支持多环境配置项目文件。
-3.  配置文件统一 合并或覆盖（localhost.settings.js 用于本地覆盖）、project.js 配置每一个项目的(api|cdn|libs)。
-4.  模板引擎 hbs 用于入口模板；
-5.  启动编译可传入参数如 --ENTRY --ENV。
-6.  根据--ENTRY 来启动某一个项目或启动某一项目的测试服务器。
-7.  根据USER AGENT 来识别启用 antd 还是 antd-mobile UI 框架。
-8.  根据--ENV 开启 Vconsole、debug、或者 build 策略等。
-9.  react-router4 按需加载。（react-loadable|asyncComponent）。
-10. 使用webpack watch 开发时服务器（内存生成文件）.
-11. 使用 lodash 或 ramda 函数库。
-12. 本地测试服务器使用 express 并 nodemon 守护进程。
-13. webpack-dev-server 开发时服务器（内存生成文件）。
-14. moment.js 时间处理。
-15. axios、fetch
-16. ua-parser-js User-Agent 查看等
-17. 打包策略整体变化，包括 DLL 动态链接，HappyPack 子进程并行编译等。
-18. 加入 less,className 用于第三方样式名和 less 样式、styleClass 用于 css in js。
+```
+npm run start --ENTRY=news/demo --ENV=mock
+启动本地开发模式，项目名称为 news/demo 当前环境为mock 对上面的配置文件载入配置。
+```
 
-note：部署推荐使用 nginx 处理。cdn上传OSS等。
+```
+npm run compile --ENTRY=news/demo --ENV=production
+启动静态编译模式，项目名称为 news/demo 当前环境为production 生成静态文件dist目录里。
+```
 
-## 开始
+```
+npm run tree
+tree:bin /Users/xiayuting/workBase/gws-cli2/src/news/demo/main.js +0ms
+tree:bin 总数：1 +2ms
+查看当前脚手架中，已有项目入口
+```
 
-目前 src 下有两个例子 git 和 demo（多项目多栏目根据目录结构），前者是手机端借鉴了[sanyuelanv](https://github.com/sanyuelanv/react-mobx-project)的案例并添加了 antd-mobile。后者是 web 的添加了 antd。
-
-常用需要修改的，都在 config/index.js 里。除了 port 写在了 pkg 里，原因很简单，当你初次使用时，打开的是 pkg。启动 port 就在那直接修改。而不需要看源码。更暴力
-
-页面中注入了 6 个变量分别是：**API**, **ENV**, **DEBUG**, **PROJECT**
-
-开发过程中，你用得最多的会是`npm dev`，但是这里还有很多其它的处理：
-
-| `npm run <script>` | 参数            | 解释                       |
-| ------------------ | ------------- | ------------------------ |
-| `start or watch`   | --ENTRY       | 启动开发服务器、传入--ENTRY 项目目录   |
-| `compile`          | --ENTRY --ENV | 启动编译、--ENV 传入测试或生成，      |
-| `node:server`      | --ENTRY       | 开启测试服务器传入--ENTRY 项目目录    |
-| `tree`             | 无             | 提示已有项目目录列表               |
-| `clean`            | 无             | 删除 node_modules 既 rm -rf |
-
-启动参数解释
-
-| `npm run --parameters` | 值                           | 解释           |
-| ---------------------- | --------------------------- | ------------ |
-| `--ENTRY`              | 例如:--ENTRY==news/git        | src 目录下的目录结构 |
-| `--ENV`                | development production test | 环境模式         |
-
-project.js 配置介绍
-
-> project.js 是最小单位配置文件，用于配置项目的。（例如：news/git）
-
-| `npm run --parameters` | 值          | 解释                             |
-| ---------------------- | ----------- | ------------------------------ |
-| `library`              | \[]         | 第三方库名称                         |
-| `mobile`               | Boolean     | 是否antd 或 antd mobile mull代表不引入 |
-| `api_path`             | string      | 正式 fetch 地址                    |
-| `console`              | Boolean     | Vconsole          |
-| `cdn_path`             | string      | 修正文件路径                   |
-| `eslint`               | Boolean     | 开启语法检查                   |
-
-## 程序目录
-
-    .
-    ├── README.md
-    ├── bin  //执行文件
-    │   ├── compile.js  //编译
-    │   ├── del.js  //删除dist
-    │   ├── node.server.js  //测试服务器
-    │   └── tree.js  //已有项目列表
-    ├── config  //配置文件
-    │   ├── index.js  //变量配置文件
-    │   ├── localhost.settings.js  //本地覆盖配置文件
-    │   ├── project.js  //api & cdn 映射文件
-    │   ├── webpack.vendor.config.js  //DLL动态链接
-    │   └── webpack.production.config.js  //production时启用的
-    ├── dist  //编译后的文件
-    ├── package.json
-    ├── postcss.config.js
-    ├── src  //源码
-    │   └── news
-    │       ├── demo
-    │       └── git
-    ├── webpack.config.js  //development时启用的
+```
+npm run tree
+npm run node:server --ENTRY=news/demo
+启动本地http服务，静态目录为 dist/news/demo 所以 npm run compile 和 npm run node:server 的--ENTRY参数应该一样。
+```
+## License
+MIT
