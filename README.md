@@ -62,6 +62,7 @@ mv: no such file or directory: /Users/xiayuting/website2019/gitignore
 
 ### Detail
 cd website2019(该名称为默认)，目录结构如下：
+```
 .
 ├── Dockerfile
 ├── bin
@@ -100,6 +101,8 @@ cd website2019(该名称为默认)，目录结构如下：
             ├── pcRouter
             ├── stores
             └── templatess
+```
+
 ### Config & Use
 上面目录目录结构中，/config/project.js，是您的项目启动配置文件。里面已有案例news/git 项目。如下：
 
