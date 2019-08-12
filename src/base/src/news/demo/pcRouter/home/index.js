@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component, lazy, Suspense, Fragment} from "react";
 import PropTypes from "prop-types";
 import ArraySort from "~/tool/arraySort";
 let {bubbleSort} = new ArraySort();
@@ -7,7 +7,7 @@ import shiliu from "~/image/shiliu.jpg";
 
 import "./index.less";
 
-class Home extends React.Component {
+class Home extends Component {
     constructor(props) {
         super(props);
     }

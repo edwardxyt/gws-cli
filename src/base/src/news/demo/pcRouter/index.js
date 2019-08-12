@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component, lazy, Suspense, Fragment} from "react";
 import {Provider} from "mobx-react";
 import {
     // BrowserRouter as Router,
@@ -8,65 +8,68 @@ import {
     Switch,
     Redirect
 } from "react-router-dom";
+const log = console.log;
 
 import stores from "../stores";
 import "~/less/global.less"; // 加载 LESS
 
-import Loadable from "react-loadable";
-const Loading = () => "Loading...";
+// 错误边界
+import ErrorBoundary from "~/component/errorBoundary";
+import NotFound from "~/component/notFound";
+// import PrivateRoute from "~/component/privateRoute/index";
 
-import Home from "./home";
-const About = Loadable({
-    loader: () => import("./about"),
-    loading: Loading,
-    delay: 150
-});
-const Topics = Loadable({
-    loader: () => import("./topics"),
-    loading: Loading,
-    delay: 150
-});
+import Layout from "./layout/index";
 
-class Component extends React.Component {
+const Home = lazy(() => import("./home"));
+const About = lazy(() => import("./about"));
+const Topics = lazy(() => import("./topics"));
+const Context = lazy(() => import("./context"));
+
+export default class App extends React.Component {
+    fallback = () => {
+        return <div>Loading...</div>;
+    };
+
     render() {
         return (
             <Provider {...stores}>
                 <Router>
-                    <div className="root-main">
-                        <ul>
-                            <li>
-                                <h3>PC</h3>
-                            </li>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to={{
-                                        pathname: "/about",
-                                        search: "?sort=name",
-                                        hash: "#the-hash",
-                                        state: {fromDashboard: true}
-                                    }}
-                                >
-                                    About
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/topics/xiayuting">Topics</Link>
-                            </li>
-                        </ul>
-
-                        <hr />
-
-                        <Route exact path="/" component={Home} />
-                        <Route path="/about" component={About} />
-                        <Route path="/topics/:name" component={Topics} />
-                    </div>
+                    <Suspense fallback={this.fallback()}>
+                        <ErrorBoundary>
+                            <div className="root-main">
+                                <Switch>
+                                    <Route
+                                        exact
+                                        path="/"
+                                        component={Layout(Home)}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/about"
+                                        component={Layout(About)}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/topics/:name"
+                                        component={Layout(Topics)}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/context"
+                                        component={Layout(Context)}
+                                    />
+                                    {/* <PrivateRoute
+                                        path="/context"
+                                        component={Context}
+                                        exact
+                                    /> */}
+                                    <NotFound {...this.props} text={"404"} />
+                                </Switch>
+                            </div>
+                        </ErrorBoundary>
+                    </Suspense>
                 </Router>
             </Provider>
         );
     }
 }
-
-export default Component;

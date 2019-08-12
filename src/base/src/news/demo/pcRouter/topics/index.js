@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component, lazy, Suspense, Fragment} from "react";
 import {observer, inject} from "mobx-react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -15,7 +15,7 @@ import moment from "moment";
 
 @inject("fetchData")
 @observer
-class Topics extends React.Component {
+class Topics extends Component {
     constructor(props) {
         super(props);
         NProgress.start();

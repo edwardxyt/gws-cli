@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component, lazy, Suspense, Fragment} from "react";
 import {observer, inject} from "mobx-react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -19,7 +19,7 @@ import "./index.less";
 
 @inject("clickTimes")
 @observer
-class About extends React.Component {
+export default class About extends Component {
     constructor(props) {
         super(props);
         NProgress.start();
@@ -37,7 +37,7 @@ class About extends React.Component {
         NProgress.done();
     }
 
-    _addHandle(num) {
+    _addHandle(num, e) {
         this.props.clickTimes.click(num);
     }
 
@@ -60,11 +60,7 @@ class About extends React.Component {
                 </Button>
                 <br />
                 <DatePicker onChange={this::this.onChange} />
-                <div
-                    onClick={() => {
-                        this._addHandle(1);
-                    }}
-                >
+                <div onClick={this._addHandle.bind(this, 1)}>
                     点击次数：{this.props.clickTimes.times}
                 </div>
                 <p>点击10次数：{this.props.clickTimes.total}</p>
@@ -74,4 +70,4 @@ class About extends React.Component {
     }
 }
 
-export default About;
+// export default About;

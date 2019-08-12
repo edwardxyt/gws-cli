@@ -6,7 +6,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 
-const TerserJSPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -121,7 +121,7 @@ module.exports = async () => {
                 },
                 optimization: {
                     minimizer: [
-                        new TerserJSPlugin({}),
+                        new TerserPlugin(),
                         new OptimizeCssAssetsPlugin({})
                     ]
                 },

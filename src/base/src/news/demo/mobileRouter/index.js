@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component, lazy, Suspense} from "react";
 import {Provider} from "mobx-react";
 import {
     // BrowserRouter as Router,
@@ -13,11 +13,25 @@ const log = console.log;
 import stores from "../stores";
 import "~/less/global.less"; // 加载 LESS
 
+import ErrorBoundary from "~/component/errorBoundary";
+import NotFound from "~/component/notFound";
+const Home = lazy(() => import("./home"));
+const Nav = lazy(() => import("./nav"));
+
+// 按需加载
+import asyncComponent from "~/component/async";
+const Antd = asyncComponent(() =>
+    import("./antd")
+        .then(module => module.default)
+        .catch(err => {
+            window.console.log(err);
+            return 101;
+        })
+);
+
+// 按需加载
 import Loadable from "react-loadable";
 const Loading = () => "Loading...";
-
-import Home from "./home";
-import Nav from "./nav";
 
 const About = Loadable({
     loader: () => import("./about"),
@@ -29,16 +43,15 @@ const Topics = Loadable({
     loading: Loading,
     delay: 150
 });
-const Antd = Loadable({
-    loader: () => import("./antd"),
-    loading: Loading,
-    delay: 150
-});
 
-class Component extends React.Component {
+class App extends Component {
     constructor(props) {
         super(props);
     }
+
+    fallback = () => {
+        return <div>Loading...</div>;
+    };
 
     UNSAFE_componentWillMount() {
         // @babel/plugin-proposal-do-expressions
@@ -84,8 +97,8 @@ class Component extends React.Component {
         // );
 
         // @babel/plugin-proposal-partial-application
-        const addOne = this.add(1, ?);
-        log('@babel/plugin-proposal-partial-application - ', addOne(2));
+        // const addOne = this.add(1, ?);
+        // log('@babel/plugin-proposal-partial-application - ', addOne(2));
     }
 
     doubleSay(str) {
@@ -108,18 +121,27 @@ class Component extends React.Component {
         return (
             <Provider {...stores}>
                 <Router>
-                    <div className="root-main">
-                        <Nav />
-
-                        <Route exact path="/" component={Home} />
-                        <Route path="/about" component={About} />
-                        <Route path="/topics/:name" component={Topics} />
-                        <Route path="/antd" component={Antd} />
-                    </div>
+                    <Suspense fallback={this.fallback()}>
+                        <ErrorBoundary>
+                            <div className="root-main">
+                                <Nav />
+                                <Switch>
+                                    <Route exact path="/" component={Home} />
+                                    <Route path="/about" component={About} />
+                                    <Route
+                                        path="/topics/:name"
+                                        component={Topics}
+                                    />
+                                    <Route path="/antd" component={Antd} />
+                                    <NotFound {...this.props} text={"404"} />
+                                </Switch>
+                            </div>
+                        </ErrorBoundary>
+                    </Suspense>
                 </Router>
             </Provider>
         );
     }
 }
 
-export default Component;
+export default App;
