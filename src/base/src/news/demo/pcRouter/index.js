@@ -24,6 +24,7 @@ const Home = lazy(() => import("./home"));
 const About = lazy(() => import("./about"));
 const Topics = lazy(() => import("./topics"));
 const Context = lazy(() => import("./context"));
+const Cat = lazy(() => import("./cat/render"));
 
 export default class App extends React.Component {
     fallback = () => {
@@ -57,6 +58,11 @@ export default class App extends React.Component {
                                         exact
                                         path="/context"
                                         component={Layout(Context)}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/cat"
+                                        component={Layout(Cat)}
                                     />
                                     {/* <PrivateRoute
                                         path="/context"

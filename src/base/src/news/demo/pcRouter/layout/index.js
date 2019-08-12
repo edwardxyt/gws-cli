@@ -59,7 +59,7 @@ const LayoutCompnent = WrappedCompnent => {
                         <ul>
                             <li>
                                 <PrivateLink show={true} to="/">
-                                    /
+                                    single-page application
                                 </PrivateLink>
                             </li>
                             <li>
@@ -84,13 +84,11 @@ const LayoutCompnent = WrappedCompnent => {
                                 <PrivateLink show={true} to="/context">
                                     /ontext
                                 </PrivateLink>
-                                {/*<PrivateLink
-                                    show={true}
-                                    to={{pathname: url}}
-                                >
-                                    {breadcrumbNameMap[url]}
-                                </PrivateLink>*/}
-                                {/*<Link to="/context" />*/}
+                            </li>
+                            <li>
+                                <PrivateLink show={true} to="/cat">
+                                    /cat
+                                </PrivateLink>
                             </li>
                             <li>
                                 <PrivateLink show={true} to="/notFound">

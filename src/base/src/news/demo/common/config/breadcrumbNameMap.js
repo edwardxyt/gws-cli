@@ -22,5 +22,11 @@ export default {
         name: "上下文案例",
         keywords: "",
         description: ""
+    },
+    "/cat": {
+        title: "Render Props",
+        name: "Render Props",
+        keywords: "",
+        description: ""
     }
 };
