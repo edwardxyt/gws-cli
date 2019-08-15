@@ -28,7 +28,7 @@ const Cat = lazy(() => import("./cat/render"));
 
 export default class App extends React.Component {
     fallback = () => {
-        return <div>Loading...</div>;
+        return <div>lazy Loading...</div>;
     };
 
     render() {

@@ -82,17 +82,17 @@ const LayoutCompnent = WrappedCompnent => {
                             </li>
                             <li>
                                 <PrivateLink show={true} to="/context">
-                                    /ontext
+                                    ontext
                                 </PrivateLink>
                             </li>
                             <li>
                                 <PrivateLink show={true} to="/cat">
-                                    /cat
+                                    cat
                                 </PrivateLink>
                             </li>
                             <li>
                                 <PrivateLink show={true} to="/notFound">
-                                    /error_404_page
+                                    error_404_page
                                 </PrivateLink>
                             </li>
                         </ul>

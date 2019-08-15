@@ -4,7 +4,7 @@ const log = console.log;
 import ArraySort from "~/tool/arraySort";
 let {bubbleSort} = new ArraySort();
 
-import Parent from "../modal";
+import Portal from "../modal";
 
 import shiliu from "~/image/shiliu.jpg";
 
@@ -45,13 +45,13 @@ class Home extends Component {
             <div>
                 <h1 className="ed-home">这里是Home</h1>
 
-                <Parent.Container>
-                    <Parent.Modal visible={this.state.visible}>
+                <Portal.Container>
+                    <Portal.Modal visible={this.state.visible}>
                         <Button onClick={this::this.closeModal}>
                             closeModal
                         </Button>
-                    </Parent.Modal>
-                </Parent.Container>
+                    </Portal.Modal>
+                </Portal.Container>
 
                 <Button onClick={this.onClick} type="primary">
                     Portals-modal-插槽
