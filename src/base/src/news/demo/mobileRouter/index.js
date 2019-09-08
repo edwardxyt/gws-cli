@@ -69,15 +69,23 @@ class App extends Component {
             foo: {
                 bar: {
                     baz: 42
+                },
+                fun() {
+                    return 10;
                 }
             },
-            ed: null
+            nullish: null
         };
         const baz = obj?.foo?.bar?.baz;
-        log("@babel/plugin-proposal-optional-chaining - ", baz);
+
+        log(
+            "@babel/plugin-proposal-optional-chaining - ",
+            baz,
+            obj?.foo?.fun?.()
+        );
 
         // @babel/plugin-proposal-nullish-coalescing-operator
-        let foo = obj.ed ?? "default";
+        let foo = obj.nullish ?? "default";
         log("@babel/plugin-proposal-nullish-coalescing-operator - ", foo);
 
         // @babel/plugin-proposal-pipeline-operator

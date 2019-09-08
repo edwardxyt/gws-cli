@@ -200,7 +200,21 @@ module.exports = async () => {
                                         "@babel/plugin-transform-object-assign",
                                         "@babel/plugin-transform-jscript",
                                         // Modules
-                                        "@babel/plugin-transform-modules-umd"
+                                        "@babel/plugin-transform-modules-umd",
+                                        // Minification
+                                        "transform-regexp-constructors",
+                                        "transform-property-literals",
+                                        "minify-type-constructors",
+                                        "minify-mangle-names",
+                                        "minify-numeric-literals",
+                                        "minify-dead-code-elimination",
+                                        // Remove
+                                        [
+                                            "transform-remove-console",
+                                            {exclude: ["error", "warn"]}
+                                        ],
+                                        "transform-remove-debugger",
+                                        "babel-plugin-transform-remove-undefined"
                                     ]
                                 }
                             }
