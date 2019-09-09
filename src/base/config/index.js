@@ -103,6 +103,11 @@ let app_config = (rootDir = "/") => {
                 // Modules
                 "@babel/plugin-transform-modules-umd"
             ],
+
+            // ----------------------------------
+            // babelPlugins
+            // babel 压缩，优化，删冗余插件
+            // ----------------------------------
             babelMinifyPlugins: [
                 // Minification
                 "transform-regexp-constructors",
