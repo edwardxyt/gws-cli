@@ -152,70 +152,11 @@ module.exports = async () => {
                                         "@babel/preset-env",
                                         "@babel/preset-react"
                                     ],
-                                    plugins: [
-                                        // Experimental
-                                        [
-                                            "@babel/plugin-proposal-decorators",
-                                            {legacy: true}
-                                        ],
-                                        [
-                                            "@babel/plugin-proposal-class-properties",
-                                            {loose: true}
-                                        ],
-                                        [
-                                            "@babel/plugin-proposal-private-methods",
-                                            {loose: true}
-                                        ],
-                                        "@babel/plugin-proposal-function-bind",
-                                        "@babel/plugin-proposal-do-expressions",
-                                        "@babel/plugin-proposal-optional-chaining",
-                                        "@babel/plugin-proposal-nullish-coalescing-operator",
-                                        "@babel/plugin-proposal-numeric-separator",
-                                        "@babel/plugin-proposal-throw-expressions",
-                                        "@babel/plugin-proposal-partial-application",
-                                        "@babel/plugin-proposal-export-default-from",
-                                        "@babel/plugin-proposal-export-namespace-from",
-                                        [
-                                            "@babel/plugin-proposal-pipeline-operator",
-                                            {proposal: "minimal"}
-                                        ],
-                                        // ES2015 ES2016 ES2017 ES2018
-                                        "@babel/plugin-transform-runtime",
-                                        "@babel/plugin-transform-arrow-functions",
-                                        "@babel/plugin-transform-block-scoped-functions",
-                                        "@babel/plugin-transform-block-scoping",
-                                        "@babel/plugin-transform-classes",
-                                        "@babel/plugin-transform-computed-properties",
-                                        "@babel/plugin-transform-for-of",
-                                        "@babel/plugin-transform-destructuring",
-                                        "@babel/plugin-transform-function-name",
-                                        "@babel/plugin-transform-parameters",
-                                        "@babel/plugin-transform-shorthand-properties",
-                                        "@babel/plugin-transform-spread",
-                                        "@babel/plugin-transform-sticky-regex",
-                                        "@babel/plugin-transform-async-to-generator",
-                                        "@babel/plugin-proposal-async-generator-functions",
-                                        "@babel/plugin-proposal-object-rest-spread",
-                                        // others
-                                        "@babel/plugin-transform-object-assign",
-                                        "@babel/plugin-transform-jscript",
-                                        // Modules
-                                        "@babel/plugin-transform-modules-umd",
-                                        // Minification
-                                        "transform-regexp-constructors",
-                                        "transform-property-literals",
-                                        "minify-type-constructors",
-                                        "minify-mangle-names",
-                                        "minify-numeric-literals",
-                                        "minify-dead-code-elimination",
-                                        // Remove
-                                        [
-                                            "transform-remove-console",
-                                            {exclude: ["error", "warn"]}
-                                        ],
-                                        "transform-remove-debugger",
-                                        "babel-plugin-transform-remove-undefined"
-                                    ]
+                                    plugins: app_config.debug
+                                        ? app_config.babelBasicPlugins
+                                        : app_config.babelBasicPlugins.concat(
+                                              app_config.babelMinifyPlugins
+                                          )
                                 }
                             }
                         ]
