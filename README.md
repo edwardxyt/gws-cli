@@ -4,7 +4,7 @@ Official React bindings for @edwardxyt/gws-cli, with mobx@5. react-router@5. web
 ### Installing globally:
 Using npm:
 ```
-yarn global add @edwardxyt/gws-cli
+npm -g installß @edwardxyt/gws-cli --registry=https://registry.npm.taobao.org
 ```
 Using yarn:
 ```
