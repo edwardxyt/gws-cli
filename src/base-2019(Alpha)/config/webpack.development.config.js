@@ -85,13 +85,7 @@ module.exports = async () => {
                                 app_config.src,
                                 path.join(
                                     app_config.node_module_dir,
-                                    "@edwardxyt",
-                                    "gws-components"
-                                ),
-                                path.join(
-                                    app_config.node_module_dir,
-                                    "@edwardxyt",
-                                    "gws-javascripts"
+                                    "_@edwardxyt"
                                 )
                             ]
                         },
@@ -151,8 +145,7 @@ module.exports = async () => {
                                 app_config.src,
                                 path.join(
                                     app_config.node_module_dir,
-                                    "@edwardxyt",
-                                    "gws-components"
+                                    "_@edwardxyt"
                                 )
                             ]
                         }
