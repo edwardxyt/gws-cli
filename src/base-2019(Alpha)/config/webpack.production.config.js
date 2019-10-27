@@ -55,10 +55,11 @@ module.exports = async () => {
                             // exclude: [app_config.node_module_dir],
                             include: [
                                 app_config.src,
-                                path.join(
-                                    app_config.node_module_dir,
-                                    "_@edwardxyt"
-                                )
+                                /@edwardxyt/
+                                // path.join(
+                                //     app_config.node_module_dir,
+                                //     "_@edwardxyt"
+                                // )
                             ]
                         },
                         {
@@ -104,10 +105,11 @@ module.exports = async () => {
                             // exclude: [CONSTANTS.node_module_dir],
                             include: [
                                 app_config.src,
-                                path.join(
-                                    app_config.node_module_dir,
-                                    "_@edwardxyt"
-                                )
+                                /@edwardxyt/
+                                // path.join(
+                                //     app_config.node_module_dir,
+                                //     "_@edwardxyt"
+                                // )
                             ]
                         }
                     ]

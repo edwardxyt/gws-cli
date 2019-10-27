@@ -46,7 +46,7 @@ module.exports = async () => {
                     path: app_config.dist
                 },
                 mode: "development",
-                devtool: "eval-source-map",
+                devtool: "source-map",
                 resolve: app_config.resolve,
                 devServer: {
                     overlay: {
@@ -83,10 +83,11 @@ module.exports = async () => {
                             // exclude: [app_config.node_module_dir],
                             include: [
                                 app_config.src,
-                                path.join(
-                                    app_config.node_module_dir,
-                                    "_@edwardxyt"
-                                )
+                                /@edwardxyt/
+                                // path.join(
+                                //     app_config.node_module_dir,
+                                //     "_@edwardxyt"
+                                // )
                             ]
                         },
                         {
@@ -143,10 +144,11 @@ module.exports = async () => {
                             // exclude: [CONSTANTS.node_module_dir],
                             include: [
                                 app_config.src,
-                                path.join(
-                                    app_config.node_module_dir,
-                                    "_@edwardxyt"
-                                )
+                                /@edwardxyt/
+                                // path.join(
+                                //     app_config.node_module_dir,
+                                //     "_@edwardxyt"
+                                // )
                             ]
                         }
                     ]
