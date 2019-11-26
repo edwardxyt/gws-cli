@@ -138,7 +138,7 @@ inquirer.prompt(promptList).then(answers => {
                             if (
                                 answers.npm &&
                                 answers.watch &&
-                                shell.exec(`${answers.npm} install`, {
+                                shell.exec(`${answers.npm} install --registry=https://registry.npm.taobao.org`, {
                                     silent: false
                                 }).code !== 0
                             ) {
