@@ -84,7 +84,10 @@ module.exports = async () => {
                                 {
                                     loader: "less-loader", // 放在后面的先被解析
                                     options: {
-                                        javascriptEnabled: true
+                                        javascriptEnabled: true,
+                                        plugins: [
+                                            require('autoprefixer')
+                                        ]
                                     }
                                 }
                             ]

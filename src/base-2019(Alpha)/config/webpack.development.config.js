@@ -117,7 +117,10 @@ module.exports = async () => {
                                 {
                                     loader: "postcss-loader",
                                     options: {
-                                        sourceMap: true
+                                        sourceMap: true,
+                                        plugins: [
+                                            require('autoprefixer')
+                                        ]
                                     }
                                 },
                                 {
