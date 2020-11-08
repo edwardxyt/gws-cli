@@ -20,7 +20,7 @@ gws-cli
 
 ```
 xiayuting@xiayutingdeMacBook-Pro  ~  gws-cli
-[gws-cli] version: 2.0.51
+[gws-cli] version: 2.2.2
 ? 项目名称: website2020
 ? 描述:
 ? 模式选择: Base-2020(Alpha)
