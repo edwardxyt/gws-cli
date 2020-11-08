@@ -4,14 +4,9 @@ Official React bindings for @edwardxyt/gws-cli, with mobx@5. react-router@5. web
 ### Installing globally:
 Using npm:
 ```
-yarn global add @edwardxyt/gws-cli
-```
-Using yarn:
-```
-yarn global add @edwardxyt/gws-cli
+npm install -g @edwardxyt/gws-cli
 ```
 ### Usage:
-
 ```
 gws-cli
 ```
@@ -26,16 +21,16 @@ gws-cli
 ```
 xiayuting@xiayutingdeMacBook-Pro  ~  gws-cli
 [gws-cli] version: 2.0.51
-? 项目名称: website2019
+? 项目名称: website2020
 ? 描述:
-? 模式选择: Base-2019(Alpha)
+? 模式选择: Base-2020(Alpha)
 ? 是否安装依赖: No
-cp: no such file or directory: /Users/xiayuting/.nvm/versions/node/v10.14.2/lib/node_modules/@edwardxyt/gws-cli/src/base-2019(alpha)/
-cd: no such file or directory: /Users/xiayuting/website2019
-mv: no such file or directory: /Users/xiayuting/website2019/gitignore
+cp: no such file or directory: /Users/xiayuting/.nvm/versions/node/v10.14.2/lib/node_modules/@edwardxyt/gws-cli/src/base-2020(alpha)/
+cd: no such file or directory: /Users/xiayuting/website2020
+mv: no such file or directory: /Users/xiayuting/website2020/gitignore
 
 [gws-cli] [未安装依赖请手动执行]
-[gws-cli] [进入项目] cd website2019
+[gws-cli] [进入项目] cd website2020
 [gws-cli] [安装依赖] npm run install
 [gws-cli] [查看项目树] npm run tree
 [INFO] --------------------------------------------------------------------------------
@@ -48,7 +43,7 @@ mv: no such file or directory: /Users/xiayuting/website2019/gitignore
 [INFO] --------------------------------------------------------------------------------
  xiayuting@xiayutingdeMacBook-Pro  ~ 
 ```
-请选择Base-2019(Alpha)模式，这是最新版react脚手架，使用技术如下
+请选择Base-2020(Alpha)模式，这是最新版react脚手架，使用技术如下
 
 | 模块名称 | 版本 |
 | --- | --- |
@@ -61,7 +56,7 @@ mv: no such file or directory: /Users/xiayuting/website2019/gitignore
 | react-router-dom | 5 |
 
 ### Detail
-cd website2019(该名称为默认)，目录结构如下：
+cd website2020(该名称为默认)，目录结构如下：
 ```
 .
 ├── Dockerfile
