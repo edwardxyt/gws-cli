@@ -1,0 +1,12 @@
+/*边距*/
+.left-right(@a:10px, @b:50px) {
+  padding: @a @b;
+}
+/*只显示几行，其余用省略号表示*/
+.show-line(@num:2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @num;
+}

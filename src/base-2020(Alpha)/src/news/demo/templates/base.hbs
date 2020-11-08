@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{title}}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+
+        <meta content="telephone=no" name="format-detection">
+        <meta content="email=no" name="format-detection">
+
+        <!-- Full screen mode -->
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="yes" name="apple-touch-fullscreen">
+
+        {{#each htmlWebpackPlugin.files.css}}
+            <!--    <link href={{{this}}} rel="stylesheet">-->
+        {{/each}}
+    </head>
+    <body>
+    <div id="main"></div>
+    <div id="modal"></div>
+    <input type="hidden"  id="hd" value="{{{htmlWebpackPlugin.options.config.COMPILED_AT}}}" />
+    {{#if htmlWebpackPlugin.options.config.debug }}
+    <!-- <div id="if">{{{htmlWebpackPlugin.options.config.COMPILED_AT}}}</div> -->
+    {{/if}}
+
+    {{#unless htmlWebpackPlugin.options.config.debug}}
+    <!-- <div id="unless">{{{htmlWebpackPlugin.options.config.COMPILED_AT}}}</div> -->
+    {{/unless}}
+
+    {{> exception-handler}}
+    </body>
+</html>
+

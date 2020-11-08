@@ -1,0 +1,50 @@
+@import "./_variable"; // @import "library";
+// 登录页的布局(中下布局)
+
+.login-layout {
+  min-height: 100vh;
+  width: 100%;
+  .content {
+    background: url("../image/login_bg.svg");
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  .footer {
+    width: 100%;
+    text-align: center;
+
+    .footer-link {
+      display: flex;
+      justify-content: space-around;
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    .footer-link a {
+      color: @light-gray;
+    }
+  }
+}
+// 欢迎页的布局（上中下布局）
+
+.protol-layout {
+  min-height: 100vh;
+  width: 100%;
+  .footer {
+    text-align: center;
+  }
+}
+
+.subprotol-layout {
+  min-height: 100vh;
+  width: 100%;
+  .footer {
+    text-align: center;
+  }
+}
