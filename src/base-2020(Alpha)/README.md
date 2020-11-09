@@ -60,6 +60,7 @@ cd website2020(该名称为默认)，目录结构如下：
 ```
 .
 ├── Dockerfile
+├── README.md
 ├── bin
 │   ├── compile.js
 │   ├── del.js
@@ -73,29 +74,17 @@ cd website2020(该名称为默认)，目录结构如下：
 │   ├── project.js
 │   ├── webpack.development.config.js
 │   └── webpack.production.config.js
-├── dist
-│   └── news
-│       └── demo
-│           ├── README.md
-│           ├── favicon.ico
-│           ├── index.html
-│           └── static
+├── gitignore
 ├── jenkins
+│   ├── README.md
 │   └── release.server.docker.groovy
+├── jest.config.js
 ├── package.json
 ├── postcss.config.js
 └── src
     └── news
         └── demo
-            ├── README.md
-            ├── common
-            ├── favicon.ico
-            ├── index.hbs
-            ├── main.js
-            ├── mobileRouter
-            ├── pcRouter
-            ├── stores
-            └── templatess
+
 ```
 
 ### Config & Use
