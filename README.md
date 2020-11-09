@@ -37,10 +37,9 @@ mv: no such file or directory: /Users/xiayuting/website2020/gitignore
 [gws-cli] [未安装依赖请手动执行]
 [gws-cli] [进入项目] cd website2020
 [gws-cli] [安装依赖] npm run install
-[gws-cli] [查看项目树] npm run tree
+[gws-cli] [查看项目树] npm run tree --DIR=All
 [INFO] --------------------------------------------------------------------------------
 [gws-cli] [运行入口news/demo、 启动mock环境] npm run start --ENTRY=news/demo --ENV=mock
-[gws-cli] [运行入口news/git、启动mock环境] npm run watch --ENTRY=news/git --ENV=mock
 [INFO] --------------------------------------------------------------------------------
 [INFO] --------------------------------------------------------------------------------
 [gws-cli] [编译news/demo、启动test环境] npm run compile --ENTRY=news/demo --ENV=test
@@ -65,6 +64,7 @@ cd website2020(该名称为默认)，目录结构如下：
 ```
 .
 ├── Dockerfile
+├── README.md
 ├── bin
 │   ├── compile.js
 │   ├── del.js
@@ -78,29 +78,16 @@ cd website2020(该名称为默认)，目录结构如下：
 │   ├── project.js
 │   ├── webpack.development.config.js
 │   └── webpack.production.config.js
-├── dist
-│   └── news
-│       └── demo
-│           ├── README.md
-│           ├── favicon.ico
-│           ├── index.html
-│           └── static
+├── gitignore
 ├── jenkins
+│   ├── README.md
 │   └── release.server.docker.groovy
+├── jest.config.js
 ├── package.json
 ├── postcss.config.js
 └── src
     └── news
         └── demo
-            ├── README.md
-            ├── common
-            ├── favicon.ico
-            ├── index.hbs
-            ├── main.js
-            ├── mobileRouter
-            ├── pcRouter
-            ├── stores
-            └── templatess
 ```
 
 ### Config & Use
@@ -130,7 +117,7 @@ news: {
                     console: true,
                     cdn_path: "./"
                 },
-                production: {
+                ~~production~~: {
                     api_path: "//biz.aibao.com",
                     console: false,
                     cdn_path: "./"
