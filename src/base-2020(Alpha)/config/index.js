@@ -59,6 +59,14 @@ let app_config = (rootDir = "/") => {
             templates_dir: path.join(rootDir, "src", `${entry}`, "/templates"),
 
             // ----------------------------------
+            // babelDevPlugins
+            // babel 错误边界（Error Boundaries）
+            // ----------------------------------
+            babelDevPlugins: [
+                "@babel/plugin-transform-react-jsx-source",
+            ],
+
+            // ----------------------------------
             // babelPlugins
             // babel 基础插件
             // ----------------------------------

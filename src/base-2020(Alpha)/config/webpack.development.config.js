@@ -80,7 +80,9 @@ module.exports = async () => {
                                     "@babel/preset-env",
                                     "@babel/preset-react"
                                 ],
-                                plugins: app_config.babelBasicPlugins
+                                plugins: app_config.babelBasicPlugins.concat(
+                                    app_config.babelDevPlugins
+                                )
                             }
                         }
                     ],
