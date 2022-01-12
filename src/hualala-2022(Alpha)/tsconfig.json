@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",  // outDir 用来指定输出文件夹，值为一个文件夹路径字符串，输出的文件都将放置在这个文件夹
+    "rootDir": "src",  // rootDir 用来指定编译文件的根目录，编译器会在根目录查找入口文件
+    "module": "esnext",  //module 用来指定要使用的模板标准
+    "target": "es5",  //target 用于指定编译之后的版本目录
+    "lib": [  //lib 用于指定要包含在编译中的库文件
+      "es6",
+      "dom"
+    ],
+    "sourceMap": true,  //socuceMap 用来指定编译时是否生成.map文件
+    "checkJs": true,  //checkJs 用来指定是否检查和报告JS文件中的错误，默认false
+    "allowJs": true,  //allowJs 用来指定是否允许编译JS文件，默认false,即不编译JS文件
+    "declaration": false,  //declaration 用来指定是否在编译的时候生成相的d.ts声明文件，如果设为true,编译每个ts文件之后会生成一个js文件和一个声明文件，但是declaration和allowJs不能同时设为true
+    "declarationMap": false,  //declarationMap用 来指定编译时是否生成.map文件
+    "jsx": "react",  //指定jsx代码 用于的开发环境:'preserve','react-native',or 'react
+    "removeComments": true,  // removeComments 用于指定是否将编译后的文件注释删掉，设为true的话即删除注释，默认为false
+    "moduleResolution": "node",  // moduleResolution用于 选择模块解析策略，有"node"和"classic"两种类型
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,  // noImplicitReturns用于 检查函数是否有返回值，设为true后，如果函数没有返回值则会提示，默认为false
+    "noImplicitThis": true,  // 当this表达式的值为any类型的时候，生成一个错误
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true
+  },
+  "exclude": [  // exclude表示要排除的，不编译的文件，它也可以指定一个列表，规则和include一样，可以是文件可以是文件夹，可以是相对路径或绝对路径，可以使用通配符
+    "node_modules",
+    "dist",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts"
+  ],
+  "include": [
+    "./src/**/*"
+  ]
+}
