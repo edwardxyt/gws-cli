@@ -161,8 +161,10 @@ let app_config = (rootDir = "/") => {
             // bundle 中，而是在运行时(runtime)再去从
             // 外部获取这些扩展依赖(external dependencies)
             // ** 主要用于模版引擎中 CDN 排除
+            // 注意提取第三方库时，不能含有以下列表，否则将不会打包
             // ----------------------------------
             externals: {
+                "lodash": "_",
                 "react": "React",
                 "react-dom": "ReactDOM"
             },

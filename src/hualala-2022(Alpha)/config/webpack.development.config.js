@@ -35,17 +35,36 @@ module.exports = async () => {
         output: {
             publicPath: '/',
             filename: 'scripts/[name].js',
-            path: `${app_config.dist}/${app_config.entry}`
+            path: `${app_config.dist}/${app_config.entry}`,
+            chunkFilename: 'scripts/[name].[chunkhash].js'
         },
-        devtool: 'inline-source-map',
+        target: 'web',  // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
+        devtool: 'inline-source-map',  // cheap-module-source-map
         mode: "development",
         resolve: app_config.resolve,
-        externals: app_config.externals,
+        // externals: app_config.externals, // 注意抽包的类库不可以在此包含
+        optimization:{
+            splitChunks:{
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/](react|react-dom|lodash)[\\/]/,
+                        name: 'vendor',
+                        chunks: 'all',
+                    },
+                },
+            }
+        },
         module: {
             rules: [
+                // {
+                //     test: /\.tsx?$/,
+                //     use: 'ts-loader',
+                //     exclude: /node_modules/,
+                // },
                 {
-                    test: /\.tsx?$/,
-                    use: 'ts-loader',
+                    test: /\.(tsx?|jsx|js)$/,
+                    loader: 'babel-loader',
+                    options: { cacheDirectory: true },
                     exclude: /node_modules/,
                 },
                 {
@@ -54,10 +73,51 @@ module.exports = async () => {
                     options: {
                         esModule: false
                     }
-                }
-            ]
+                },
+                {
+                    test: /\.(le|c)ss$/,
+                    use: [
+                        {
+                            loader: "style-loader",
+                        },
+                        {
+                            loader: "css-loader",
+                        },
+                        {
+                            loader: "less-loader",
+                            options: {
+                                lessOptions: {
+                                    strictMath: true,
+                                },
+                            },
+                        },
+                        {
+                            loader: "postcss-loader",
+                            options: {
+                                postcssOptions: {
+                                    plugins: [
+                                        [
+                                            "postcss-preset-env",
+                                        ],
+                                    ],
+                                },
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|jpeg)$/,
+                    use: {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                        },
+                    },
+                },
+            ],
         },
         plugins: [
+            // 实际上只开启 hot：true 就会自动识别有无声明该插件，没有则自动引入，但是怕有隐藏问题这里还是手动加上了
             new webpack.HotModuleReplacementPlugin(),
             // 允许创建一个在编译时可以配置的全局常量
             new webpack.DefinePlugin(app_config.inject),
@@ -82,27 +142,25 @@ module.exports = async () => {
                 },
                 inject: true, // true或'body'所有javascript资源都将放置在body元素的底部
                 // favicon: path.resolve('public/favicon.ico'),
-                chunks: ['app'], // entry中的 app 入口才会被打包
+                chunks: ['vendors', 'app'], // entry中的 app 入口才会被打包
             }),
         ],
         devServer: {
             headers: {
                 'Access-Control-Allow-Origin': '*',
             },
-            contentBase: app_config.dist,  // 告诉服务器内容的来源。仅在需要提供静态文件时才进行配置。
-            stats: "minimal",  // 只在发生错误或新的编译开始时输出
             // allowedHosts: [], // 该选项允许将允许访问开发服务器的服务列入白名单。
             compress: true,  // 启用http compression(gzip)进行数据压缩传输
             port: app_config.devServer.port,
             host: app_config.IP,
-            server: 'http',
             open: true,
             hot: true,
-            inline: true,
-            disableHostCheck: true,
-            overlay: {
-                warnings: true,
-                errors: true,  // 当出现编译错误或警告时，在浏览器中显示全屏覆盖。
+            client: {
+                progress: true,
+                overlay: {// 当出现编译错误或警告时，在浏览器中显示全屏覆盖。
+                    errors: true,
+                    warnings: false,
+                },
             },
             historyApiFallback: {
                 rewrites: [

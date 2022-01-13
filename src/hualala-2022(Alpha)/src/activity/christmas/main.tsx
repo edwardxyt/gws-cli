@@ -1,5 +1,10 @@
 import * as _ from 'lodash';
 import * as React from "react";
+import './index.less'
+
+if (module.hot) {
+    module.hot.accept()
+}
 
 interface HelloProps { 
     compiler: string; 
