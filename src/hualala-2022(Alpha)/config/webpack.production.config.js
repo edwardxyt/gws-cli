@@ -4,13 +4,15 @@ const dayjs = require('dayjs');
 const debug = require("debug");
 const echo = debug("development:webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const CopyPlugin = require('copy-webpack-plugin')
 
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  //压缩css
 const TerserPlugin = require("terser-webpack-plugin");  // 压缩js
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");  //提取到.css文件里
 const CompressionWebpackPlugin = require('compression-webpack-plugin')  //gzip压缩
 const { GenerateSW } = require('workbox-webpack-plugin'); // 引入 PWA 插件
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;  // 图形工具
+const ProgressBarPlugin = require('progress-bar-webpack-plugin'); // 进度条
 
 // 加载全局配置文件
 echo("加载全局文件");
@@ -145,6 +147,20 @@ module.exports = async () => {
             ]
         },
         plugins: [
+            // 打包进度条
+            new ProgressBarPlugin(),
+            // 打包后在.js/.css页头的时间
+            // hash         :[hash]
+            // chunkhash    :[chunkhash]
+            // name         :[name]
+            // filebase     :[filebase]
+            // query        :[query]
+            // file         :[file]
+            new webpack.BannerPlugin({
+                banner: `@Last Modified time ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`
+            }),
+            // 图形查看编译结果
+            // new BundleAnalyzerPlugin(),
             // 解决 hash 频繁变动的问题
             new webpack.ids.HashedModuleIdsPlugin({
                 context: __dirname,
@@ -188,12 +204,6 @@ module.exports = async () => {
                 // favicon: path.resolve('public/favicon.ico'),
                 chunks: ['vendors', 'app'], // entry中的 app 入口才会被打包
             }),
-            // new CopyWebpackPlugin([
-            //     {
-            //         from: path.resolve('nginx'),
-            //         to: path.resolve(__dirname, '../dist/nginx'),
-            //     },
-            // ]),
             // gzip压缩
             new CompressionWebpackPlugin({
                 filename: "[path][base].gz",
@@ -207,7 +217,13 @@ module.exports = async () => {
             new GenerateSW ({
                 clientsClaim: true,
                 skipWaiting: true
-            })
+            }),
+            // 静态文件处理
+            // new CopyPlugin({
+            //     patterns: [
+            //       { from: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/README.md', to: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/dist' },
+            //     ],
+            // }),
         ],
     }
 }
