@@ -164,9 +164,7 @@ let app_config = (rootDir = "/") => {
             // 注意提取第三方库时，不能含有以下列表，否则将不会打包
             // ----------------------------------
             externals: {
-                "lodash": "_",
-                "react": "React",
-                "react-dom": "ReactDOM"
+                watermark: 'window.watermark',
             },
 
             // ----------------------------------
@@ -176,7 +174,7 @@ let app_config = (rootDir = "/") => {
             // ～ 入口根目录/common
             // ----------------------------------
             resolve: {
-                extensions: [".ts", ".tsx", ".jsx", ".js", ".json"],
+                extensions: ['.tsx', '.ts', '.js', '.json'],
                 alias: {
                     "@": path.join(rootDir, "src", entry)
                 }

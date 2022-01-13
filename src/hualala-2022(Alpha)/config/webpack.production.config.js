@@ -1,10 +1,16 @@
 const webpack = require("webpack");
 const path = require("path");
-const detect = require("detect-port");
 const dayjs = require('dayjs');
 const debug = require("debug");
 const echo = debug("development:webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  //压缩css
+const TerserPlugin = require("terser-webpack-plugin");  // 压缩js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");  //提取到.css文件里
+const CompressionWebpackPlugin = require('compression-webpack-plugin')  //gzip压缩
+const { GenerateSW } = require('workbox-webpack-plugin'); // 引入 PWA 插件
 
 // 加载全局配置文件
 echo("加载全局文件");
@@ -20,35 +26,20 @@ module.exports = async () => {
             echo("开启Vconsole");
         }
     }
-    {
-        // 端口监测
-        const port = app_config.devServer.port;
-        const _port = await detect(port);
-        if (port == _port) {
-            echo(`端口号: ${port} 没有被占用，放心使用。`);
-            echo("启动webpack-dev-server");
-            echo(`服务器运行在 http://${app_config.IP}:${port}`);
-        } else {
-            app_config.devServer.port = _port;
-            echo(`端口号: ${port} 已占用, 尝试使用端口号: ${_port}！`);
-            echo("启动webpack-dev-server");
-            echo(`服务器运行在 http://${app_config.IP}:${_port}`);
-        }
-    }
     return {
         entry: {
             app: [...app_config.main]
         },
         output: {
-            publicPath: '/',
+            publicPath: app_config.cdn_path || "./", // 需要cdn 就开启
             filename: 'scripts/[name].[hash:5].js',
             path: `${app_config.dist}/${app_config.entry}`,
-            chunkFilename: 'scripts/[name].[chunkhash].js',
+            chunkFilename: 'scripts/[name].[chunkhash:5].js',
             assetModuleFilename: 'images/[name].[contenthash:8].[ext]',
         },
         target: 'web',  // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
-        devtool: 'inline-source-map',
-        mode: "development",
+        devtool: 'source-map',
+        mode: "production",
         resolve: app_config.resolve,
         // externals: app_config.externals, // 注意抽包的类库不可以在此包含
         cache: {
@@ -58,6 +49,22 @@ module.exports = async () => {
             },
         },
         optimization:{
+            minimize: true,
+            minimizer:[
+                new CssMinimizerPlugin(),  // 就像 optimize-css-assets-webpack-plugin 一样，但在 source maps 和 assets 中使用查询字符串会更加准确，支持缓存和并发模式下运行。
+                new TerserPlugin({
+                    extractComments: false,
+                    parallel: true,  // 使用多进程并发运行以提高构建速度
+                    terserOptions: {
+                        mangle: true, // 混淆，默认也是开的，mangle也是可以配置很多选项的，具体看后面的链接
+                        compress: {
+                            drop_console: true,//传true就是干掉所有的console.*这些函数的调用.
+                            drop_debugger: true, //干掉那些debugger;
+                            pure_funcs: ['console.log'] // 如果你要干掉特定的函数比如console.info ，又想删掉后保留其参数中的副作用，那用pure_funcs来处理
+                        },
+                    }
+                }),
+            ],
             splitChunks:{
                 cacheGroups: {
                     vendor: {
@@ -88,14 +95,13 @@ module.exports = async () => {
                     loader: 'ejs-loader',
                     options: {
                         esModule: false
-                    },
-                    exclude: /node_modules/,
+                    }
                 },
                 {
                     test: /\.(le|c)ss$/,
                     use: [
                         {
-                            loader: "style-loader",
+                            loader: MiniCssExtractPlugin.loader, // 非DEV环境，这里替换style-loader，即可提取css文件
                         },
                         {
                             loader: "css-loader",
@@ -139,16 +145,26 @@ module.exports = async () => {
             ]
         },
         plugins: [
+            // 解决 hash 频繁变动的问题
+            new webpack.ids.HashedModuleIdsPlugin({
+                context: __dirname,
+                hashFunction: 'sha256',
+                hashDigest: 'hex',
+                hashDigestLength: 20,
+            }),
+            // 允许创建一个在编译时可以配置的全局常量
+            new webpack.DefinePlugin(app_config.inject),
             // 使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
             new webpack.ProvidePlugin({
                 '$': 'jquery',
                 'jQuery': 'jquery',
                 'window.jQuery': 'jquery',
             }),
-            // 实际上只开启 hot：true 就会自动识别有无声明该插件，没有则自动引入，但是怕有隐藏问题这里还是手动加上了
-            new webpack.HotModuleReplacementPlugin(),
-            // 允许创建一个在编译时可以配置的全局常量
-            new webpack.DefinePlugin(app_config.inject),
+            // 和 style-loader 功能一样，只是打包后会单独生成 css 文件而非直接写在 html 文件中，用于生产环境，开发环境不需要另外生成文件使用 style-loader 即可
+            new MiniCssExtractPlugin({
+                filename: 'css/[name].[contenthash:8].css',
+                chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+            }),
             // 使用模板引擎生成html
             new HtmlWebpackPlugin({
                 title: '生成的HTML文档的标题',
@@ -172,31 +188,26 @@ module.exports = async () => {
                 // favicon: path.resolve('public/favicon.ico'),
                 chunks: ['vendors', 'app'], // entry中的 app 入口才会被打包
             }),
+            // new CopyWebpackPlugin([
+            //     {
+            //         from: path.resolve('nginx'),
+            //         to: path.resolve(__dirname, '../dist/nginx'),
+            //     },
+            // ]),
+            // gzip压缩
+            new CompressionWebpackPlugin({
+                filename: "[path][base].gz",
+                algorithm: 'gzip',
+                test: /\.(js|css)(\?.*)?$/i,  // CSS并没有生效,因为提取mini-css-extract-plugin没提供此功能
+                threshold: 10240,
+                minRatio: 0.8,
+                deleteOriginalAssets: false, // 是否删除源文件，默认: false
+            }),
+            // 配置 PWA
+            new GenerateSW ({
+                clientsClaim: true,
+                skipWaiting: true
+            })
         ],
-        devServer: {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            },
-            // allowedHosts: [], // 该选项允许将允许访问开发服务器的服务列入白名单。
-            compress: true,  // 启用http compression(gzip)进行数据压缩传输
-            port: app_config.devServer.port,
-            host: app_config.IP,
-            open: true,
-            hot: true,
-            client: {
-                progress: true,
-                overlay: {// 当出现编译错误或警告时，在浏览器中显示全屏覆盖。
-                    errors: true,
-                    warnings: false,
-                },
-            },
-            historyApiFallback: { index: `${app_config.dist}/${app_config.entry}/index.html`},
-            proxy: {
-                '/api': {
-                    target: 'http://localhost:3000',
-                    pathRewrite: { '^/api': '' },
-                },
-            },
-        },
     }
-};
+}
