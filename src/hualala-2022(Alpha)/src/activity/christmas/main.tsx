@@ -11,6 +11,7 @@ if (module.hot) {
 }
 
 var a = 10;
+var b = 23;
 
 // PWA
 if ('serviceWorker' in navigator) {
