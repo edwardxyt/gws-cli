@@ -5,7 +5,7 @@ module.exports = {
         "es2021": true
     },
     "extends": [
-        "airbnb-base",
+        'airbnb-base',
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended"
@@ -24,15 +24,22 @@ module.exports = {
     },
     "plugins": [
         "react",
+        "import",
         "@typescript-eslint"
     ],
     "rules": {
-        "no-console": 0, //是否允许console.log
+        'import/no-unresolved': "off",
+        'import/no-extraneous-dependencies': "off",
+        'import/extensions': "off",
+        'import/no-cycle': "off",
+        "import/no-import-module-exports": "off",
+        "import/prefer-default-export": "off",
+        "no-console": "off", //是否允许console.log
         "indent": [ //缩进
             2,
             4
         ],
-        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/ban-types": [
             "error",
             {

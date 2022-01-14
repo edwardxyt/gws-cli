@@ -141,7 +141,10 @@ module.exports = async () => {
         },
         plugins: [
             new ESLintPlugin({
-                context: app_config.src,
+                // context: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/src',
+                files: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/src/**/*',
+                emitError: true,
+                emitWarning: true,
                 // fix: true,
                 extensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
                 exclude: '/node_modules/',
@@ -189,6 +192,7 @@ module.exports = async () => {
             port: app_config.devServer.port,
             host: app_config.IP,
             client: {
+                logging: 'verbose',
                 progress: true,
                 overlay: {// 当出现编译错误或警告时，在浏览器中显示全屏覆盖。
                     errors: true,

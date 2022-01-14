@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './index.less';
@@ -10,9 +9,11 @@ if (module.hot) {
     module.hot.accept();
 }
 
-var a = 10;
-var b = 23;
-
+const a = 10;
+let b = 23;
+let c;
+b = 33;
+if (b) { b++; }
 // PWA
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -33,8 +34,13 @@ export class Hello extends React.Component<HelloProps, {}> {
     render() {
         return (
             <>
-                <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>
-                <img src={ avatar } alt="" />
+                <h1>
+                Hello from{this.props.compiler}
+                    {' '}
+                and{this.props.framework}
+                !
+                </h1>
+                <img src={avatar} alt="" />
             </>
         );
     }
@@ -44,16 +50,3 @@ ReactDOM.render(
     <Hello compiler="TypeScript" framework="React" />,
     document.getElementById('main'),
 );
-
-// interface Person {
-//     firstName: string;
-//     lastName: string;
-// }
-
-// function greeter(person: Person) {
-//     return "Hello, " + person.firstName + " " + person.lastName;
-// }
-
-// let user = { firstName: "Jane", lastName: "User" };
-
-// document.body.innerHTML = greeter(user);
