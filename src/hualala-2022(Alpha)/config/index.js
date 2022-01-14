@@ -9,7 +9,7 @@ let app_config = (rootDir = "/") => {
     // node 16 npm_config_entry 变小写了
     let entry = process.env.npm_config_entry;
     let env = process.env.npm_config_env || process.env.NODE_ENV;
-    let [cluster, project] = _.split(entry, '/', 2);;
+    let [cluster, project] = _.split(entry, '/', 2);
     let debugging = env !== "production";
 
     let api_path = projects[cluster][project].env[env].api_path;

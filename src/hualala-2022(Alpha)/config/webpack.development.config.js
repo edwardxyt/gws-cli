@@ -5,6 +5,7 @@ const dayjs = require('dayjs');
 const debug = require("debug");
 const echo = debug("development:webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 // 加载全局配置文件
 echo("加载全局文件");
@@ -139,6 +140,12 @@ module.exports = async () => {
             ]
         },
         plugins: [
+            new ESLintPlugin({
+                context: app_config.src,
+                // fix: true,
+                extensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
+                exclude: '/node_modules/',
+            }),
             // 使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
             new webpack.ProvidePlugin({
                 '$': 'jquery',
@@ -181,13 +188,11 @@ module.exports = async () => {
             compress: true,  // 启用http compression(gzip)进行数据压缩传输
             port: app_config.devServer.port,
             host: app_config.IP,
-            open: true,
-            hot: true,
             client: {
                 progress: true,
                 overlay: {// 当出现编译错误或警告时，在浏览器中显示全屏覆盖。
                     errors: true,
-                    warnings: false,
+                    warnings: true,
                 },
             },
             historyApiFallback: { index: `${app_config.dist}/${app_config.entry}/index.html`},
@@ -197,6 +202,8 @@ module.exports = async () => {
                     pathRewrite: { '^/api': '' },
                 },
             },
+            open: true,
+            hot: true,
         },
     }
 };

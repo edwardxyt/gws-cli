@@ -221,7 +221,7 @@ module.exports = async () => {
             // 静态文件处理
             new CopyPlugin({
                 patterns: [
-                  { from: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/README.md', to: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/dist' },
+                  { from: path.join(app_config.entryDir, "README.md"), to: path.join(app_config.dist, app_config.entry) },
                 ],
             }),
         ],
