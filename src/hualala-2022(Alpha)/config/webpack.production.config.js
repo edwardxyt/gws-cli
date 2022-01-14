@@ -4,7 +4,7 @@ const dayjs = require('dayjs');
 const debug = require("debug");
 const echo = debug("development:webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const CopyPlugin = require('copy-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  //压缩css
 const TerserPlugin = require("terser-webpack-plugin");  // 压缩js
@@ -219,11 +219,11 @@ module.exports = async () => {
                 skipWaiting: true
             }),
             // 静态文件处理
-            // new CopyPlugin({
-            //     patterns: [
-            //       { from: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/README.md', to: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/dist' },
-            //     ],
-            // }),
+            new CopyPlugin({
+                patterns: [
+                  { from: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/README.md', to: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/dist' },
+                ],
+            }),
         ],
     }
 }

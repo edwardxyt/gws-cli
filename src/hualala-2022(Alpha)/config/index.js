@@ -1,25 +1,21 @@
 const path = require("path");
 const ip = require("ip");
 const debug = require("debug");
-const R = require("ramda");
+const _ = require("lodash");
 const projects = require("./project");
-const isNotEmpty = R.complement(R.isEmpty);
-const isNotNil = R.complement(R.isNil);
 const echo = debug("development:config");
 
 let app_config = (rootDir = "/") => {
-    let entry = process.env.npm_config_ENTRY || process.env.ENTRY;
-
-    let env =process.env.npm_config_ENV || process.env.ENV || process.env.NODE_ENV;
-
-    let [cluster, project] = R.split("/", entry);
+    // node 16 npm_config_entry 变小写了
+    let entry = process.env.npm_config_entry;
+    let env = process.env.npm_config_env || process.env.NODE_ENV;
+    let [cluster, project] = _.split(entry, '/', 2);;
     let debugging = env !== "production";
 
     let api_path = projects[cluster][project].env[env].api_path;
     let cdn_path = projects[cluster][project].env[env].cdn_path;
     let Vconsole = projects[cluster][project].env[env].console;
-
-    if (isNotEmpty(entry) && isNotNil(entry)) {
+    if (!_.isEmpty(entry) && !_.isNull(entry)) {
         echo(`根路径：${rootDir}`);
         echo(`VConsole：${Vconsole}`);
         echo(`启动项目：${cluster} - ${project}`);
