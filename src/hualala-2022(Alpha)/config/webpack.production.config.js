@@ -44,6 +44,10 @@ module.exports = async () => {
         mode: "production",
         resolve: app_config.resolve,
         // externals: app_config.externals, // 注意抽包的类库不可以在此包含
+        stats: {
+            preset: 'minimal',
+            source: true,
+        },
         cache: {
             type: 'filesystem', // cache.type：缓存类型，值为 memory 或 filesystem，分别代表基于内存的临时缓存，以及基于文件系统的持久化缓存
             buildDependencies: {  // cache.buildDependencies：全局缓存失效的一种机制，配置 {config: [__filename]}，表示当配置文件内容或配置文件依赖的模块文件发生变化时，当前的构建缓存即失效`
