@@ -9,11 +9,13 @@ if (module.hot) {
     module.hot.accept();
 }
 
-const a = 10;
-let b = 23;
-let c;
+var a = 10;
+var b = 23;
+var c;
 b = 33;
 if (b) { b++; }
+
+console.log(b)
 // PWA
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

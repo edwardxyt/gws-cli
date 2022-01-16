@@ -4,8 +4,7 @@ const dayjs = require('dayjs');
 const debug = require("debug");
 const echo = debug("development:webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require('copy-webpack-plugin')
-
+const CopyPlugin = require('copy-webpack-plugin') //复制静态资源
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  //压缩css
 const TerserPlugin = require("terser-webpack-plugin");  // 压缩js
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");  //提取到.css文件里
@@ -47,6 +46,8 @@ module.exports = async () => {
         stats: {
             preset: 'minimal',
             source: true,
+            moduleTrace: true,
+            errorDetails: true,
         },
         cache: {
             type: 'filesystem', // cache.type：缓存类型，值为 memory 或 filesystem，分别代表基于内存的临时缓存，以及基于文件系统的持久化缓存

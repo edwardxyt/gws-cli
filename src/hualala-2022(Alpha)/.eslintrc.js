@@ -1,6 +1,7 @@
 module.exports = {
     "root": true, //多个eslint文件时，以这个为标准
     "env": {
+        "node": true,
         "browser": true, //使用环境: browser/node
         "es2021": true
     },

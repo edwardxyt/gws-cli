@@ -56,6 +56,8 @@ module.exports = async () => {
         stats: {
             preset: 'minimal',
             source: true,
+            moduleTrace: true,
+            errorDetails: true,
         },
          cache: {
             type: 'filesystem', // cache.type：缓存类型，值为 memory 或 filesystem，分别代表基于内存的临时缓存，以及基于文件系统的持久化缓存
@@ -147,11 +149,6 @@ module.exports = async () => {
         plugins: [
             new FriendlyErrorsWebpackPlugin(),
             new ESLintPlugin({
-                // context: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/src',
-                files: '/Users/xiayuting/workBase/gws-cli/src/hualala-2022(Alpha)/src/**/*',
-                emitError: true,
-                emitWarning: true,
-                // fix: true,
                 extensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
                 exclude: '/node_modules/',
             }),
