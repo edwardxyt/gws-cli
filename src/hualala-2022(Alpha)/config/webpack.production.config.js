@@ -10,8 +10,6 @@ const TerserPlugin = require("terser-webpack-plugin");  // 压缩js
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");  //提取到.css文件里
 const CompressionWebpackPlugin = require('compression-webpack-plugin')  //gzip压缩
 const { GenerateSW } = require('workbox-webpack-plugin'); // 引入 PWA 插件
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;  // 图形工具
-const ProgressBarPlugin = require('progress-bar-webpack-plugin'); // 进度条
 
 // 加载全局配置文件
 echo("加载全局文件");
@@ -39,7 +37,7 @@ module.exports = async () => {
             assetModuleFilename: 'images/[name].[contenthash:8].[ext]',
         },
         target: 'web',  // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
-        devtool: 'source-map',
+        devtool: false,
         mode: "production",
         resolve: app_config.resolve,
         // externals: app_config.externals, // 注意抽包的类库不可以在此包含
@@ -48,12 +46,6 @@ module.exports = async () => {
             source: true,
             moduleTrace: true,
             errorDetails: true,
-        },
-        cache: {
-            type: 'filesystem', // cache.type：缓存类型，值为 memory 或 filesystem，分别代表基于内存的临时缓存，以及基于文件系统的持久化缓存
-            buildDependencies: {  // cache.buildDependencies：全局缓存失效的一种机制，配置 {config: [__filename]}，表示当配置文件内容或配置文件依赖的模块文件发生变化时，当前的构建缓存即失效`
-                config: [__filename],
-            },
         },
         optimization:{
             minimize: true,
@@ -90,10 +82,7 @@ module.exports = async () => {
                         {
                             loader: "babel-loader",
                             options: { cacheDirectory: true }, // cacheDirectory：babel-loader 在执行的时候，可能会产生一些运行期间重复的公共文件，造成代码体积大冗余，同时也会减慢编译效率，所以开启该配置将这些公共文件缓存起来，下次编译就会加快很多
-                        },
-                        {
-                            loader: "source-map-loader",
-                        },
+                        }
                     ],
                     exclude: /node_modules/,
                 },
@@ -152,8 +141,6 @@ module.exports = async () => {
             ]
         },
         plugins: [
-            // 打包进度条
-            new ProgressBarPlugin(),
             // 打包后在.js/.css页头的时间
             // hash         :[hash]
             // chunkhash    :[chunkhash]
@@ -164,8 +151,6 @@ module.exports = async () => {
             new webpack.BannerPlugin({
                 banner: `@Last Modified time ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`
             }),
-            // 图形查看编译结果
-            // new BundleAnalyzerPlugin(),
             // 解决 hash 频繁变动的问题
             new webpack.ids.HashedModuleIdsPlugin({
                 context: __dirname,

@@ -9,12 +9,14 @@
   },
   "scripts": {
     "prestart": "cross-env DEBUG=development:* node bin/del",
-    "start": "cross-env DEBUG=development:* NODE_ENV='development' webpack server --config config/webpack.development.config",
+    "start": "cross-env DEBUG=development:* NODE_ENV='development' webpack server --config ./config/webpack.development.config",
+    "prewatch": "cross-env node bin/del",
+    "watch": "cross-env DEBUG=watch:* webpack watch --config ./config/webpack.watch.config",
     "precompile": "cross-env node bin/del",
     "compile": "cross-env DEBUG=compile:* node bin/compile",
     "tree": "cross-env DEBUG=tree:* node bin/tree",
     "clean": "rimraf node_modules",
-    "eslint": "eslint ./src --ext .js --ext .jsx --ext .tsx "
+    "eslint": "eslint --fix ./src --ext .js --ext .jsx --ext .tsx "
   },
   "author": "",
   "license": "ISC",

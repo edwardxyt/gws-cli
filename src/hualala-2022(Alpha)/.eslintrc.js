@@ -6,7 +6,7 @@ module.exports = {
         "es2021": true
     },
     "extends": [
-        'airbnb-base',
+        // 'airbnb-base',
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended"
@@ -19,13 +19,11 @@ module.exports = {
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
-        },
-        "ecmaVersion": 13,
-        "sourceType": "module"
+        }
     },
     "plugins": [
-        "react",
-        "import",
+        "eslint-plugin-react",
+        "eslint-webpack-plugin",
         "@typescript-eslint"
     ],
     "rules": {
