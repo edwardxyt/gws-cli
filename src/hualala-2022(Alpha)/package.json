@@ -24,17 +24,6 @@
     "ie >= 9",
     "not op_mini all"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,tsx}": [
-      "npm run eslint",
-      "git add"
-    ]
-  },
   "dependencies": {
     "@babel/core": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.16.8",
