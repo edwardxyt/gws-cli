@@ -14,7 +14,7 @@
     "compile": "cross-env DEBUG=compile:* node bin/compile",
     "tree": "cross-env DEBUG=tree:* node bin/tree",
     "clean": "rimraf node_modules",
-    "lint": "npm run eslint ./src --ext .js --ext .jsx --ext .tsx "
+    "eslint": "npm run eslint ./src --ext .js --ext .jsx --ext .tsx "
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +24,17 @@
     "ie >= 9",
     "not op_mini all"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "npm run eslint",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@babel/core": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.16.8",
@@ -73,7 +84,9 @@
     "eslint-webpack-plugin": "^3.1.1",
     "glob": "^7.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
     "ip": "^1.1.5",
+    "lint-staged": "^12.1.7",
     "source-map-loader": "^3.0.1",
     "typescript": "^4.5.4",
     "webpack": "^5.65.0",
