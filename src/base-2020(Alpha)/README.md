@@ -70,7 +70,7 @@ cd website2020(该名称为默认)，目录结构如下：
 │   └── tree.js
 ├── config
 │   ├── console.js
-│   ├── index.js
+│   ├── index.tsx
 │   ├── project.js
 │   ├── webpack.development.config.js
 │   └── webpack.production.config.js

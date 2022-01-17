@@ -202,7 +202,7 @@ module.exports = async () => {
                     warnings: true,
                 },
             },
-            historyApiFallback: { index: `${app_config.dist}/${app_config.entry}/index.html`},
+            historyApiFallback: true,  // { index: `${app_config.dist}/${app_config.entry}/index.html`}
             proxy: {
                 '/api': {
                     target: 'http://localhost:3000',
