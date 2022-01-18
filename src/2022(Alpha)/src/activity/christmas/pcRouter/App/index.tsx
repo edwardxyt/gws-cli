@@ -1,7 +1,16 @@
 import * as React from 'react';
 import { Outlet, Link } from "react-router-dom";
+import { inject, observer } from 'mobx-react'
 
+@inject(mobxStore => ({
+    user: mobxStore.store.user
+}))
+@observer
 export default class App extends React.Component {
+    constructor(props) {
+        super(props)
+        console.log(this.props.user)
+    }
     render() {
         let r = {
             marginRight: '10px'
