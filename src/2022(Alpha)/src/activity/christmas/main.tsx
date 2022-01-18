@@ -1,7 +1,6 @@
 import React, {Component, lazy, Suspense} from "react";
 import * as ReactDOM from 'react-dom';
 import UAParser from "ua-parser-js";
-// import PcRouter from "./pcRouter/index";
 
 let parser = new UAParser();
 let device = parser.getResult().device;
@@ -26,7 +25,8 @@ if ('serviceWorker' in navigator) {
 if (device.type === "mobile") {
     // App = Mobile;
 } else {
-    console.log(parser.getResult())
+    console.log('[UA]', parser.getResult());
+    console.log('[DefinePC]', __API__, __CDN__, __ENV__, __DEBUG__, __PROJECT__);
     import('./pcRouter/index') .then(({ default: PcRouter }) => {
         ReactDOM.render( <PcRouter/>, document.getElementById('main'),);
     })

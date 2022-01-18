@@ -1,6 +1,6 @@
 import { configure, observable, action } from 'mobx'
 
-import User from './protoTypes/User'
+import UserStore from './protoTypes/User'
 
 configure({ enforceActions: 'observed' })
 
@@ -18,7 +18,7 @@ class Store {
 
     @action('初始化store')
     initStore = callbacks => {
-        this.user = new User(this)
+        this.user = new UserStore(this)
         if (callbacks) {
             callbacks.forEach(item => {
                 const { module, executes } = item
@@ -41,17 +41,6 @@ class Store {
 
 export default function configureStore() {
     const rootStore = new Store()
-
-    // Object.defineProperty(rootStore.user, 'winHeight', {
-    //     get() {
-    //         return document.documentElement.clientHeight || document.body.clientHeight
-    //     },
-    // })
-    // Object.defineProperty(rootStore.user, 'winWidth', {
-    //     get() {
-    //         return document.documentElement.clientWidth || document.body.clientWidth
-    //     },
-    // })
     window.addEventListener(
         'resize',
         action('页面尺寸发生变化', () => {

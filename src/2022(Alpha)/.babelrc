@@ -20,8 +20,11 @@
                 "legacy": true
             }
         ],
+        [
+            "@babel/plugin-proposal-class-properties",
+            { "loose": false }
+        ],
         "@babel/plugin-proposal-class-static-block",
-        "@babel/plugin-proposal-class-properties",
         "@babel/plugin-proposal-export-default-from",
         "@babel/plugin-proposal-private-property-in-object",
         [

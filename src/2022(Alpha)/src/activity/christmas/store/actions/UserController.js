@@ -1,5 +1,4 @@
 import { action, runInAction } from 'mobx'
-import history from '../../common/history'
 /**
  * 用户数据控制器
  *
@@ -12,8 +11,6 @@ class UserController {
         try {
             sessionStorage.clear()
             localStorage.clear()
-            history.push('/login')
-            axios.get(LOGOUT)
         } catch (error) {
             catchFun(error)
         } finally {

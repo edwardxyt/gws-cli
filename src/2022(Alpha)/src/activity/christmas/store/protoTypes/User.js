@@ -4,9 +4,9 @@ import UserController from '../actions/UserController'
  * 用户原型
  *
  * @export
- * @class User
+ * @class UserStore
  */
-export default class User extends UserController {
+export default class UserStore extends UserController {
     constructor(rootStore) {
         super()
         this.rootStore = rootStore
@@ -20,7 +20,7 @@ export default class User extends UserController {
      * @memberof User
      */
     @observable
-    userName
+    userName = "xiayuting"
     /**
      * 用户唯一标识
      *

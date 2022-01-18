@@ -1,12 +1,8 @@
 import React, {Component, lazy, Suspense} from "react";
 import { Provider, observer } from 'mobx-react'
-import configureStore from '../store/index'
+import rootStore from '../store/index'
 import './index.less';
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, } from "react-router-dom";
 
 // 错误边界
 import ErrorBoundary from "../component/errorBoundary";
@@ -31,7 +27,7 @@ export default class PcRouter extends Component<MainProps, {}> {
             <>
                 {/*Suspense 是配合 react.lazy使用的*/}
                 <Suspense fallback={this.fallback()}>
-                    <Provider store={configureStore()}>
+                    <Provider store={rootStore()}>
                         <BrowserRouter>
                             <ErrorBoundary>
                                 <Routes>
