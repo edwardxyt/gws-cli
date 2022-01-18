@@ -11,11 +11,11 @@
     ],
     "plugins": [
         "@babel/plugin-proposal-throw-expressions",
-            "@babel/plugin-proposal-partial-application",
-            "@babel/plugin-proposal-function-bind",
-            "@babel/plugin-proposal-do-expressions",
-            [
-                "@babel/plugin-proposal-decorators",
+        "@babel/plugin-proposal-partial-application",
+        "@babel/plugin-proposal-function-bind",
+        "@babel/plugin-proposal-do-expressions",
+        [
+            "@babel/plugin-proposal-decorators",
             {
                 "legacy": true
             }
