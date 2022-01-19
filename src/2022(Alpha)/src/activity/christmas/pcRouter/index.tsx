@@ -12,6 +12,7 @@ const Login = lazy(() => import("../pcRouter/Login/index"));
 const List = lazy(() => import("../pcRouter/List/index"));
 const News = lazy(() => import("../pcRouter/List/News/index"));
 const Item = lazy(() => import("../pcRouter/List/Item/index"));
+const Params = lazy(() => import("../pcRouter/List/Params/index"));
 
 interface MainProps {
 }
@@ -48,6 +49,7 @@ export default class PcRouter extends Component<MainProps, {}> {
                                                 }
                                             />
                                             <Route path="news" element={<News/>}/>
+                                            <Route path="params/:id" element={<Params/>}/>
                                             <Route path=":id" element={<Item/>}/>
                                         </Route>
                                         {/*404*/}

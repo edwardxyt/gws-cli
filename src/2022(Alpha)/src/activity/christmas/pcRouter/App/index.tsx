@@ -28,7 +28,8 @@ export default class App extends React.Component {
                     <Link style={r} to="/login">go login</Link>|{" "}
                     <Link style={r} to="/home">go home</Link>
                     <Link style={r} to="/list">go List</Link>
-                    <Link to="/list/news">go List/news</Link>
+                    <Link style={r} to="/list/news">go List/news</Link>
+                    <Link style={r} to="/list/params/3300">go List/Params</Link>
                 </nav>
                 <Outlet />
             </>
