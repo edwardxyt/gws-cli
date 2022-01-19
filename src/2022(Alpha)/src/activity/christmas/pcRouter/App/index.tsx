@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Outlet, Link } from "react-router-dom";
 import { inject, observer } from 'mobx-react'
+import { Button } from 'antd';
 
 @inject((rootStore:any) => ({
     user: rootStore.store.user
@@ -31,6 +32,7 @@ export default class App extends React.Component<any, any> {
                     <Link style={r} to="/list/news">go List/news</Link>
                     <Link style={r} to="/list/params/3300">go List/Params</Link>
                 </nav>
+                <Button type="primary">Button</Button>
                 <Outlet />
             </>
         );
