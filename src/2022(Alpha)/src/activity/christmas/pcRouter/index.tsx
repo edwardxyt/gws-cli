@@ -9,10 +9,10 @@ import ErrorBoundary from "../component/errorBoundary";
 const App = lazy(() => import("../pcRouter/App/index"));
 const Home = lazy(() => import("../pcRouter/Home/index"));
 const Login = lazy(() => import("../pcRouter/Login/index"));
-const List = lazy(() => import("../pcRouter/List/index"));
-const News = lazy(() => import("../pcRouter/List/News/index"));
-const Item = lazy(() => import("../pcRouter/List/Item/index"));
-const Params = lazy(() => import("../pcRouter/List/Params/index"));
+const List = lazy(() => import("./List/index"));
+const News = lazy(() => import("./List/News/index"));
+const Item = lazy(() => import("./List/Item/index"));
+const Params = lazy(() => import("./List/Params/index"));
 
 interface MainProps {
 }

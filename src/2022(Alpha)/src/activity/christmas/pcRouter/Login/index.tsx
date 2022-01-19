@@ -20,3 +20,11 @@ export default class Login extends React.Component<LoginProps, {}> {
         );
     }
 }
+
+function greeter(person: string) {
+    return "Hello, " + person;
+}
+
+let user = "aaa";
+
+greeter(user);

@@ -97,6 +97,9 @@ module.exports = async () => {
                             options: { cacheDirectory: true }, // cacheDirectory：babel-loader 在执行的时候，可能会产生一些运行期间重复的公共文件，造成代码体积大冗余，同时也会减慢编译效率，所以开启该配置将这些公共文件缓存起来，下次编译就会加快很多
                         },
                         {
+                            loader: "ts-loader"
+                        },
+                        {
                             loader: "source-map-loader",
                         },
                     ],

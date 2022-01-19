@@ -7,7 +7,7 @@
     "allowJs": true,                          // 允许编译 js 文件
     "jsx": "react",                           // 在 .tsx 文件里支持 JSX
     "isolatedModules": true,				  // 提供额外的一些语法检查，如文件没有模块导出会报错
-    "strict": true,                           // 启用所有严格类型检查选项
+    "strict": false,                          // 启用所有严格类型检查选项
 
     // 模块解析选项
     "moduleResolution": "node",               // 指定模块解析策略
@@ -15,7 +15,7 @@
     "resolveJsonModule": true,                // 支持导入 json 模块
     "baseUrl": "./",                          // 根路径
     "paths": {
-      "@/*": ["./src/*"],
+      "src/*": ["src/*"]
     },
 
     // 实验性选项
@@ -26,19 +26,18 @@
     "forceConsistentCasingInFileNames": true, // 禁止对同一个文件的不一致的引用
     "skipLibCheck": true,                     // 忽略所有的声明文件（ *.d.ts）的类型检查
     "allowSyntheticDefaultImports": true,     // 允许从没有设置默认导出的模块中默认导入
-    "noEmit": true							  // 只想使用tsc的类型检查作为函数时（当其他工具（例如Babel实际编译）时）使用它
+    "noEmit": false,						  // 不生成输出文件
+
+    "suppressImplicitAnyIndexErrors":true
   },
   "include": [
-    "src/**/*",
-    "config/**/*",
-    "typings.d.ts",
+    "./typings/**/*"
   ],
   "exclude": [
     "node_modules",
     "lib",
     "es",
     "dist",
-    "typings",
     "**/__test__",
     "test",
     "docs",

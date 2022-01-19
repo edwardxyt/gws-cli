@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Outlet, Link } from "react-router-dom";
 import { inject, observer } from 'mobx-react'
 
-@inject(rootStore => ({
+@inject((rootStore:any) => ({
     user: rootStore.store.user
 }))
 @observer
-export default class App extends React.Component {
-    constructor(props) {
+export default class App extends React.Component<any, any> {
+    constructor(props:any) {
         super(props)
         console.log(this.props)
     }

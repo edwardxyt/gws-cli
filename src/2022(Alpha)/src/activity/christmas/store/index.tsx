@@ -14,15 +14,15 @@ class Store {
      * @memberof Store
      */
     @observable
-    user
+    user:any
 
     @action('初始化store')
-    initStore = callbacks => {
+    initStore = (callbacks?: any) => {
         this.user = new UserStore(this)
         if (callbacks) {
-            callbacks.forEach(item => {
+            callbacks.forEach((item:any) => {
                 const { module, executes } = item
-                executes.forEach(cbName => {
+                executes.forEach((cbName:any) => {
                     const callback = this[module][cbName]
                     typeof callback === 'function' && callback()
                 })
@@ -40,7 +40,7 @@ class Store {
  */
 
 export default function configureStore() {
-    const rootStore = new Store()
+    const rootStore:any = new Store()
     window.addEventListener(
         'resize',
         action('页面尺寸发生变化', () => {

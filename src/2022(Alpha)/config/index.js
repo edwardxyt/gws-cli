@@ -101,7 +101,8 @@ let app_config = (rootDir = "/") => {
             resolve: {
                 extensions: ['.tsx', '.ts', '.js', '.json'],
                 alias: {
-                    "@": path.join(rootDir, "src", entry)
+                    "@": path.join(rootDir, "src", entry),
+                    'src': path.resolve(rootDir, './src')
                 }
             },
 

@@ -1,8 +1,7 @@
 import React, { useRef, useImperativeHandle } from 'react';
-import ReactDOM from 'react-dom';
 
 const FancyInput = React.forwardRef((props, ref) => {
-    const inputRef = useRef();
+    const inputRef:any = useRef();
     useImperativeHandle(ref, () => ({
         focus: () => {
             inputRef.current.focus();
@@ -13,7 +12,7 @@ const FancyInput = React.forwardRef((props, ref) => {
 });
 
 const News = props => {
-    const fancyInputRef = useRef();
+    const fancyInputRef:any = useRef();
 
     return (
         <div>

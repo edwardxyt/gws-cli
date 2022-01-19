@@ -62,7 +62,16 @@ export default function List() {
     );
 }
 
-function QueryNavLink({ to, ...props }) {
+export interface Props {
+    to: string;
+    children: any;
+    style: any;
+
+}
+
+function QueryNavLink({to, ...props}:Props) {
     let location = useLocation();
-    return <NavLink to={to + location.search} {...props} />;
+    return (
+        <NavLink to={to + location.search} {...props}/>
+    );
 }

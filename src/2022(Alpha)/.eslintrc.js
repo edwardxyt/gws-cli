@@ -27,6 +27,8 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
+        "react-hooks/exhaustive-deps": "warn", // 检查 effect 的依赖
         'import/no-unresolved': "off",
         'import/no-extraneous-dependencies': "off",
         'import/extensions': "off",

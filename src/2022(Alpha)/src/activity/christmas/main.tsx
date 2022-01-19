@@ -26,7 +26,7 @@ if (device.type === "mobile") {
     // App = Mobile;
 } else {
     console.log('[UA]', parser.getResult());
-    console.log('[DefinePC]', __API__, __CDN__, __ENV__, __DEBUG__, __PROJECT__);
+    // console.log('[DefinePC]', __API__, __CDN__, __ENV__, __DEBUG__, __PROJECT__);
     import('./pcRouter/index') .then(({ default: PcRouter }) => {
         ReactDOM.render( <PcRouter/>, document.getElementById('main'),);
     })
