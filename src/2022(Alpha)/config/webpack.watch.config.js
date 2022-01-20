@@ -4,11 +4,12 @@ const dayjs = require('dayjs');
 const debug = require("debug");
 const echo = debug("watch:webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require('copy-webpack-plugin') //复制静态资源
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')  //压缩css
+const CopyPlugin = require('copy-webpack-plugin'); //复制静态资源
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //压缩css
 const TerserPlugin = require("terser-webpack-plugin");  // 压缩js
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");  //提取到.css文件里
-const CompressionWebpackPlugin = require('compression-webpack-plugin')  //gzip压缩
+const CompressionWebpackPlugin = require('compression-webpack-plugin'); //gzip压缩
+
 const { GenerateSW } = require('workbox-webpack-plugin'); // 引入 PWA 插件
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;  // 图形工具
 const ProgressBarPlugin = require('progress-bar-webpack-plugin'); // 进度条
@@ -240,7 +241,7 @@ module.exports = async () => {
                 },
                 inject: true, // true或'body'所有javascript资源都将放置在body元素的底部
                 // favicon: path.resolve('public/favicon.ico'),
-                chunks: ['vendors', 'app'], // entry中的 app 入口才会被打包
+                chunks: ['chartsVendor', 'reactVendor', 'antdVendor', 'utilsVendor', 'vendors', 'app'], // entry中的 app 入口才会被打包
             }),
             // gzip压缩
             new CompressionWebpackPlugin({

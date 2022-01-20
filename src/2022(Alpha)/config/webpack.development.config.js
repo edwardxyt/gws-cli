@@ -6,6 +6,7 @@ const debug = require("debug");
 const echo = debug("development:webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
+
 const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin'); //终端日志美化工具
 
 // 加载全局配置文件

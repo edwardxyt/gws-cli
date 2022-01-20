@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "config": {
-    "port": "8080",
-    "koa_port": "8007"
+    "port": "9090"
   },
   "scripts": {
     "prestart": "cross-env DEBUG=development:* node bin/del",
@@ -14,6 +13,7 @@
     "watch": "cross-env DEBUG=watch:* webpack watch --config ./config/webpack.watch.config",
     "precompile": "cross-env node bin/del",
     "compile": "cross-env DEBUG=compile:* node bin/compile",
+    "del": "cross-env DEBUG=development:* node bin/del",
     "tree": "cross-env DEBUG=tree:* node bin/tree",
     "eslint": "eslint --fix ./src --ext .js --ext .jsx --ext .tsx "
   },
