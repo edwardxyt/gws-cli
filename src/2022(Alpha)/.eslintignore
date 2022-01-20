@@ -5,5 +5,5 @@ dist
 # don't lint nyc coverage output
 coverage
 # don't lint config file
-webpack.config.js
+config
 .eslintrc.js

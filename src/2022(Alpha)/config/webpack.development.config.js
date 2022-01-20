@@ -6,7 +6,7 @@ const debug = require("debug");
 const echo = debug("development:webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
-const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin'); //终端日志美化工具
 
 // 加载全局配置文件
 echo("加载全局文件");
@@ -68,9 +68,34 @@ module.exports = async () => {
         optimization:{
             splitChunks:{
                 cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/](react|react-dom|lodash)[\\/]/,
-                        name: 'vendor',
+                    chartsVendor: {
+                        test: app_config.library.chartsVendor.test,
+                        priority: app_config.library.chartsVendor.priority,
+                        name: 'chartsVendor',
+                        chunks: 'all',
+                    },
+                    reactVendor: {
+                        test: app_config.library.reactVendor.test,
+                        priority: app_config.library.reactVendor.priority,
+                        name: 'reactVendor',
+                        chunks: 'all',
+                    },
+                    antdVendor: {
+                        test: app_config.library.antdVendor.test,
+                        priority: app_config.library.antdVendor.priority,
+                        name: 'antdVendor',
+                        chunks: 'all',
+                    },
+                    utilsVendor: {
+                        test: app_config.library.utilsVendor.test,
+                        priority: app_config.library.utilsVendor.priority,
+                        name: 'utilsVendor',
+                        chunks: 'all',
+                    },
+                    vendors: {
+                        test: app_config.library.vendors.test,
+                        priority: app_config.library.vendors.priority,
+                        name: 'vendors',
                         chunks: 'all',
                     },
                 },
@@ -165,8 +190,12 @@ module.exports = async () => {
         plugins: [
             new FriendlyErrorsWebpackPlugin(),
             new ESLintPlugin({
-                extensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
+                extensions: ['js', 'jsx', 'ts', 'tsx'],
+                context: app_config.src,
+                files: ['**/*.ts', '**/*.tsx'],
                 exclude: '/node_modules/',
+                emitError: true,
+                failOnWarning: true
             }),
             // 使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
             new webpack.ProvidePlugin({
@@ -199,7 +228,7 @@ module.exports = async () => {
                 },
                 inject: true, // true或'body'所有javascript资源都将放置在body元素的底部
                 // favicon: path.resolve('public/favicon.ico'),
-                chunks: ['vendors', 'app'], // entry中的 app 入口才会被打包
+                chunks: ['chartsVendor', 'reactVendor', 'antdVendor', 'utilsVendor', 'vendors', 'app'], // entry中的 app 入口才会被打包
             }),
         ],
         devServer: {

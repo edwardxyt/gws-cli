@@ -74,10 +74,27 @@ let app_config = (rootDir = "/") => {
             // 逻辑代码  :      common
             // ----------------------------------
             library: {
-                reactBase: /react|mobx|prop-types/,
-                utilBase: /axios|crypto-js|dayjs|fetch-jsonp|history|js-cookie|lodash|ramda|ua-parser-js/,
-                uiBase: /antd|antd-mobile|nprogress/,
-                common: /[\\/]src[\\/]/
+                chartsVendor: {
+                    test: /[\\/]node_modules[\\/](highcharts|highcharts-react-official)[\\/]/,
+                    priority: 100
+                },
+                reactVendor: {
+                    test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|mobx-react|mobx-react-lite)[\\/]/,
+                    priority: 90
+                },
+                antdVendor: {
+                    test: /[\\/]node_modules[\\/](antd|antd-mobile|@tanem\/react-nprogress|classnames)[\\/]/,
+                    priority: 70
+                },
+                utilsVendor: {
+                    test: /[\\/]node_modules[\\/](axios|fetch-jsonp|big.js|js-cookie|crypto-js|dayjs|qiankun|ua-parser-js|uuid|vconsole|md5)[\\/]/,
+                    priority: 60
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    priority: 50 // 该配置项是设置处理的优先级，数值越大越优先处理
+                },
             },
 
             // ----------------------------------

@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
 
 interface LoginProps {
     compiler: string;
@@ -16,15 +18,27 @@ export default class Login extends React.Component<LoginProps, {}> {
                     and{this.props.framework}
                     !
                 </h1>
+                <Chart/>
             </>
         );
     }
 }
 
-function greeter(person: string) {
-    return "Hello, " + person;
+const options: Highcharts.Options = {
+    title: {
+        text: 'My chart'
+    },
+    series: [{
+        type: 'line',
+        data: [1, 2, 3]
+    }]
 }
 
-let user = "aaa";
 
-greeter(user);
+const Chart = (props: HighchartsReact.Props) => <div>
+    <HighchartsReact
+        highcharts={Highcharts}
+        options={options}
+        {...props}
+    />
+</div>

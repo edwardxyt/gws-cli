@@ -66,9 +66,34 @@ module.exports = async () => {
             ],
             splitChunks:{
                 cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/](react|react-dom|lodash)[\\/]/,
-                        name: 'vendor',
+                    chartsVendor: {
+                        test: app_config.library.chartsVendor.test,
+                        priority: app_config.library.chartsVendor.priority,
+                        name: 'chartsVendor',
+                        chunks: 'all',
+                    },
+                    reactVendor: {
+                        test: app_config.library.reactVendor.test,
+                        priority: app_config.library.reactVendor.priority,
+                        name: 'reactVendor',
+                        chunks: 'all',
+                    },
+                    antdVendor: {
+                        test: app_config.library.antdVendor.test,
+                        priority: app_config.library.antdVendor.priority,
+                        name: 'antdVendor',
+                        chunks: 'all',
+                    },
+                    utilsVendor: {
+                        test: app_config.library.utilsVendor.test,
+                        priority: app_config.library.utilsVendor.priority,
+                        name: 'utilsVendor',
+                        chunks: 'all',
+                    },
+                    vendors: {
+                        test: app_config.library.vendors.test,
+                        priority: app_config.library.vendors.priority,
+                        name: 'vendors',
                         chunks: 'all',
                     },
                 },
