@@ -1,5 +1,7 @@
 ![WX20190411-180931](media/gws.png)
 # @edwardxyt/gws-cli
+![npm (scoped)](https://img.shields.io/npm/v/@edwardxyt/gws-cli)
+
 这是一个web脚手架工具，用于生成基于webpack5,生成typescript+react17+mobx5+reactRouter6的应用。初衷是要解决多入口，多环境。单独编译单独运行的脚手架。做到小而美。拒绝锦上添花。
 ## Getting Started
 | 模块名称         | 版本 |
