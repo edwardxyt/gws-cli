@@ -87,7 +87,7 @@ inquirer.prompt(promptList).then(answers => {
 
             //生成文件 修改gitignore
             await shell.cp(
-                "-R",
+                "-r -a",
                 `${rootPath}/src/${answers.pattern}/`,
                 `${cwd}/${answers.name}`
             );
