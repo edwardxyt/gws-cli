@@ -22,8 +22,8 @@ module.exports = {
         }
     },
     "plugins": [
-        "eslint-plugin-react",
-        "eslint-webpack-plugin",
+        "react",
+        "import",
         "@typescript-eslint"
     ],
     "rules": {
