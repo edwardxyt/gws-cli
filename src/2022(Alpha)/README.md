@@ -161,41 +161,41 @@ configuration），也称作按约定编程，是一种软件设计范式，指�
 
 那什么是约定大于配置呢，脚手架目录src/activity/christmas类似这样的。入口之后的文件安排。全凭开发者自己归纳设计。gws含有eslint，含有typescript等，如何使用全凭开发者选择。我自己也不喜欢大家风格一样。这样就没有创新空间了。所以这里叫做一个套住你的框框。
 
-### 我遇到的坑
-#### webpack5
-##### eslint-loader作废，改为eslint-webpack-plugin
-##### file-loader和url-loader作废，webpack内置集成
-##### 本地启用devserver命令更改，webpack-dev-server改为webpack serve
-##### 不支持babel-polyfill，改用@babel/runtime-corejs3和@babel/plugin-transform-runtime
-##### mini-css-extract-plugin提取到.css文件里，生产环境替换style-loader。
-##### optimize-css-assets-webpack-plugin作废替换为css-minimizer-webpack-plugin
-##### clean-webpack-plugin过期，改用bin/del替代
-##### friendly-errors-webpack-plugin断崖改用@soda/friendly-errors-webpack-plugin
-##### eslint-webpack-plugin替换es-loader 目前还没有生效
-##### mobx-react-devtools过时 已经删除
-##### 加入端口检查（原来有）
-##### 加入gzip
-##### 加入pwa
-##### 加入qiankun
-##### 加入BundleAnalyzerPlugin（原来有）
-##### handlebars换成ejs
-##### less postcss（原来有）
+## 我遇到的坑
+### webpack5
+- eslint-loader作废，改为eslint-webpack-plugin
+- file-loader和url-loader作废，webpack内置集成
+- 本地启用devserver命令更改，webpack-dev-server改为webpack serve
+- 不支持babel-polyfill，改用@babel/runtime-corejs3和@babel/plugin-transform-runtime
+- mini-css-extract-plugin提取到.css文件里，生产环境替换style-loader。
+- optimize-css-assets-webpack-plugin作废替换为css-minimizer-webpack-plugin
+- clean-webpack-plugin过期，改用bin/del替代
+- friendly-errors-webpack-plugin断崖改用@soda/friendly-errors-webpack-plugin
+- eslint-webpack-plugin替换es-loader 目前还没有生效
+- mobx-react-devtools过时 已经删除
+- 加入端口检查（原来有）
+- 加入gzip
+- 加入pwa
+- 加入qiankun
+- 加入BundleAnalyzerPlugin（原来有）
+- handlebars换成ejs
+- less postcss（原来有）
 
-#### babel7
-##### 只安装 >=2021以上的插件。2018、2019、2020都已经集成在env里
+### babel7
+- 只安装 >=2021以上的插件。2018、2019、2020都已经集成在env里
 
-#### eslint
-##### husky7目前最高版本，未安装。
+### eslint
+- husky7目前最高版本，未安装。
 
-#### typeScript
-##### 文件路径问题 include: [  "./typings/**/*" ]
-##### typeScript-loader不可以用babel插件代替 要配合使用.
-##### typeScript
+### typeScript
+- 文件路径问题 include: [  "./typings/**/*" ]
+- typeScript-loader不可以用babel插件代替 要配合使用.
+- typeScript
 
-#### react-router6
-##### 官方已经放弃class组件，全部都是hook组件，老应用无法升级
-##### 只支持 Navigate useNavigate 建议用store控制登陆
-##### history无效 需要实现两种跳转。包括无状态组件和类组件（hoc可以解决）
+### react-router6
+- 官方已经放弃class组件，全部都是hook组件，老应用无法升级
+- 只支持 Navigate useNavigate 建议用store控制登陆
+- history无效 需要实现两种跳转。包括无状态组件和类组件（hoc可以解决）
 
 ## License
 MIT
