@@ -35,7 +35,7 @@ const promptList = [
         type: "input",
         message: "项目名称:",
         name: "name",
-        default: "website2020" // 默认值
+        default: "website2022" // 默认值
     },
     {
         type: "input",
@@ -47,7 +47,7 @@ const promptList = [
         type: "list",
         message: "模式选择:",
         name: "pattern",
-        choices: ["2020(Alpha)","Base-2020(Alpha)", "Base-2019", "Simple-2018"],
+        choices: ["2022(Alpha)", "Base-2020(Alpha)", "Base-2019", "Simple-2018"],
         filter: function(val) {
             // 使用filter将回答变为小写
             return val.toLowerCase();
@@ -185,16 +185,16 @@ inquirer.prompt(promptList).then(answers => {
                             );
                             log(
                                 `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
-                                    "[运行入口news/demo、 启动mock环境]"
+                                    "[运行入口activity/christmas、 启动mock环境]"
                                 )} ${chalk.yellow(
-                                    "npm run start --ENTRY=news/demo --ENV=mock"
+                                    "npm run start --ENTRY=activity/christmas --ENV=mock"
                                 )}`
                             );
                             log(
                                 `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
-                                    "[运行入口news/git、启动mock环境]"
+                                    "[运行入口activity/christmas、启动mock环境]"
                                 )} ${chalk.yellow(
-                                    "npm run watch --ENTRY=news/git --ENV=mock"
+                                    "npm run watch --ENTRY=activity/christmas --ENV=mock"
                                 )}`
                             );
                             log(
@@ -202,24 +202,11 @@ inquirer.prompt(promptList).then(answers => {
                                     "[INFO]"
                                 )} --------------------------------------------------------------------------------`
                             );
-
-                            log(
-                                `${chalk.cyan(
-                                    "[INFO]"
-                                )} --------------------------------------------------------------------------------`
-                            );
                             log(
                                 `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
-                                    "[编译news/demo、启动test环境]"
+                                    "[编译activity/christmas、启动test环境]"
                                 )} ${chalk.yellow(
-                                    "npm run compile --ENTRY=news/demo --ENV=test"
-                                )}`
-                            );
-                            log(
-                                `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
-                                    "[启动http服务器、项目news/demo]"
-                                )} ${chalk.yellow(
-                                    "npm run node:server --ENTRY=news/demo"
+                                    "npm run compile --ENTRY=activity/christmas --ENV=test"
                                 )}`
                             );
                             log(
