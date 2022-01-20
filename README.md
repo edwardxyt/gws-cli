@@ -1,6 +1,16 @@
 # @edwardxyt/gws-cli
 这是一个web脚手架工具，用于生成基于webpack5,生成typescript+react17+mobx5+reactRouter6的应用。初衷是要解决多入口，多环境。单独编译单独运行的脚手架。做到小而美。拒绝锦上添花。
 ## Getting Started
+| 模块名称         | 版本 |
+|------------------|------|
+| Webpack          | 5    |
+| Babel            | 7    |
+| react            | 17   |
+| antd             | 3    |
+| antd-mobile      | 2    |
+| mobx-react       | 7    |
+| react-router-dom | 6    |
+
 ### Installing globally:
 Using npm:
 ```
@@ -48,18 +58,7 @@ mv: no such file or directory: /Users/xiayuting/website2020/gitignore
 [INFO] --------------------------------------------------------------------------------
  xiayuting@xiayutingdeMacBook-Pro  ~ 
 ```
-请选择Base-2020(Alpha)模式，这是最新版react脚手架，使用技术如下
-
-| 模块名称         | 版本 |
-|------------------|------|
-| Webpack          | 5    |
-| Babel            | 7    |
-| react            | 17   |
-| antd             | 3    |
-| antd-mobile      | 2    |
-| mobx-react       | 7    |
-| react-router-dom | 6    |
-
+请选择2022(Alpha)模式，这是最新版react脚手架，使用技术如下
 ### Config & Use
 上面目录目录结构中，/config/project.js，是您的项目启动配置文件。里面已有案例news/git 项目。如下：
 
