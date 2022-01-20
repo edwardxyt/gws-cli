@@ -1,15 +1,16 @@
 # @edwardxyt/gws-cli
-Official React bindings for @edwardxyt/gws-cli, with mobx@5. react-router@5. webpack@4. antd
+这是一个web脚手架工具，用于生成基于webpack5,生成typescript+react17+mobx5+reactRouter6的应用。初衷是要解决多入口，多环境。单独编译单独运行的脚手架。做到小而美。决绝锦上添花。
 ## Getting Started
 ### Installing globally:
 Using npm:
 ```
-npm -g install @edwardxyt/gws-cli --registry=https://registry.npm.taobao.org
+npm -g install @edwardxyt/gws-cli
 ```
 Using yarn:
 ```
 yarn global add @edwardxyt/gws-cli
 ```
+
 ### Usage:
 
 ```
@@ -49,92 +50,63 @@ mv: no such file or directory: /Users/xiayuting/website2020/gitignore
 ```
 请选择Base-2020(Alpha)模式，这是最新版react脚手架，使用技术如下
 
-| 模块名称 | 版本 |
-| --- | --- |
-| Webpack | 4 |
-| Babel | 7 |
-| react | 16.8 |
-| antd | 3 |
-| antd-mobile | 2 |
-| mobx | 5 |
-| react-router-dom | 5 |
-
-### Detail
-cd website2020(该名称为默认)，目录结构如下：
-```
-.
-├── Dockerfile
-├── README.md
-├── bin
-│   ├── compile.js
-│   ├── del.js
-│   ├── koa.server.js
-│   ├── oss.js
-│   ├── tag.js
-│   └── tree.js
-├── config
-│   ├── console.js
-│   ├── index.tsx
-│   ├── project.js
-│   ├── webpack.development.config.js
-│   └── webpack.production.config.js
-├── gitignore
-├── jenkins
-│   ├── README.md
-│   └── release.server.docker.groovy
-├── jest.config.js
-├── package.json
-├── postcss.config.js
-└── src
-    └── news
-        └── demo
-```
+| 模块名称         | 版本 |
+|------------------|------|
+| Webpack          | 5    |
+| Babel            | 7    |
+| react            | 17   |
+| antd             | 3    |
+| antd-mobile      | 2    |
+| mobx-react       | 7    |
+| react-router-dom | 6    |
 
 ### Config & Use
 上面目录目录结构中，/config/project.js，是您的项目启动配置文件。里面已有案例news/git 项目。如下：
 
 ```
-news: {
-        // 对应 __PROJECT__ 例：news/demo
-        demo: {
-            env: {
-                // mock 对应 __ENV__
+module.exports = {
+    activity: { // 多入口 “activity/christmas”
+        christmas: {
+            env: {  //多环境
                 mock: {
-                    // 对应 __API__
-                    api_path: "//127.0.0.1:3000",
-                    // 对应 Vconsole
-                    console: true,
-                    // 对应 __CDN__ 修正路径作用
-                    cdn_path: "./"
+                    api_path: "123123",
+                    console: false,
+                    cdn_path: "/"
                 },
                 development: {
-                    api_path: "//bizdev.aibao.com",
+                    api_path: "//:bizdev.aibao.com",
                     console: false,
-                    cdn_path: "/devStatic/website2018/news/demo/"
+                    cdn_path: "/"
                 },
                 test: {
-                    api_path: "//bizapitest.aibao.com",
-                    console: true,
-                    cdn_path: "./"
-                },
-                ~~production~~: {
-                    api_path: "//biz.aibao.com",
+                    api_path: "//:bizapitest.aibao.com",
                     console: false,
-                    cdn_path: "./"
+                    cdn_path: "/"
+                },
+                production: {
+                    api_path: "//:biz.aibao.com",
+                    console: false,
+                    cdn_path: "/dist/activity/christmas/"
                 }
             }
         }
     }
+};
 ```
-> news/demo 就是 src目录下的目录结构。
+> activity/christmas/main.tsx 就是 src目录下的目录下的一个入口文件。
 
 ```
-npm run start --ENTRY=news/demo --ENV=mock
-启动本地开发模式，项目名称为 news/demo 当前环境为mock 对上面的配置文件载入配置。
+npm run start --entry=activity/christmas --env=mock
+启动本地webpack-dev-server服务，项目名称为 ctivity/christmas 当前环境为mock 对上面的配置文件载入配置。
 ```
 
 ```
-npm run compile --ENTRY=news/demo --ENV=production
+npm run watch --ENTRY=activity/christmas --ENV=production
+启动监听文件编译，项目名称为 ctivity/christmas 当前环境为production 生成静态文件dist目录里。
+```
+
+```
+npm run compile --ENTRY=activity/christmas --ENV=production
 启动静态编译模式，项目名称为 news/demo 当前环境为production 生成静态文件dist目录里。
 ```
 
@@ -144,11 +116,3 @@ tree:bin /Users/xiayuting/workBase/gws-cli2/src/news/demo/main.js +0ms
 tree:bin 总数：1 +2ms
 查看当前脚手架中，已有项目入口
 ```
-
-```
-npm run tree
-npm run node:server --ENTRY=news/demo
-启动本地http服务，静态目录为 dist/news/demo 所以 npm run compile 和 npm run node:server 的--ENTRY参数应该一样。
-```
-## License
-MIT
