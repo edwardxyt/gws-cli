@@ -246,8 +246,18 @@ git commit -m "Keep calm and commit"
 - 只安装 >=2021 以上的插件。2018、2019、2020 都已经集成在 env 里
 
 ### eslint
+- husky升级到7，初始化时，需要项目先关联git init，然后执行husky初始化命令。
+- eslint 监控 .jsx,.js,.ts,.tsx 
+- stylelint 监控 css,less,scss
+- prettier 修复js,jsx,ts,tsx,css,md,json
+- cz-conventional（commitlint）工具 提供Commit message 和 Change log验证
+- lint-staged
+    - 比如代码的走了eslint和prettier，先规范，后格式化
+    - 比如样式的只走格式化
+    - 比如其他prettier支持的必要文件也走一下格式化
 
-- husky7 目前最高版本，未安装。
+### jest react
+- 待配置
 
 ### typeScript
 
