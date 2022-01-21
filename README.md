@@ -1,4 +1,4 @@
-![WX20190411-180931](media/gws.png)
+![WX20190411-180931](http://xiayuting.cc/gws.png)
 # @edwardxyt/gws-cli
 ![GitHub User's stars](https://img.shields.io/github/stars/edwardxyt) ![npm (scoped)](https://img.shields.io/npm/v/@edwardxyt/gws-cli)
 
