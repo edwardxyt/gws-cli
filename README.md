@@ -121,7 +121,7 @@ tree:bin 总数：1 +2ms
 
 -------
 
-## version3,的设计思路仍然没有变化，主要是全面升级webpack和react全家桶。加入typeScript。
+## version3，的设计思路仍然没有变化，主要是全面升级webpack和react全家桶。加入typeScript。
 
 ## 走着
 
