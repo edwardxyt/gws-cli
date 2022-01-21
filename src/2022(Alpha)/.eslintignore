@@ -6,4 +6,4 @@ dist
 coverage
 # don't lint config file
 config
-.eslintrc.js
+.eslintrc.json

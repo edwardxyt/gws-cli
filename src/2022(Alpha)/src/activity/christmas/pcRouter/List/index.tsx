@@ -1,77 +1,80 @@
 import * as React from 'react';
-import { Outlet, NavLink, useSearchParams, useLocation } from "react-router-dom";
-import { getInvoices } from "./data.js";
+import {
+  NavLink,
+  Outlet,
+  useLocation,
+  useSearchParams,
+} from 'react-router-dom';
+
+import { getInvoices } from './data.js';
 
 export default function List() {
-    let invoices = getInvoices();
-    let [searchParams, setSearchParams] = useSearchParams();
+  let invoices = getInvoices();
+  let [searchParams, setSearchParams] = useSearchParams();
 
-    return (
-        <div style={{ display: "flex" }}>
-            <nav
-                style={{
-                    borderRight: "solid 1px",
-                    padding: "1rem"
-                }}
+  return (
+    <div style={{ display: 'flex' }}>
+      <nav
+        style={{
+          borderRight: 'solid 1px',
+          padding: '1rem',
+        }}
+      >
+        <input
+          value={searchParams.get('filter') || ''}
+          onChange={(event) => {
+            let filter = event.target.value;
+            if (filter) {
+              setSearchParams({ filter });
+            } else {
+              setSearchParams({});
+            }
+          }}
+        />
+        {invoices
+          .filter((invoice) => {
+            let filter = searchParams.get('filter');
+            if (!filter) return true;
+            let name = invoice.name.toLowerCase();
+            return name.startsWith(filter.toLowerCase());
+          })
+          .map((invoice) => (
+            <QueryNavLink
+              style={({ isActive }) => ({
+                display: 'block',
+                margin: '1rem 0',
+                color: isActive ? 'red' : '',
+              })}
+              to={`/list/${invoice.number}`}
+              key={invoice.number}
             >
-                <input
-                    value={searchParams.get("filter") || ""}
-                    onChange={event => {
-                        let filter = event.target.value;
-                        if (filter) {
-                            setSearchParams({ filter });
-                        } else {
-                            setSearchParams({});
-                        }
-                    }}
-                />
-                {invoices
-                    .filter(invoice => {
-                        let filter = searchParams.get("filter");
-                        if (!filter) return true;
-                        let name = invoice.name.toLowerCase();
-                        return name.startsWith(filter.toLowerCase());
-                    })
-                    .map(invoice => (
-                        <QueryNavLink
-                            style={({ isActive }) => ({
-                                display: "block",
-                                margin: "1rem 0",
-                                color: isActive ? "red" : ""
-                            })}
-                            to={`/list/${invoice.number}`}
-                            key={invoice.number}
-                        >
-                            {invoice.name}
-                        </QueryNavLink>
-                        // <NavLink
-                        //     style={({ isActive }) => ({
-                        //         display: "block",
-                        //         margin: "1rem 0",
-                        //         color: isActive ? "red" : ""
-                        //     })}
-                        //     to={`/list/${invoice.number}`}
-                        //     key={invoice.number}
-                        // >
-                        //     {invoice.name}
-                        // </NavLink>
-                    ))}
-            </nav>
-            <Outlet />
-        </div>
-    );
+              {invoice.name}
+            </QueryNavLink>
+            // <NavLink
+            //     style={({ isActive }) => ({
+            //         display: "block",
+            //         margin: "1rem 0",
+            //         color: isActive ? "red" : ""
+            //     })}
+            //     to={`/list/${invoice.number}`}
+            //     key={invoice.number}
+            // >
+            //     {invoice.name}
+            // </NavLink>
+          ))}
+      </nav>
+      <Outlet />
+    </div>
+  );
 }
 
 export interface Props {
-    to: string;
-    children: any;
-    style: any;
-
+  to: string;
+  children: any;
+  style: any;
 }
 
-function QueryNavLink({to, ...props}:Props) {
-    let location = useLocation();
-    return (
-        <NavLink to={to + location.search} {...props}/>
-    );
+function QueryNavLink({ to, ...props }: Props) {
+  let location = useLocation();
+  return <NavLink to={to + location.search} {...props} />;
 }

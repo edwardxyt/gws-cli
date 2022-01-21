@@ -1,0 +1,35 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "plugins": ["stylelint-prettier", "stylelint-order"],
+  "rules": {
+    "prettier/prettier": true,
+    "max-nesting-depth": 4,
+    "order/order": [
+      ["custom-properties", "declarations"],
+      {
+        "disableFix": true
+      }
+    ],
+    "order/properties-order": [
+      "position",
+      "top",
+      "right",
+      "bottom",
+      "left",
+      "z-index",
+      "display",
+      "float",
+      "width",
+      "height"
+    ]
+  },
+  "ignoreFiles": [
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.png",
+    "**/*.svg",
+    "**/*.jpg",
+    "**/*.jpeg"
+  ]
+}

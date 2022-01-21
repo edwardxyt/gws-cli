@@ -1,54 +1,53 @@
 module.exports = {
-    "root": true, //多个eslint文件时，以这个为标准
-    "env": {
-        "node": true,
-        "browser": true, //使用环境: browser/node
-        "es2021": true
+  root: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
     },
-    "extends": [
-        // 'airbnb-base',
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  env: {
+    browser: true,
+    amd: true,
+    node: true,
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+    'prettier', // eslint-config-prettier的标准用法，必须放在最后一个，用于关闭和eslint冲突规则
+  ],
+  plugins: ['simple-import-sort', 'prettier', '@typescript-eslint'],
+  rules: {
+    'jsx-a11y/no-noninteractive-element-interactions': 'off', // 元素都可绑定事件
+    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+    'react/react-in-jsx-scope': 'off',
+    'jsx-a11y/accessible-emoji': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
+    'react/display-name': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'react/prop-types': 'off',
+    'react-hooks/exhaustive-deps': 'off', // <--- THIS IS THE NEW RULE
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'jsx-a11y/anchor-is-valid': [
+      'error',
+      {
+        components: ['Link'],
+        specialLink: ['hrefLeft', 'hrefRight'],
+        aspects: ['invalidHref', 'preferButton'],
+      },
     ],
-    "globals": { //全局变量
-        "window": true,
-        "document": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
-    "plugins": [
-        "react",
-        "import",
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
-        "react-hooks/exhaustive-deps": "warn", // 检查 effect 的依赖
-        'import/no-unresolved': "off",
-        'import/no-extraneous-dependencies': "off",
-        'import/extensions': "off",
-        'import/no-cycle': "off",
-        "import/no-import-module-exports": "off",
-        "import/prefer-default-export": "off",
-        "no-console": "off", //是否允许console.log
-        "indent": [ //缩进
-            2,
-            4
-        ],
-        "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/ban-types": [
-            "error",
-            {
-                "extendDefaults": true,
-                "types": {
-                    "{}": false
-                }
-            }
-        ]
-    }
+  },
 };

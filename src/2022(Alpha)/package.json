@@ -12,7 +12,10 @@
   ],
   "main": "index.js",
   "config": {
-    "port": "9090"
+    "port": "9090",
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   },
   "scripts": {
     "prestart": "cross-env DEBUG=development:* node bin/del",
@@ -23,7 +26,12 @@
     "compile": "cross-env DEBUG=compile:* node bin/compile",
     "del": "cross-env DEBUG=development:* node bin/del",
     "tree": "cross-env DEBUG=tree:* node bin/tree",
-    "eslint": "eslint --fix ./src --ext .js --ext .jsx --ext .tsx "
+    "prepare": "husky install",
+    "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --fix --quiet  --ignore-path .gitignore",
+    "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" ",
+    "lint:style": "stylelint src/**/*.{css,less,scss} --fix --custom-syntax postcss-less",
+    "commit": "cz",
+    "type-check": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -34,6 +42,7 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "babel-loader": "^8.2.3",
     "@babel/core": "^7.16.10",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-class-static-block": "^7.16.7",
@@ -61,7 +70,6 @@
     "antd": "^4.18.4",
     "antd-mobile": "^2.3.4",
     "axios": "^0.24.0",
-    "babel-loader": "^8.2.3",
     "big.js": "^6.1.1",
     "classnames": "^2.3.1",
     "compression-webpack-plugin": "^9.2.0",
@@ -81,6 +89,8 @@
     "mobx": "^6.3.12",
     "mobx-react": "^7.2.1",
     "mobx-react-lite": "^3.2.3",
+    "postcss": "^8.4.5",
+    "postcss-less": "^6.0.0",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.2.3",
     "progress-bar-webpack-plugin": "^2.1.0",
@@ -97,26 +107,40 @@
     "workbox-webpack-plugin": "^6.4.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
     "@soda/friendly-errors-webpack-plugin": "^1.8.1",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
+    "commitizen": "^4.2.4",
     "copy-webpack-plugin": "^10.2.1",
     "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
     "debug": "^4.3.3",
     "del": "^6.0.0",
     "detect-port": "^1.3.0",
     "ejs-loader": "^0.5.0",
     "eslint": "^8.7.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-webpack-plugin": "^3.1.1",
     "glob": "^7.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
     "ip": "^1.1.5",
+    "lint-staged": "^12.2.2",
+    "prettier": "^2.5.1",
     "source-map-loader": "^3.0.1",
+    "stylelint": "^14.2.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-prettier": "^2.0.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.5",
     "webpack": "^5.65.0",

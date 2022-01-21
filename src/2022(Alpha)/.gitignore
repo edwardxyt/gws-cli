@@ -1,0 +1,13 @@
+node_modules
+.DS_Store
+npm-debug.log
+yarn.lock
+package-lock.json
+config/localhost.settings.js
+config/localhost.project.js
+
+build
+dist
+temp
+cache
+.idea/
