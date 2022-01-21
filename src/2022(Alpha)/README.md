@@ -1,10 +1,10 @@
-![WX20190411-180931](media/gws.png)
+![WX20190411-180931](http://xiayuting.cc/gws.png)
 
 # @edwardxyt/gws-cli
 
-![GitHub User's stars](https://img.shields.io/github/stars/edwardxyt) ![npm (scoped)](https://img.shields.io/npm/v/@edwardxyt/gws-cli)
+![npm](https://img.shields.io/npm/dw/@edwardxyt/gws-cli) ![npm bundle size](https://img.shields.io/bundlephobia/min/@edwardxyt/gws-cli) ![NPM](https://img.shields.io/npm/l/@edwardxyt/gws-cli) ![GitHub User's stars](https://img.shields.io/github/stars/edwardxyt) ![npm (scoped)](https://img.shields.io/npm/v/@edwardxyt/gws-cli)
 
-这是一个 web 脚手架工具，用于生成基于 webpack5,生成 typescript+react17+mobx5+reactRouter6 的应用。初衷是要解决多入口，多环境。单独编译单独运行的脚手架。做到小而美。拒绝锦上添花。
+(Generator website 发电的小风车。简称 gws-cli，)这是一个 web 脚手架工具，用于生成基于 webpack5,生成 typescript+react17+mobx5+reactRouter6 的应用。初衷是要解决多入口，多环境。单独编译单独运行的脚手架。做到小而美。拒绝锦上添花。
 
 ## Getting Started
 
@@ -132,9 +132,41 @@ tree:bin 总数：1 +2ms
 查看当前脚手架中，已有项目入口
 ```
 
+### Use husky 7
+
+首先关联好 git 仓库
+
+```
+cd website2022
+git init
+git remote add origin ssh://git@gitlab.xiayuting.cc:2222/root/website2022.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+```
+
+生成规则
+
+```
+Edit package.json > prepare script and run it once:
+npm set-script prepare "husky install"
+npm run prepare
+```
+
+```
+npx husky add .husky/pre-commit "npx lint-staged"
+git add .husky/pre-commit
+```
+
+```
+Make a commit:
+git commit -m "Keep calm and commit"
+# `npx lint-staged` will run
+```
+
 ---
 
-## version3,的设计思路仍然没有变化，主要是全面升级 webpack 和 react 全家桶。加入 typeScript。
+## version3，的设计思路仍然没有变化，主要是全面升级 webpack 和 react 全家桶。加入 typeScript。
 
 ## 走着
 
@@ -146,18 +178,29 @@ tree:bin 总数：1 +2ms
 
 **最新版是 2022 年 1 月开发的，对应选项“2022(Alpha)”。**
 
-- **杠宝**：首先主流的 cli 工具不论细节和维护，都要比你的小而美强百倍，为什么你还要写一个这种简单的脚手架呢？
-  - **卡片**：create-react-app 确实是顶级优秀的工具，但是，我想要个精简，并且包含固定的 react 全家桶（react+router+mobx+antd）。并且他可以适合大家随时可以扩展功能，<u>npm-check -u</u>。最主要的一点。就是我要多入口。
-- **杠宝**：你说什么多入口啊？webpack.entry？那你可以多传几个入口文件，这么简单也叫多入口？
-  - **卡片**：对对对对。其实我的**“初衷”**是为了杜绝两件事，
-  - **卡片**：1，公司内部新起一个项目时，我并不想 copy 一个老项目删除 src，或者 cli 生成一个空的脚手架后，我还需要各种安装 package。
-  - **卡片**：2，我希望不论我本地起环境，还是 build 输出。我只运行或 build 我已修改的那个入口。而不是你说的 webpack.entry。
-- **杠宝**：那你怎么实现的，难道你可以一个脚手架，里放多个项目嘛？
-  - **卡片**：对对对对。确实我的脚手架可以做到，你在公司里的某一事业部。只用一个脚手架就包含有多个项目，多个端。并且可以单独编译，单独运行。互不影响。
-  - **卡片**：实现是这样的 src 下是有两层目录的。src/activity/christmas。终端输入<u>npm riun start --entry=activity/christmas --env=mock</u>后，gws 就会通过 glob 找到指定目录下寻找 main.tsx 的入口文件，并根据 ENV 加载对应环境的配置。并运行。
-  - **卡片**：这样，你只启动了 src/activity/christmas/main.tsx 这一个入口，而且环境是随便定义的。您只需要启动时或编译时，带参数即可。简单吧。实用吧。
-  - **卡片**：而且两层目录，给你足够的命名区分业务空间。足够你规划项目分类啦
-- **卡片**：小而美的定义，就是通过没用的减法，小小设计大大优化。拒绝一切没用的花花
+**杠宝**：首先主流的 cli 工具不论细节和维护，都要比你的小而美强百倍，为什么你还要写一个这种简单的脚手架呢？
+
+**卡片**：create-react-app 确实是顶级优秀的工具，但是，我想要个精简，并且包含固定的 react 全家桶（react+router+mobx+antd）。并且他可以适合大家随时可以扩展功能，<u>npm-check -u</u>。最主要的一点。就是我要多入口。
+
+**杠宝**：你说什么多入口啊？webpack.entry？那你可以多传几个入口文件，这么简单也叫多入口？
+
+**卡片**：对对对对。其实我的 **“初衷”** 是为了杜绝两件事，
+
+**卡片**：1，公司内部新起一个项目时，我并不想 copy 一个老项目删除 src，或者 cli 生成一个空的脚手架后，我还需要各种安装 package。
+
+**卡片**：2，我希望不论我本地起环境，还是 build 输出。我只运行或 build 我已修改的那个入口。而不是你说的 webpack.entry。
+
+**杠宝**：那你怎么实现的，难道你可以一个脚手架，里放多个项目嘛？
+
+**卡片**：对对对对。确实我的脚手架可以做到，你在公司里的某一事业部。只用一个脚手架就包含有多个项目，多个端。并且可以单独编译，单独运行。互不影响。
+
+**卡片**：实现是这样的 src 下是有两层目录的。src/activity/christmas。终端输入<u>npm riun start --entry=activity/christmas --env=mock</u>后，gws 就会通过 glob 找到指定目录下寻找 main.tsx 的入口文件，并根据 ENV 加载对应环境的配置。并运行。
+
+**卡片**：这样，你只启动了 src/activity/christmas/main.tsx 这一个入口，而且环境是随便定义的。您只需要启动时或编译时，带参数即可。简单吧。实用吧。
+
+**卡片**：而且两层目录，给你足够的命名区分业务空间。足够你规划项目分类啦
+
+**卡片**：小而美的定义，就是通过没用的减法，小小设计大大优化。拒绝一切没用的花花
 
 ### 一个套住你的框框
 
@@ -166,7 +209,7 @@ tree:bin 总数：1 +2ms
 
 使用 react，我喜欢的是组件化编程思想，他不再像以前，我们把所有类型文件都放在一个目录下，而现在我可以一个文件夹下，多个不同种类的文件在一起。这个文件夹就是一个组件。当我不需要这个组件时候，直接 del。不需要考虑是否少删，是否多删。让大型共建项目，可持续维护。减少冗余。
 
-所以，gws 集成了以下配置，
+**所以，gws 集成了以下配置，**
 
 1. 入口的 html 是一个 ejs 文件，为什么要模版引擎呢？因为在启动或编译时，我注入了运行是环境信息，不但使用 webpack.DefinePlugin 注入，还注入到了 ejs 里。这样在此可以将一写配置渲染到 index.html 中。可以写判断加载非 esModule（既\<script src=" "/>）等情况。
 2. 以前我们开发活动页面时，需要做移动端和 pc 端，除了大小不同，元素基本相同。通常是根据域名http://m.xxx访问，并在nginx判断转发。现在我们通过ua来判断加载哪个入口组件解决。不需要二级域名，不需要nginx判断
@@ -210,7 +253,6 @@ tree:bin 总数：1 +2ms
 
 - 文件路径问题 include: [ "./typings/**/*" ]
 - typeScript-loader 不可以用 babel 插件代替 要配合使用.
-- typeScript
 
 ### react-router6
 
