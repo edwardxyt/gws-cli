@@ -212,7 +212,7 @@ git commit -m "Keep calm and commit"
 **所以，gws 集成了以下配置，**
 
 1. 入口的 html 是一个 ejs 文件，为什么要模版引擎呢？因为在启动或编译时，我注入了运行是环境信息，不但使用 webpack.DefinePlugin 注入，还注入到了 ejs 里。这样在此可以将一写配置渲染到 index.html 中。可以写判断加载非 esModule（既\<script src=" "/>）等情况。
-2. 以前我们开发活动页面时，需要做移动端和 pc 端，除了大小不同，元素基本相同。通常是根据域名http://m.xxx访问，并在nginx判断转发。现在我们通过ua来判断加载哪个入口组件解决。不需要二级域名，不需要nginx判断
+2. 以前我们开发活动页面时，需要做移动端和 pc 端，除了大小不同，元素基本相同。通常是根据域名h**p://m.xxx访问，并在nginx判断转发。现在我们通过ua来判断加载哪个入口组件解决。不需要二级域名，不需要nginx判断
 3. main.tsx 除了判断入口组件，还可写 pwa、qiankun、并且是使用 webpack 按需加载的，
 4. 所有的多入口多环境，统一在配置文件里配置，不需要写在项目中。
 5. gws 使用 react17 框架 mobx-react7 数据框架 react-router-dom6 路由 antd4 antd-mobile2 等。基本上属于最新版。
