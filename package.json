@@ -1,6 +1,6 @@
 {
   "name": "@edwardxyt/gws-cli",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "homepage": "https://github.com/edwardxyt/gws-cli#readme",
   "repository": {
     "type": "git",
@@ -25,12 +25,11 @@
   "author": "edwardxyt",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.4.2",
     "@edwardxyt/gws-utils": "^1.0.0",
-    "fs-extra": "^7.0.1",
+    "chalk": "^4.1.2",
+    "fs-extra": "^10.0.0",
     "glob": "^7.1.3",
-    "inquirer": "^6.2.2",
+    "inquirer": "^8.2.0",
     "shelljs": "^0.8.3"
-  },
-  "devDependencies": {}
+  }
 }
