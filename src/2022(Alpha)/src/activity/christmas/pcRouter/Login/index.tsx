@@ -3,38 +3,38 @@ import HighchartsReact from 'highcharts-react-official';
 import * as React from 'react';
 
 interface LoginProps {
-  compiler: string;
-  framework: string;
+    compiler: string;
+    framework: string;
 }
 
 export default class Login extends React.Component<LoginProps, {}> {
-  render() {
-    return (
-      <>
-        <h1>login</h1>
-        <h1>
-          Hello from{this.props.compiler} and{this.props.framework}!
-        </h1>
-        <Chart />
-      </>
-    );
-  }
+    render() {
+        return (
+            <>
+                <h1>login</h1>
+                <h1>
+                    Hello from{this.props.compiler} and{this.props.framework}!
+                </h1>
+                <Chart />
+            </>
+        );
+    }
 }
 
 const options: Highcharts.Options = {
-  title: {
-    text: 'My chart',
-  },
-  series: [
-    {
-      type: 'line',
-      data: [1, 2, 3],
+    title: {
+        text: 'My chart',
     },
-  ],
+    series: [
+        {
+            type: 'line',
+            data: [1, 2, 3],
+        },
+    ],
 };
 
 const Chart = (props: HighchartsReact.Props) => (
-  <div>
-    <HighchartsReact highcharts={Highcharts} options={options} {...props} />
-  </div>
+    <div>
+        <HighchartsReact highcharts={Highcharts} options={options} {...props} />
+    </div>
 );
