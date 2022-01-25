@@ -12,7 +12,7 @@
 | ---------------- | ---- |
 | Webpack          | 5    |
 | Babel            | 7    |
-| react            | 17   |
+| React            | 17   |
 | antd             | 4    |
 | antd-mobile      | 2    |
 | mobx-react       | 7    |
@@ -23,7 +23,7 @@
 1. npm -g install @edwardxyt/gws-cli  全局安装cli工具，要求node14+
 2. 进入工作目录执行 gws-cli 根据提示创建项目目录，并且install
 3. git init 关联远程仓库
-4. [点我](###Use husky 7) 查看git hook。并且启动lint
+4. [跳转](#生成规则) 查看git hook。并且启动lint
 5. 启动本地开发模式，npm run start --entry=activity/christmas --env=mock
 
 ### Installing globally:
