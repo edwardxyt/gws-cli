@@ -1,6 +1,6 @@
 {
   "name": "@edwardxyt/gws-cli",
-  "version": "3.3.7",
+  "version": "3.3.8",
   "homepage": "https://github.com/edwardxyt/gws-cli#readme",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "Generator website cli"
   ],
   "author": "edwardxyt",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@edwardxyt/gws-utils": "^1.0.0",
     "chalk": "^4.1.2",
