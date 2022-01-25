@@ -1,3 +1,4 @@
+// this error must be { action }
 import {action} from 'mobx';
 
 /**
