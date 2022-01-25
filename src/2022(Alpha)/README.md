@@ -18,6 +18,14 @@
 | mobx-react       | 7    |
 | react-router-dom | 6    |
 
+### Fast installation
+
+1. npm -g install @edwardxyt/gws-cli  全局安装cli工具，要求node14+
+2. 进入工作目录执行 gws-cli 根据提示创建项目目录，并且install
+3. git init 关联远程仓库
+4. [点我](###Use husky 7) 查看git hook。并且启动lint
+5. 启动本地开发模式，npm run start --entry=activity/christmas --env=mock
+
 ### Installing globally:
 
 Using npm:
@@ -46,38 +54,13 @@ gws-cli
 
 ![WX20190411-180931](media/WX20190411-180931.png)
 
-```
-xiayuting@xiayutingdeMacBook-Pro  ~  gws-cli
-[gws-cli] version: 2.3.1
-? 项目名称: website2020
-? 描述:
-? 模式选择: Base-2020(Alpha)
-? 是否安装依赖: No
-cp: no such file or directory: /Users/xiayuting/.nvm/versions/node/v10.14.2/lib/node_modules/@edwardxyt/gws-cli/src/base-2020(alpha)/
-cd: no such file or directory: /Users/xiayuting/website2020
-mv: no such file or directory: /Users/xiayuting/website2020/gitignore
-
-[gws-cli] [未安装依赖请手动执行]
-[gws-cli] [进入项目] cd website2020
-[gws-cli] [安装依赖] npm run install
-[gws-cli] [查看项目树] npm run tree --DIR=All
-[INFO] --------------------------------------------------------------------------------
-[gws-cli] [运行入口news/demo、 启动mock环境] npm run start --ENTRY=news/demo --ENV=mock
-[INFO] --------------------------------------------------------------------------------
-[INFO] --------------------------------------------------------------------------------
-[gws-cli] [编译news/demo、启动test环境] npm run compile --ENTRY=news/demo --ENV=test
-[gws-cli] [启动http服务器、项目news/demo] npm run node:server --ENTRY=news/demo
-[INFO] --------------------------------------------------------------------------------
- xiayuting@xiayutingdeMacBook-Pro  ~ 
-```
-
 请选择 2022(Alpha)模式，这是最新版 react 脚手架，使用技术如下
 
 ### Config & Use
 
 上面目录目录结构中，/config/project.js，是您的项目启动配置文件。里面已有案例 news/git 项目。如下：
 
-```
+```js
 module.exports = {
     activity: { // 多入口 “activity/christmas”
         christmas: {
@@ -110,31 +93,31 @@ module.exports = {
 
 > activity/christmas/main.tsx 就是 src 目录下的目录下的一个入口文件。
 
-```
+```shell script
 npm run start --entry=activity/christmas --env=mock
-启动本地webpack-dev-server服务，项目名称为 ctivity/christmas 当前环境为mock 对上面的配置文件载入配置。
+// 启动本地webpack-dev-server服务，项目名称为 ctivity/christmas 当前环境为mock 对上面的配置文件载入配置。
 ```
 
-```
-npm run watch --ENTRY=activity/christmas --ENV=production
-启动监听文件编译，项目名称为 ctivity/christmas 当前环境为production 生成静态文件dist目录里。
-```
-
-```
-npm run compile --ENTRY=activity/christmas --ENV=production
-启动静态编译模式，项目名称为 news/demo 当前环境为production 生成静态文件dist目录里。
+```shell script
+npm run watch --entry=activity/christmas --env=production
+// 启动监听文件编译，项目名称为 ctivity/christmas 当前环境为production 生成静态文件dist目录里。
 ```
 
+```shell script
+npm run compile --entry=activity/christmas --env=production
+// 启动静态编译模式，项目名称为 activity/christmas 当前环境为production 生成静态文件dist目录里。
 ```
+
+```shell script
 npm run tree
-tree:bin /Users/xiayuting/workBase/gws-cli2/src/news/demo/main.js +0ms
-tree:bin 总数：1 +2ms
-查看当前脚手架中，已有项目入口
+// tree:bin /Users/xiayuting/workBase/gws-cli2/src/activity/christmas/main.js +0ms
+// tree:bin 总数：1 +2ms
+// 查看当前脚手架中，已有项目入口
 ```
 
 ### Use husky 7
 
-首先关联好 git 仓库
+##### 首先关联好 git 仓库
 
 ```
 cd website2022
@@ -145,7 +128,7 @@ git commit -m "Initial commit"
 git push -u origin master
 ```
 
-生成规则
+##### 生成规则
 
 ```
 Edit package.json > prepare script and run it once:
@@ -194,7 +177,7 @@ git commit -m "Keep calm and commit"
 
 **卡片**：对对对对。确实我的脚手架可以做到，你在公司里的某一事业部。只用一个脚手架就包含有多个项目，多个端。并且可以单独编译，单独运行。互不影响。
 
-**卡片**：实现是这样的 src 下是有两层目录的。src/activity/christmas。终端输入<u>npm riun start --entry=activity/christmas --env=mock</u>后，gws 就会通过 glob 找到指定目录下寻找 main.tsx 的入口文件，并根据 ENV 加载对应环境的配置。并运行。
+**卡片**：实现是这样的 src 下是有两层目录的。src/activity/christmas。终端输入<u>npm riun start --entry=activity/christmas --env=mock</u>后，gws 就会通过 glob 找到指定目录下寻找 main.tsx 的入口文件，并根据 env 加载对应环境的配置。并运行。
 
 **卡片**：这样，你只启动了 src/activity/christmas/main.tsx 这一个入口，而且环境是随便定义的。您只需要启动时或编译时，带参数即可。简单吧。实用吧。
 
