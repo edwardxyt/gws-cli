@@ -2,6 +2,12 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import * as React from 'react';
 
+var foo = (x: number) => {
+    x = 10 + x;
+    console.log(x);
+};
+foo(100);
+
 interface LoginProps {
     compiler: string;
     framework: string;
