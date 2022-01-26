@@ -1,5 +1,5 @@
 // this error must be { action }
-import {action} from 'mobx';
+import { action} from 'mobx';
 
 /**
  * 用户数据控制器
@@ -10,6 +10,7 @@ import {action} from 'mobx';
 class UserController {
     @action('登出')
     logout = () => {
+        var a = 10;
         try {
             sessionStorage.clear();
             localStorage.clear();
