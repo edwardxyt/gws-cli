@@ -27,6 +27,7 @@ module.exports = {
   ],
   plugins: ['simple-import-sort', 'prettier', '@typescript-eslint'],
   rules: {
+    'no-var': ['error'],
     'jsx-a11y/no-noninteractive-element-interactions': 'off', // 元素都可绑定事件
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'react/react-in-jsx-scope': 'off',

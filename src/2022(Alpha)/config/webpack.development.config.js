@@ -194,6 +194,7 @@ module.exports = async () => {
         exclude: '/node_modules/',
         emitError: true,
         failOnWarning: true,
+        fix: true
       }),
       // 使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
       new webpack.ProvidePlugin({
