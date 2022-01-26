@@ -183,7 +183,7 @@ git commit -m "Keep calm and commit"
 
 **卡片**：而且两层目录，给你足够的命名区分业务空间。足够你规划项目分类啦
 
-**卡片**：小而美的定义，就是通过没用的减法，小小设计大大优化。拒绝一切没用的花花
+**卡片**：小而美的定义，就是减法去掉之前不关痛痒的package，小小设计大大优化。拒绝一切没用的花花
 
 ### 一个套住你的框框
 
@@ -200,7 +200,7 @@ git commit -m "Keep calm and commit"
 4. 所有的多入口多环境，统一在配置文件里配置，不需要写在项目中。
 5. gws 使用 react17 框架 mobx-react7 数据框架 react-router-dom6 路由 antd4 antd-mobile2 等。基本上属于最新版。
 
-那什么是约定大于配置呢，脚手架目录 src/activity/christmas 类似这样的。入口之后的文件安排。全凭开发者自己归纳设计。gws 含有 eslint，含有 typescript 等，如何使用全凭开发者选择。我自己也不喜欢大家风格一样。这样就没有创新空间了。所以这里叫做一个套住你的框框。
+那什么是约定大于配置呢，脚手架目录 src/activity/christmas 类似这样的。入口之后的文件安排。全凭开发者自己归纳设计。gws 含有 eslint，prettier。JS的语法超集 typescript 等，如何使用全凭开发者选择。我自己也不喜欢大家风格一样。这样就没有创新空间了。所以这里叫做一个套住你的框框。
 
 ## 我遇到的坑
 
@@ -214,7 +214,7 @@ git commit -m "Keep calm and commit"
 - optimize-css-assets-webpack-plugin 作废替换为 css-minimizer-webpack-plugin
 - clean-webpack-plugin 过期，改用 bin/del 替代
 - friendly-errors-webpack-plugin 断崖改用@soda/friendly-errors-webpack-plugin
-- eslint-webpack-plugin 替换 es-loader 目前还没有生效
+- eslint-webpack-plugin 替换 es-loader。 通过lint-staged和husky已经实现css less js ts等语法验证。
 - mobx-react-devtools 过时 已经删除
 - 加入端口检查（原来有）
 - 加入 gzip
