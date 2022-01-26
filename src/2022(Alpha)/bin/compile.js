@@ -12,10 +12,16 @@ webpack_production_config().then((config) => {
       echo(
         `------------------------------ start ------------------------------`
       );
-      echo(
-        // minimal 更多选项如: 'verbose' 等](/configuration/stats).
-        stats.toJson('minimal')
-      );
+      console.log(
+          stats.toString({
+            colors: true, // 在控制台展示颜色
+            modules: false,
+            children: false,
+            chunks: false,  // 使构建过程更静默无输出
+            warnings: true,
+            chunkModules: false
+          })
+      )
       echo('webpack compile vendor complete 编译完成');
       echo(
         `-------------------------------  end  ------------------------------`
