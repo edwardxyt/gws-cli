@@ -1,5 +1,4 @@
 {
-  "insertPragma": false,
   "tabWidth": 4,
   "useTabs": false,
   "semi": true,
@@ -8,8 +7,7 @@
   "TrailingCooma": "all",
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
-  "trailingComma": "none",
   "arrowParens": "avoid",
-  "stylelintIntegration": true,
-  "eslintIntegration": true
+  "stylelintIntegration": false,
+  "eslintIntegration": false
 }
