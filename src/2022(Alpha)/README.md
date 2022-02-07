@@ -177,7 +177,7 @@ git commit -m "Keep calm and commit"
 
 **卡片**：对对对对。确实我的脚手架可以做到，你在公司里的某一事业部。只用一个脚手架就包含有多个项目，多个端。并且可以单独编译，单独运行。互不影响。
 
-**卡片**：实现是这样的 src 下是有两层目录的。src/activity/christmas。终端输入<u>npm riun start --entry=activity/christmas --env=mock</u>后，gws 就会通过 glob 找到指定目录下寻找 main.tsx 的入口文件，并根据 env 加载对应环境的配置。并运行。
+**卡片**：实现是这样的 src 下是有两层目录的。src/activity/christmas。终端输入<u>npm run start --entry=activity/christmas --env=mock</u>后，gws 就会通过 glob 找到指定目录下寻找 main.tsx 的入口文件，并根据 env 加载对应环境的配置。并运行。
 
 **卡片**：这样，你只启动了 src/activity/christmas/main.tsx 这一个入口，而且环境是随便定义的。您只需要启动时或编译时，带参数即可。简单吧。实用吧。
 
