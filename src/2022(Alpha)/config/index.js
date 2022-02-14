@@ -31,6 +31,7 @@ let app_config = (rootDir = '/') => {
       // 项目结构
       // ----------------------------------
       rootDir, // 项目根目录
+      cwd: process.cwd(), // cwd
       entry, // 启动时传入的参数，既项目目录
       entryDir: path.join(rootDir, 'src', `${entry}`),
       env,
