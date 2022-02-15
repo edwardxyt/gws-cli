@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const fs = require("fs");
 const path = require('path');
 const detect = require('detect-port');
 const dayjs = require('dayjs');
@@ -44,13 +45,13 @@ module.exports = async () => {
     },
     output: {
       publicPath: '/',
-      filename: 'scripts/[name].[hash:5].js',
+      filename: 'scripts/[name].[contenthash:8].js',
       path: `${app_config.dist}/${app_config.entry}`,
-      chunkFilename: 'scripts/[name].[chunkhash].js',
-      assetModuleFilename: 'images/[name].[contenthash:8].[ext]',
+      chunkFilename: 'scripts/[name].[contenthash:8].chunk.js',
+      assetModuleFilename: 'media/[name].[hash][ext]',
     },
-    target: 'web', // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
-    devtool: 'inline-source-map',
+    target: 'browserslist', // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
+    devtool: 'cheap-module-source-map',  // inline-source-map
     mode: 'development',
     resolve: app_config.resolve,
     // externals: app_config.externals, // 注意抽包的类库不可以在此包含
@@ -62,10 +63,19 @@ module.exports = async () => {
     },
     cache: {
       type: 'filesystem', // cache.type：缓存类型，值为 memory 或 filesystem，分别代表基于内存的临时缓存，以及基于文件系统的持久化缓存
+      version: app_config.environmentHash,
+      cacheDirectory: path.resolve(app_config.node_module_dir, '.cache'),
+      store: 'pack',
       buildDependencies: {
-        // cache.buildDependencies：全局缓存失效的一种机制，配置 {config: [__filename]}，表示当配置文件内容或配置文件依赖的模块文件发生变化时，当前的构建缓存即失效`
+        defaultWebpack: ['webpack/lib/'],
         config: [__filename],
+        tsconfig: [path.resolve(app_config.rootDir, 'tsconfig.json')].filter(f =>
+            fs.existsSync(f)
+        ),
       },
+    },
+    infrastructureLogging: {
+      level: 'none',
     },
     optimization: {
       splitChunks: {
@@ -104,7 +114,14 @@ module.exports = async () => {
       },
     },
     module: {
+      strictExportPresence: true,  // 将缺失的导出提示成错误而不是警告
       rules: [
+        {
+          enforce: 'pre',
+          exclude: /@babel(?:\/|\\{1,2})runtime/,
+          test: /\.(js|mjs|jsx|ts|tsx|css)$/,
+          loader: require.resolve('source-map-loader'),
+        },
         {
           test: /\.(tsx?|jsx|js)$/,
           use: [
@@ -114,26 +131,10 @@ module.exports = async () => {
             },
             {
               loader: 'ts-loader',
-            },
-            {
-              loader: 'source-map-loader',
-            },
+            }
           ],
           exclude: /node_modules/,
         },
-        // {
-        //     test: /\.(tsx?|jsx|js)$/,
-        //     use: [
-        //         {
-        //             loader: "babel-loader",
-        //             options: { cacheDirectory: true }, // cacheDirectory：babel-loader 在执行的时候，可能会产生一些运行期间重复的公共文件，造成代码体积大冗余，同时也会减慢编译效率，所以开启该配置将这些公共文件缓存起来，下次编译就会加快很多
-        //         },
-        //         {
-        //             loader: "source-map-loader",
-        //         },
-        //     ],
-        //     exclude: /node_modules/,
-        // },
         {
           test: /\.ejs$/,
           loader: 'ejs-loader',
@@ -206,6 +207,13 @@ module.exports = async () => {
       new webpack.HotModuleReplacementPlugin(),
       // 允许创建一个在编译时可以配置的全局常量
       new webpack.DefinePlugin(app_config.inject),
+      // 打包时忽略本地化内容
+      // Moment.js是一个非常流行的库，它捆绑了大型locale文件
+      //如果你不使用Moment.js，你可以删除它:
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^\.\/locale$/,
+        contextRegExp: /moment$/,
+      }),
       // 使用模板引擎生成html
       new HtmlWebpackPlugin({
         title: '生成的HTML文档的标题',
@@ -240,6 +248,8 @@ module.exports = async () => {
     devServer: {
       headers: {
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
       },
       // allowedHosts: [], // 该选项允许将允许访问开发服务器的服务列入白名单。
       compress: true, // 启用http compression(gzip)进行数据压缩传输
@@ -264,5 +274,6 @@ module.exports = async () => {
       open: true,
       hot: true,
     },
+    performance: false, // Turn off performance processing
   };
 };

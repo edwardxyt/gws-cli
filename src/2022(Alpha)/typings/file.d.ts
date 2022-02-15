@@ -1,14 +1,19 @@
-declare module '*.css' {
-  const style: any;
-  export default style;
+declare module '*.module.css' {
+  const classes: { readonly [key: string]: string };
+  export default classes;
 }
 
-declare module '*.scss' {
-  const style: any;
-  export default style;
+declare module '*.module.scss' {
+  const classes: { readonly [key: string]: string };
+  export default classes;
 }
 
-declare module '*.less' {
-  const style: any;
-  export default style;
+declare module '*.module.sass' {
+  const classes: { readonly [key: string]: string };
+  export default classes;
+}
+
+declare module '*.module.less' {
+  const classes: { readonly [key: string]: string };
+  export default classes;
 }

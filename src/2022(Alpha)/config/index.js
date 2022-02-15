@@ -3,6 +3,7 @@ const ip = require('ip');
 const debug = require('debug');
 const _ = require('lodash');
 const projects = require('./project');
+const createEnvironmentHash = require('./createEnvironmentHash');
 const echo = debug('development:config');
 
 let app_config = (rootDir = '/') => {
@@ -35,6 +36,7 @@ let app_config = (rootDir = '/') => {
       entry, // 启动时传入的参数，既项目目录
       entryDir: path.join(rootDir, 'src', `${entry}`),
       env,
+      environmentHash: createEnvironmentHash(env),  //环境缓存版本
       IP: ip.address(),
       main: [path.join(rootDir, 'src', `${entry}`, 'main.tsx')], // 启动入口文件
       console: Vconsole ? path.join(rootDir, 'config', 'console.js') : Vconsole, // console入口文件

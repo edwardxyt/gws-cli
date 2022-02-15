@@ -4,6 +4,9 @@ import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import avatar from '../../asset/avatar.png';
+import Logo from '../../asset/logo.svg';
+
+import { MessageOutlined } from '@ant-design/icons';
 
 //TODO 无状态 mobx组件
 const NameDisplayer = ({ user }: any) => {
@@ -39,7 +42,9 @@ export default class Home extends React.Component {
             <>
                 <h1>home</h1>
                 <UserNameDisplayer />
+                <MessageOutlined style={{ fontSize: '16px', color: '#08c' }} />
                 <img src={avatar} alt="" />
+                <img src={Logo} width={200} alt="logo" />
                 {user && <Navigate to="/" replace={true} />}
             </>
         );

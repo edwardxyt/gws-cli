@@ -1,5 +1,43 @@
-// 声明.png模块  .jpg同理
+/// <reference types="node" />
+/// <reference types="react" />
+/// <reference types="react-dom" />
+
+declare module '*.avif' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.bmp' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.gif' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.jpg' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.jpeg' {
+  const src: string;
+  export default src;
+}
+
 declare module '*.png' {
-  const value: any;
-  export default value;
+  const src: string;
+  export default src;
+}
+
+declare module '*.webp' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.svg' {
+  const src: string;
+  export default src;
 }

@@ -30,7 +30,7 @@
 
     "suppressImplicitAnyIndexErrors": true
   },
-  "include": ["./typings/**/*"],
+  "include": ["./src/**/*", "./typings/**/*"],
   "exclude": [
     "node_modules",
     "lib",
