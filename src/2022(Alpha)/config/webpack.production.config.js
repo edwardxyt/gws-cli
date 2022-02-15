@@ -175,8 +175,23 @@ module.exports = async () => {
               loader: 'postcss-loader',
               options: {
                 postcssOptions: {
-                  plugins: [['postcss-preset-env']],
+                  ident: 'postcss',
+                  config: false,
+                  plugins: [
+                    'postcss-flexbugs-fixes',
+                    [
+                      'postcss-preset-env',
+                      {
+                        autoprefixer: {
+                          flexbox: 'no-2009',
+                        },
+                        stage: 3,
+                      },
+                    ],
+                    'postcss-normalize',
+                  ],
                 },
+                sourceMap: true,
               },
             },
           ],
