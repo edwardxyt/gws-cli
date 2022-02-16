@@ -59,11 +59,12 @@ let app_config = (rootDir = '/') => {
       // 注入前端页面 全局变量
       // ----------------------------------
       inject: {
-        __API__: JSON.stringify(api_path),
-        __CDN__: JSON.stringify(cdn_path),
-        __ENV__: JSON.stringify(env),
-        __DEBUG__: JSON.stringify(debugging),
-        __PROJECT__: JSON.stringify(entry),
+        '__API__': JSON.stringify(api_path),
+        '__CDN__': JSON.stringify(cdn_path),
+        '__ENV__': JSON.stringify(env),
+        '__DEBUG__': JSON.stringify(debugging),
+        '__PROJECT__': JSON.stringify(entry),
+        '__NODE_ENV__': JSON.stringify(process.env.NODE_ENV)
       },
 
       // ----------------------------------
