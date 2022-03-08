@@ -223,6 +223,7 @@ git commit -m "Keep calm and commit"
 - 加入 BundleAnalyzerPlugin（原来有）
 - handlebars 换成 ejs
 - less postcss（原来有）
+- 默认使用React Fast Refresh热更 当然你也可以使用HMR
 
 ### babel7
 

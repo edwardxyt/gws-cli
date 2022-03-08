@@ -7,6 +7,8 @@ const debug = require('debug');
 const echo = debug('development:webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshTypeScript = require('react-refresh-typescript');
 
 const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin'); //终端日志美化工具
 
@@ -127,10 +129,18 @@ module.exports = async () => {
           use: [
             {
               loader: 'babel-loader',
-              options: { cacheDirectory: true }, // cacheDirectory：babel-loader 在执行的时候，可能会产生一些运行期间重复的公共文件，造成代码体积大冗余，同时也会减慢编译效率，所以开启该配置将这些公共文件缓存起来，下次编译就会加快很多
+              options: {
+                cacheDirectory: true  // cacheDirectory：babel-loader 在执行的时候，可能会产生一些运行期间重复的公共文件，造成代码体积大冗余，同时也会减慢编译效率，所以开启该配置将这些公共文件缓存起来，下次编译就会加快很多
+              },
             },
             {
               loader: 'ts-loader',
+              options: {
+                getCustomTransformers: () => ({
+                  before: [ReactRefreshTypeScript()],
+                }),
+                transpileOnly: true,
+              },
             }
           ],
           exclude: /node_modules/,
@@ -218,8 +228,9 @@ module.exports = async () => {
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
       }),
-      // 实际上只开启 hot：true 就会自动识别有无声明该插件，没有则自动引入，但是怕有隐藏问题这里还是手动加上了
-      new webpack.HotModuleReplacementPlugin(),
+      new ReactRefreshWebpackPlugin(),
+      // HMR 实际上只开启 hot：true 就会自动识别有无声明该插件，没有则自动引入，但是怕有隐藏问题这里还是手动加上了
+      // new webpack.HotModuleReplacementPlugin(),
       // 允许创建一个在编译时可以配置的全局常量
       new webpack.DefinePlugin(app_config.inject),
       // 打包时忽略本地化内容
@@ -287,7 +298,7 @@ module.exports = async () => {
         },
       },
       open: true,
-      hot: true,
+      hot: 'only',  // HMR时 填true
     },
     performance: false, // Turn off performance processing
   };

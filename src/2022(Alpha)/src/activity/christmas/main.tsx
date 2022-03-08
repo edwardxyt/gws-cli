@@ -5,10 +5,11 @@ import UAParser from 'ua-parser-js';
 let parser = new UAParser();
 let device = parser.getResult().device;
 
-// 热启动
-if (module.hot) {
-    module.hot.accept();
-}
+// 如果采用了 模块热替换（HMR）方案 解开注释
+// 如果使用 React Fast Refresh 注释下面
+// if (module.hot) {
+//     module.hot.accept();
+// }
 
 // PWA
 if ('serviceWorker' in navigator) {
