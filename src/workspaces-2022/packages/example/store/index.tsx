@@ -1,29 +1,28 @@
 import { action, configure, observable } from 'mobx';
 
-import UserStore from './protoTypes/User';
+import App from './protoTypes/App';
+import User from './protoTypes/User';
 
-configure({ enforceActions: 'observed' });
+configure({ enforceActions: 'observed', isolateGlobalState: true });
 
 class Store {
     constructor() {
-        this.initStore();
+        this.initStore(null);
     }
 
-    /**
-     * 当前登录的用户
-     *
-     * @memberof Store
-     */
+    @observable
+    app;
     @observable
     user;
 
     @action('初始化store')
-    initStore = (callbacks?: any) => {
-        this.user = new UserStore(this);
+    initStore = callbacks => {
+        this.app = new App(this);
+        this.user = new User(this);
         if (callbacks) {
-            callbacks.forEach((item: any) => {
+            callbacks.forEach(item => {
                 const { module, executes } = item;
-                executes.forEach((cbName: any) => {
+                executes.forEach(cbName => {
                     const callback = this[module][cbName];
                     typeof callback === 'function' && callback();
                 });
@@ -35,13 +34,11 @@ class Store {
 /**
  * 初始化状态
  *
- * @export
- * @param {any} initialState
- * @returns
  */
 
 export default function configureStore() {
-    const rootStore: any = new Store();
+    const rootStore = new Store();
+
     window.addEventListener(
         'resize',
         action('页面尺寸发生变化', () => {

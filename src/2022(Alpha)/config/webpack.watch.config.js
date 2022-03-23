@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const fs = require("fs");
 const path = require('path');
 const dayjs = require('dayjs');
 const debug = require('debug');
@@ -9,7 +10,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //压缩css
 const TerserPlugin = require('terser-webpack-plugin'); // 压缩js
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //提取到.css文件里
 const CompressionWebpackPlugin = require('compression-webpack-plugin'); //gzip压缩
-
 const { GenerateSW } = require('workbox-webpack-plugin'); // 引入 PWA 插件
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 图形工具
@@ -34,13 +34,14 @@ module.exports = async () => {
       app: [...app_config.main],
     },
     output: {
-      publicPath: app_config.cdn_path || './', // 需要cdn 就开启
-      filename: 'scripts/[name].[hash:5].js',
+      publicPath: app_config.cdn_path || '/', // 需要cdn 就开启
+      filename: 'scripts/[name].[contenthash:8].js',
       path: `${app_config.dist}/${app_config.entry}`,
-      chunkFilename: 'scripts/[name].[chunkhash:5].js',
-      assetModuleFilename: 'images/[name].[contenthash:8].[ext]',
+      chunkFilename: 'scripts/[name].[contenthash:8].chunk.js',
+      assetModuleFilename: 'media/[name].[hash][ext]',
     },
     target: 'web', // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
+    bail: true,  // 在第一个错误出现时抛出失败结果，而不是容忍它。
     devtool: 'inline-source-map', //source-map
     mode: 'production',
     resolve: app_config.resolve,
@@ -50,18 +51,27 @@ module.exports = async () => {
       aggregateTimeout: 500, // 防抖（在输入时间停止刷新计时）
       ignored: /node_modules/,
     },
+    cache: {
+      type: 'filesystem',
+      version: app_config.environmentHash,
+      cacheDirectory: path.resolve(app_config.node_module_dir, '.cacheW'),
+      store: 'pack',
+      buildDependencies: {
+        defaultWebpack: ['webpack/lib/'],
+        config: [__filename],
+        tsconfig: [path.resolve(app_config.rootDir, 'tsconfig.json')].filter(f =>
+            fs.existsSync(f)
+        ),
+      },
+    },
+    infrastructureLogging: {
+      level: 'none',
+    },
     stats: {
       preset: 'minimal',
       source: true,
       moduleTrace: true,
       errorDetails: true,
-    },
-    cache: {
-      type: 'filesystem', // cache.type：缓存类型，值为 memory 或 filesystem，分别代表基于内存的临时缓存，以及基于文件系统的持久化缓存
-      buildDependencies: {
-        // cache.buildDependencies：全局缓存失效的一种机制，配置 {config: [__filename]}，表示当配置文件内容或配置文件依赖的模块文件发生变化时，当前的构建缓存即失效`
-        config: [__filename],
-      },
     },
     optimization: {
       minimize: true,
@@ -71,11 +81,25 @@ module.exports = async () => {
           extractComments: false,
           parallel: true, // 使用多进程并发运行以提高构建速度
           terserOptions: {
-            mangle: true, // 混淆，默认也是开的，mangle也是可以配置很多选项的，具体看后面的链接
+            mangle: {
+              safari10: true, // 混淆，默认也是开的，mangle也是可以配置很多选项的
+            },
+            parse: {
+              ecma: 8,
+            },
             compress: {
+              ecma: 5,
+              inline: 2,
+              warnings: false,
               drop_console: true, //传true就是干掉所有的console.*这些函数的调用.
               drop_debugger: true, //干掉那些debugger;
+              comparisons: false,
               pure_funcs: ['console.log'], // 如果你要干掉特定的函数比如console.info ，又想删掉后保留其参数中的副作用，那用pure_funcs来处理
+            },
+            output: {
+              ecma: 5,
+              comments: false,
+              ascii_only: true,
             },
           },
         }),
@@ -116,6 +140,7 @@ module.exports = async () => {
       },
     },
     module: {
+      strictExportPresence: true,  // 将缺失的导出提示成错误而不是警告
       rules: [
         {
           test: /\.(tsx?|jsx|js)$/,
@@ -180,8 +205,12 @@ module.exports = async () => {
         },
         {
           test: /\.(eot|svg|ttf|woff|woff2?)$/,
-          type: 'asset/resource', // asset/resource：将资源分割为单独的文件，并导出url，就是之前的 file-loader的功能
+          type: 'asset/resource',
         },
+        {
+          test: /\.md$/,
+          type: 'asset/source'
+        }
       ],
     },
     plugins: [
@@ -219,6 +248,13 @@ module.exports = async () => {
         filename: 'css/[name].[contenthash:8].css',
         chunkFilename: 'css/[name].[contenthash:8].chunk.css',
       }),
+      // 打包时忽略本地化内容
+      // Moment.js是一个非常流行的库，它捆绑了大型locale文件
+      //如果你不使用Moment.js，你可以删除它:
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^\.\/locale$/,
+        contextRegExp: /moment$/,
+      }),
       // 使用模板引擎生成html
       new HtmlWebpackPlugin({
         title: '生成的HTML文档的标题',
@@ -237,6 +273,13 @@ module.exports = async () => {
           removeComments: true, // 移除 HTML 中的注释
           collapseWhitespace: true, // 删除空白符与换行符
           minifyCSS: true, // 压缩内联 css
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyURLs: true,
         },
         inject: true, // true或'body'所有javascript资源都将放置在body元素的底部
         // favicon: path.resolve('public/favicon.ico'),
@@ -273,5 +316,6 @@ module.exports = async () => {
         ],
       }),
     ],
+    performance: false, // Turn off performance processing
   };
 };

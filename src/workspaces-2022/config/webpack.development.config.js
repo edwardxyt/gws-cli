@@ -3,47 +3,43 @@ const fs = require("fs");
 const path = require('path');
 const detect = require('detect-port');
 const dayjs = require('dayjs');
-const debug = require('debug');
-const echo = debug('development:webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const ReactRefreshTypeScript = require('react-refresh-typescript');
-
 const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin'); //终端日志美化工具
+const chalk = require('chalk');
+const log = console.log;
 
 // 加载全局配置文件
-echo('加载全局文件');
+log(chalk.white('webpackf:development') + ' - ' + chalk.green('加载全局文件'));
 
 let rootDir = path.resolve(__dirname, '../');
-let app_config = require('.')(rootDir);
+let app_config = require('.')(rootDir, 'development');
 
 module.exports = async () => {
-  {
-    // 启动调试工具
-    if (app_config.console) {
-      app_config.main.push(app_config.console);
-      echo('开启Vconsole');
-    }
-  }
   {
     // 端口监测
     const port = app_config.devServer.port;
     const _port = await detect(port);
     if (port === _port) {
-      echo(`端口号: ${port} 没有被占用，放心使用。`);
-      echo('启动webpack-dev-server');
-      echo(`服务器运行在 http://${app_config.IP}:${port}`);
+  log(`
+    ${chalk.blue(`== 启动webpack-dev-server ==`)}
+    端口号: ${chalk.yellow(`${port} 没有被占用，放心使用。`)}
+    服务器运行在: ${chalk.red(`http://${app_config.IP}:${port}`)}
+  `);
     } else {
       app_config.devServer.port = _port;
-      echo(`端口号: ${port} 已占用, 尝试使用端口号: ${_port}！`);
-      echo('启动webpack-dev-server');
-      echo(`服务器运行在 http://${app_config.IP}:${_port}`);
+  log(`
+    ${chalk.blue(`== 启动webpack-dev-server ==`)}
+    端口号: ${chalk.yellow(`${port} 已占用, 尝试使用端口号: ${_port}！`)}
+    服务器运行在: ${chalk.red(`http://${app_config.IP}:${port}`)}
+  `);
     }
   }
   return {
     entry: {
-      app: [...app_config.main],
+      app: [`${app_config.entryDir}/main.tsx`],
     },
     output: {
       publicPath: '/',
@@ -51,6 +47,8 @@ module.exports = async () => {
       path: `${app_config.dist}/${app_config.entry}`,
       chunkFilename: 'scripts/[name].[contenthash:8].chunk.js',
       assetModuleFilename: 'media/[name].[hash][ext]',
+      libraryTarget: 'umd',
+      library: `${app_config.entry}`
     },
     target: 'web', // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
     devtool: 'cheap-module-source-map',  // inline-source-map
@@ -172,43 +170,12 @@ module.exports = async () => {
             },
             {
               loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  ident: 'postcss',
-                  config: false,
-                  plugins: [
-                    'postcss-flexbugs-fixes',
-                    [
-                      'postcss-preset-env',
-                      {
-                        autoprefixer: {
-                          flexbox: 'no-2009',
-                        },
-                        stage: 3,
-                      },
-                    ],
-                    'postcss-normalize',
-                  ],
-                },
-                sourceMap: true,
-              },
             },
           ],
         },
-        // webpack5 已内置资源模块，因此无需再下载 file-loader、url-loader
         {
-          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-          type: 'asset', // asset：自动选择导出为单独文件或者 dataURL形式（默认为8KB）. 之前有url-loader设置asset size limit 限制实现
-          parser: {
-            dataUrlCondition: {
-              // dataUrlCondition：指定资源大小（单位字节）
-              maxSize: 4 * 1024,
-            },
-          },
-        },
-        {
-          test: /\.(eot|svg|ttf|woff|woff2?)$/,
-          type: 'asset/resource',
+          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+          type: 'asset/inline'
         },
         {
           test: /\.md$/,
@@ -219,7 +186,7 @@ module.exports = async () => {
     plugins: [
       new FriendlyErrorsWebpackPlugin(),
       new ESLintPlugin({
-        context: app_config.src,
+        context: app_config.entryDir,
         files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.json'],
         exclude: '/node_modules/',
         emitError: true,
@@ -250,7 +217,7 @@ module.exports = async () => {
         filename: 'index.html',
         template: app_config.template_path,
         templateParameters: {
-          foo: 'bar',
+          helmet: '组件库',
           COMPILED_AT: dayjs().format('YYYY-MM-DD HH:mm:ss'),
           env: app_config.inject.__ENV__,
           debug: app_config.inject.__DEBUG__,

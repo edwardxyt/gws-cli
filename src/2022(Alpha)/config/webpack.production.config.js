@@ -31,13 +31,13 @@ module.exports = async () => {
       app: [...app_config.main],
     },
     output: {
-      publicPath: app_config.cdn_path || './', // 需要cdn 就开启
+      publicPath: app_config.cdn_path || '/', // 需要cdn 就开启
       filename: 'scripts/[name].[contenthash:8].js',
       path: `${app_config.dist}/${app_config.entry}`,
       chunkFilename: 'scripts/[name].[contenthash:8].chunk.js',
       assetModuleFilename: 'media/[name].[hash][ext]',
     },
-    target: 'browserslist', // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
+    target: 'web', // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
     bail: true,  // 在第一个错误出现时抛出失败结果，而不是容忍它。
     devtool: false,  // 'source-map'
     mode: 'production',
@@ -46,7 +46,7 @@ module.exports = async () => {
     cache: {
       type: 'filesystem',
       version: app_config.environmentHash,
-      cacheDirectory: path.resolve(app_config.node_module_dir, '.cache'),
+      cacheDirectory: path.resolve(app_config.node_module_dir, '.cacheP'),
       store: 'pack',
       buildDependencies: {
         defaultWebpack: ['webpack/lib/'],
@@ -209,8 +209,12 @@ module.exports = async () => {
         },
         {
           test: /\.(eot|svg|ttf|woff|woff2?)$/,
-          type: 'asset/resource', // asset/resource：将资源分割为单独的文件，并导出url，就是之前的 file-loader的功能
+          type: 'asset/resource',
         },
+        {
+          test: /\.md$/,
+          type: 'asset/source'
+        }
       ],
     },
     plugins: [
@@ -233,12 +237,6 @@ module.exports = async () => {
       }),
       // 允许创建一个在编译时可以配置的全局常量
       new webpack.DefinePlugin(app_config.inject),
-      // 使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-      }),
       // 和 style-loader 功能一样，只是打包后会单独生成 css 文件而非直接写在 html 文件中，用于生产环境，开发环境不需要另外生成文件使用 style-loader 即可
       new MiniCssExtractPlugin({
         filename: 'css/[name].[contenthash:8].css',

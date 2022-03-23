@@ -47,7 +47,7 @@ const promptList = [
         type: "list",
         message: "模式选择:",
         name: "pattern",
-        choices: ["2022(Alpha)", "Base-2020(Alpha)", "Base-2019", "Simple-2018"],
+        choices: ["2022(Alpha)", "workspaces-2022", "Base-2020(Alpha)", "Base-2019", "Simple-2018"],
         filter: function(val) {
             // 使用filter将回答变为小写
             return val.toLowerCase();
