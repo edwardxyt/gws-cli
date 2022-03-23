@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const MB: React.FC<any> = (props) => {
+const MB: React.FC<any> = () => {
     // 声明一个新的叫做 “count” 的 state 变量
     const [count, setCount] = useState(20);
 
@@ -12,7 +12,7 @@ const MB: React.FC<any> = (props) => {
             </button>
         </div>
     );
-}
+};
 
 let year = 1958;
 

@@ -1,0 +1,11 @@
+*.js
+*.tsx
+*.ts
+*.json
+*.png
+*.eot
+*.ttf
+*.woff
+*.css
+lib
+dist
