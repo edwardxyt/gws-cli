@@ -173,42 +173,66 @@ inquirer.prompt(promptList).then(answers => {
                                     )} ${chalk.green(`npm run install`)}`
                                 );
                             }
-                            log(
-                                `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
-                                    "[查看项目树]"
-                                )} ${chalk.green("npm run tree")}`
-                            );
-                            log(
-                                `${chalk.cyan(
-                                    "[INFO]"
-                                )} --------------------------------------------------------------------------------`
-                            );
-                            log(
-                                `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
-                                    "[运行入口activity/christmas、 启动mock环境]"
-                                )} ${chalk.yellow(
-                                    "npm run start --ENTRY=activity/christmas --ENV=mock"
-                                )}`
-                            );
-                            log(
-                                `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
-                                    "[运行入口activity/christmas、启动mock环境]"
-                                )} ${chalk.yellow(
-                                    "npm run watch --ENTRY=activity/christmas --ENV=mock"
-                                )}`
-                            );
+                            if (answers.pattern  === '2022(alpha)') {
+                                log(
+                                    `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
+                                        "[查看项目树]"
+                                    )} ${chalk.green("npm run tree")}`
+                                );
+                            }
                             log(
                                 `${chalk.cyan(
                                     "[INFO]"
                                 )} --------------------------------------------------------------------------------`
                             );
+                            if (answers.pattern  === '2022(alpha)') {
+                                log(
+                                    `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
+                                        "[运行入口activity/christmas、 启动mock环境]"
+                                    )} ${chalk.yellow(
+                                        "npm run start --ENTRY=activity/christmas --ENV=mock"
+                                    )}`
+                                );
+                                log(
+                                    `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
+                                        "[运行入口activity/christmas、启动mock环境]"
+                                    )} ${chalk.yellow(
+                                        "npm run watch --ENTRY=activity/christmas --ENV=mock"
+                                    )}`
+                                );
+                            }
+                            if (answers.pattern  === 'workspaces-2022') {
+                                log(
+                                    `${chalk.cyan("[gws-cli-lerna]")} ${chalk.blue.bold(
+                                        "[组件库案例入口example]"
+                                    )} ${chalk.yellow(
+                                        "npm run start --ENTRY=example"
+                                    )}`
+                                );
+                            }
                             log(
-                                `${chalk.cyan("[gws-cli]")} ${chalk.blue.bold(
-                                    "[编译activity/christmas、启动test环境]"
-                                )} ${chalk.yellow(
-                                    "npm run compile --ENTRY=activity/christmas --ENV=test"
-                                )}`
+                                `${chalk.cyan(
+                                    "[INFO]"
+                                )} --------------------------------------------------------------------------------`
                             );
+                            if (answers.pattern  === '2022(alpha)') {
+                                log(
+                                    `${chalk.cyan("[gws-cli")} ${chalk.blue.bold(
+                                        "[编译activity/christmas、启动test环境]"
+                                    )} ${chalk.yellow(
+                                        "npm run build --ENTRY=activity/christmas --ENV=production"
+                                    )}`
+                                );
+                            }
+                            if (answers.pattern  === 'workspaces-2022') {
+                                log(
+                                    `${chalk.cyan("[gws-cli-lerna]")} ${chalk.blue.bold(
+                                        "[编译子组件modulea]"
+                                    )} ${chalk.yellow(
+                                        "npm run build --ENTRY=modulea"
+                                    )}`
+                                );
+                            }
                             log(
                                 `${chalk.cyan(
                                     "[INFO]"

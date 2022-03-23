@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 import UAParser from 'ua-parser-js';

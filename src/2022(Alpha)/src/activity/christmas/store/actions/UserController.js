@@ -10,7 +10,6 @@ import { action} from 'mobx';
 class UserController {
     @action('登出')
     logout = () => {
-        var a = 10;
         try {
             sessionStorage.clear();
             localStorage.clear();
