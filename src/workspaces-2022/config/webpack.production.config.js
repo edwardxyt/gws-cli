@@ -55,7 +55,8 @@ module.exports = async () => {
             level: 'none',
         },
         stats: {
-            preset: 'verbose',
+            preset: 'normal',
+            colors: true,
             source: true,
             moduleTrace: true,
             errorDetails: true,

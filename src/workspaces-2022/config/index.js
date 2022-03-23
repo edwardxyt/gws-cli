@@ -113,13 +113,12 @@ let app_config = (rootDir = '/', environment= 'production') => {
       // ----------------------------------
       // resolve
       // 模块如何被解析
-      // @ 入口根目录
-      // ～ 入口根目录/common
+      // 这里不能配置 动态入口，因为tsconfig.json不是动态的
       // ----------------------------------
       resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
         alias: {
-          'packages': path.join(rootDir, 'packages'),
+          '@packages': path.join(rootDir, 'packages'),
         },
       },
 

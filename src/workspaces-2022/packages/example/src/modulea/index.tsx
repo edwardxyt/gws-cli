@@ -1,3 +1,5 @@
+import MA from '@packages/modulea/index';
+import MD from '@packages/modulea/README.md';
 import {
     Button,
     Card,
@@ -9,8 +11,6 @@ import {
     Tag,
 } from 'antd';
 import { inject, observer } from 'mobx-react';
-import MA from 'packages/modulea/index';
-import MD from 'packages/modulea/README.md';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter';

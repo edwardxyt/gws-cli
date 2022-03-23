@@ -59,6 +59,7 @@ module.exports = async () => {
     // externals: app_config.externals, // 注意抽包的类库不可以在此包含
     stats: {
       preset: 'minimal',
+      colors: true,
       source: true,
       moduleTrace: true,
       errorDetails: true,
@@ -172,26 +173,6 @@ module.exports = async () => {
             },
             {
               loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  ident: 'postcss',
-                  config: false,
-                  plugins: [
-                    'postcss-flexbugs-fixes',
-                    [
-                      'postcss-preset-env',
-                      {
-                        autoprefixer: {
-                          flexbox: 'no-2009',
-                        },
-                        stage: 3,
-                      },
-                    ],
-                    'postcss-normalize',
-                  ],
-                },
-                sourceMap: true,
-              },
             },
           ],
         },

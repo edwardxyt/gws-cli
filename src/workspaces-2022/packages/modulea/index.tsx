@@ -1,7 +1,9 @@
+import './index.less';
+
+import { Button } from 'antd';
 import _ from 'lodash';
 import React, { useState } from 'react';
-import { Button } from 'antd';
-import './index.less';
+
 import avatar from './asset/avatar.png';
 import Logo from './asset/logo.svg';
 

@@ -47,8 +47,13 @@ module.exports = async () => {
       path: `${app_config.dist}/${app_config.entry}`,
       chunkFilename: 'scripts/[name].[contenthash:8].chunk.js',
       assetModuleFilename: 'media/[name].[hash][ext]',
-      libraryTarget: 'umd',
-      library: `${app_config.entry}`
+      globalObject: 'this',
+      library: {
+        name: `${app_config.entry}`,
+        type: 'umd',
+        umdNamedDefine: true,
+        auxiliaryComment: '这里是插入的注释',
+      },
     },
     target: 'web', // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
     devtool: 'cheap-module-source-map',  // inline-source-map
@@ -57,6 +62,7 @@ module.exports = async () => {
     // externals: app_config.externals, // 注意抽包的类库不可以在此包含
     stats: {
       preset: 'minimal',
+      colors: true,
       source: true,
       moduleTrace: true,
       errorDetails: true,

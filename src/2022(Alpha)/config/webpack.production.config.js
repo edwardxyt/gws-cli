@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require('path');
 const dayjs = require('dayjs');
 const debug = require('debug');
-const echo = debug('compile:webpack');
+const echo = debug('production:webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin'); //复制静态资源
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //压缩css
@@ -60,7 +60,8 @@ module.exports = async () => {
       level: 'none',
     },
     stats: {
-      preset: 'minimal',
+      preset: 'normal',
+      colors: true,
       source: true,
       moduleTrace: true,
       errorDetails: true,
@@ -173,26 +174,6 @@ module.exports = async () => {
             },
             {
               loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  ident: 'postcss',
-                  config: false,
-                  plugins: [
-                    'postcss-flexbugs-fixes',
-                    [
-                      'postcss-preset-env',
-                      {
-                        autoprefixer: {
-                          flexbox: 'no-2009',
-                        },
-                        stage: 3,
-                      },
-                    ],
-                    'postcss-normalize',
-                  ],
-                },
-                sourceMap: true,
-              },
             },
           ],
         },

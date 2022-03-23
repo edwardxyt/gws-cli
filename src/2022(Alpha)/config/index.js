@@ -4,18 +4,19 @@ const debug = require('debug');
 const _ = require('lodash');
 const projects = require('./project');
 const createEnvironmentHash = require('./createEnvironmentHash');
-const echo = debug('development:config');
+
+// node 16 npm_config_entry 变小写了
+const entry = process.env.npm_config_entry;
+const env = process.env.npm_config_env || process.env.NODE_ENV;
+const [cluster, project] = _.split(entry, '/', 2);
+const debugging = env !== 'production';
+
+const api_path = projects[cluster][project].env[env].api_path;
+const cdn_path = projects[cluster][project].env[env].cdn_path;
+const Vconsole = projects[cluster][project].env[env].console;
+const echo = env === 'production' ? debug('production:config') : debug('development:config');
 
 let app_config = (rootDir = '/') => {
-  // node 16 npm_config_entry 变小写了
-  let entry = process.env.npm_config_entry;
-  let env = process.env.npm_config_env || process.env.NODE_ENV;
-  let [cluster, project] = _.split(entry, '/', 2);
-  let debugging = env !== 'production';
-
-  let api_path = projects[cluster][project].env[env].api_path;
-  let cdn_path = projects[cluster][project].env[env].cdn_path;
-  let Vconsole = projects[cluster][project].env[env].console;
   if (!_.isEmpty(entry) && !_.isNull(entry)) {
     echo(`根路径：${rootDir}`);
     echo(`VConsole：${Vconsole}`);
@@ -107,21 +108,25 @@ let app_config = (rootDir = '/') => {
       // ** 主要用于模版引擎中 CDN 排除
       // 注意提取第三方库时，不能含有以下列表，否则将不会打包
       // ----------------------------------
-      externals: {
-        watermark: 'window.watermark',
-      },
+      externals: [
+        // 正则表达式
+        /^(antd|\$)$/i,
+        /^(react|\$)$/i,
+        /^(react-dom|\$)$/i,
+        /^(lodash|\$)$/i,
+        /^(dayjs|\$)$/i,
+        /^(@babel\/runtime|\$)$/i,
+      ],
 
       // ----------------------------------
       // resolve
       // 模块如何被解析
-      // @ 入口根目录
-      // ～ 入口根目录/common
+      // 这里不能配置 动态入口，因为tsconfig.json不是动态的
       // ----------------------------------
       resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
         alias: {
-          '@': path.join(rootDir, 'src', entry),
-          src: path.resolve(rootDir, './src'),
+          '@src': path.resolve(rootDir, './src'),
         },
       },
 

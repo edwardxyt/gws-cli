@@ -10,12 +10,18 @@
       "path": "node_modules/cz-conventional-changelog"
     }
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "scripts": {
     "start": "NODE_ENV='development' cross-env webpack server --config ./config/webpack.development.config",
     "build": "NODE_ENV='production' cross-env webpack build --config ./config/webpack.production.config",
     "lint:fix": "eslint ./packages/**/* --ext .jsx,.js,.ts,.tsx --fix --quiet --ignore-path .eslintignore --no-error-on-unmatched-pattern",
     "lint:format": "prettier --loglevel warn --write \"./packages/**/*.{js,jsx,ts,tsx,css,md,json}\" ",
     "lint:style": "stylelint ./packages/**/*.{css,less,scss} --fix --custom-syntax postcss-less",
+    "prepare": "husky install",
     "commit": "cz",
     "genlog": "conventional-changelog -p react -i ./changeLog/CHANGELOG.md -s",
     "type-check": "tsc"
@@ -83,9 +89,11 @@
     "less-loader": "^10.2.0",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.6.0",
-    "postcss": "^8.4.12",
-    "postcss-less": "^6.0.0",
+    "postcss": "^8.4.5",
+    "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
+    "postcss-normalize": "^10.0.1",
+    "postcss-preset-env": "^7.4.0",
     "react-refresh": "^0.11.0",
     "react-refresh-typescript": "^2.0.3",
     "source-map-loader": "^3.0.1",

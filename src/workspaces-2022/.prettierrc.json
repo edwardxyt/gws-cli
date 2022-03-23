@@ -6,7 +6,6 @@
   "jsxSingleQuote": false,
   "TrailingCooma": "all",
   "bracketSpacing": true,
-  "jsxBracketSameLine": false,
   "arrowParens": "avoid",
   "stylelintIntegration": false,
   "eslintIntegration": false

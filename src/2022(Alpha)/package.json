@@ -19,11 +19,11 @@
   },
   "scripts": {
     "prestart": "cross-env DEBUG=development:* node bin/del",
-    "start": "cross-env DEBUG=development:* NODE_ENV='development' webpack server --config ./config/webpack.development.config",
+    "start": "NODE_ENV='development' cross-env DEBUG=development:* webpack server --config ./config/webpack.development.config",
+    "prebuild": "cross-env DEBUG=production:* node bin/del",
+    "build": "NODE_ENV='production' cross-env DEBUG=production:* webpack build --config ./config/webpack.production.config",
     "prewatch": "cross-env node bin/del",
     "watch": "cross-env DEBUG=watch:* webpack watch --config ./config/webpack.watch.config",
-    "precompile": "cross-env node bin/del",
-    "compile": "cross-env DEBUG=compile:* node bin/compile",
     "del": "cross-env DEBUG=development:* node bin/del",
     "tree": "cross-env DEBUG=tree:* node bin/tree",
     "prepare": "husky install",
@@ -37,10 +37,9 @@
   "author": "",
   "license": "MIT",
   "browserslist": [
-    ">0.2%",
-    "not dead",
-    "ie >= 9",
-    "not op_mini all"
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
   ],
   "dependencies": {
     "@babel/core": "^7.17.4",
@@ -71,6 +70,7 @@
     "@types/webpack-env": "^1.16.3",
     "antd": "^4.18.7",
     "antd-mobile": "^2.3.4",
+    "autoprefixer": "^10.4.4",
     "axios": "^0.26.0",
     "babel-loader": "^8.2.3",
     "big.js": "^6.1.1",
@@ -95,7 +95,6 @@
     "mobx-react-lite": "^3.2.3",
     "postcss": "^8.4.5",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-less": "^6.0.0",
     "postcss-loader": "^6.2.1",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.4.0",
