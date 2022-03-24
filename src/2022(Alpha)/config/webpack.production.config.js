@@ -163,6 +163,12 @@ module.exports = async () => {
             },
             {
               loader: 'css-loader',
+              options: {
+                modules: {
+                  mode: 'local',
+                  localIdentName: '[name]__[local]--[hash:base64:8]',
+                },
+              },
             },
             {
               loader: 'less-loader',
