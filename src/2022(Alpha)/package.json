@@ -19,9 +19,9 @@
   },
   "scripts": {
     "prestart": "cross-env DEBUG=development:* node bin/del",
-    "start": "NODE_ENV='development' cross-env DEBUG=development:* webpack server --config ./config/webpack.development.config",
+    "start": "cross-env NODE_ENV='development' DEBUG=development:* webpack server --config ./config/webpack.development.config",
     "prebuild": "cross-env DEBUG=production:* node bin/del",
-    "build": "NODE_ENV='production' cross-env DEBUG=production:* webpack build --config ./config/webpack.production.config",
+    "build": "cross-env NODE_ENV='production' DEBUG=production:* webpack build --config ./config/webpack.production.config",
     "prewatch": "cross-env node bin/del",
     "watch": "cross-env DEBUG=watch:* webpack watch --config ./config/webpack.watch.config",
     "del": "cross-env DEBUG=development:* node bin/del",

@@ -16,8 +16,8 @@
     "not ie <= 8"
   ],
   "scripts": {
-    "start": "NODE_ENV='development' cross-env webpack server --config ./config/webpack.development.config",
-    "build": "NODE_ENV='production' cross-env webpack build --config ./config/webpack.production.config",
+    "start": "cross-env NODE_ENV='development' webpack server --config ./config/webpack.development.config",
+    "build": "cross-env NODE_ENV='production' webpack build --config ./config/webpack.production.config",
     "lint:fix": "eslint ./packages/**/* --ext .jsx,.js,.ts,.tsx --fix --quiet --ignore-path .eslintignore --no-error-on-unmatched-pattern",
     "lint:format": "prettier --loglevel warn --write \"./packages/**/*.{js,jsx,ts,tsx,css,md,json}\" ",
     "lint:style": "stylelint ./packages/**/*.{css,less,scss} --fix --custom-syntax postcss-less",
