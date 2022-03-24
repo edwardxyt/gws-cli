@@ -17,10 +17,10 @@
 
 - 🎉 **可扩展**，gws-cli, 主要提供选中模版，生成不同类型的脚手架。
 - 📦 **开箱即用**，每个脚手架都使用了webpack运行开发和生产。
-- 🐠 **企业级**，经蚂蚁内部 3000+ 项目以及阿里、优酷、网易、飞猪、口碑等公司项目的验证，值得信赖。
 - 🚀 **大量自研**，目前都是作者孤独奋战，如果有缺陷请您邮件我56833517@qq.com。
 - 🌴 **技术栈**，目前常用模版两个`2022(alpha)`和`workspaces-2022`两个react全家桶。
 - 🚄 **面向未来**，如果您需要react mobx typescript router less eslint stylelint prettier husky conventional-changelog。等可以考虑开箱即用。
+- - 🐠 ****，
 
 ## 快速上手
 
