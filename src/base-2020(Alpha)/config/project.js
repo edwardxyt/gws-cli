@@ -8,17 +8,17 @@ module.exports = {
                     cdn_path: "./"
                 },
                 development: {
-                    api_path: "//bizdev.aibao.com",
+                    api_path: "//bizdev.xiayuting.com",
                     console: false,
                     cdn_path: "/devStatic/website2018/news/demo/"
                 },
                 test: {
-                    api_path: "//bizapitest.aibao.com",
+                    api_path: "//bizapitest.xiayuting.com",
                     console: false,
                     cdn_path: "./"
                 },
                 production: {
-                    api_path: "//biz.aibao.com",
+                    api_path: "//biz.xiayuting.com",
                     console: false,
                     cdn_path: "./"
                 }

@@ -1,4 +1,4 @@
-const oss = require("@aibao/aibao-aly-oss");
+const oss = require("@xiayuting/xiayuting-aly-oss");
 const glob = require("glob");
 const path = require("path");
 const fs = require("fs");

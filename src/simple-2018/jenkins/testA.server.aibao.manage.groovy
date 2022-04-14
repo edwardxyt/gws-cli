@@ -42,7 +42,7 @@ node() {
         sh "echo GIT_RECENT_TAG_HASH = $GIT_RECENT_TAG_HASH"
         sh "echo GIT_RECENT_TAG_NAME = $GIT_RECENT_TAG_NAME"
 
-        git branch: 'testA-server', url: 'ssh://git@139.224.151.200:22022/Aibao/SimDamageApproval/frontSimManage.git'
+        git branch: 'testA-server', url: 'ssh://git@139.224.151.200:22022/xiayuting/SimDamageApproval/frontSimManage.git'
         sh 'git status'
         sh 'git branch -a'
     }

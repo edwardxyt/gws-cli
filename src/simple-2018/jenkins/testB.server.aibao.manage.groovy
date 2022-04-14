@@ -29,7 +29,7 @@ node() {
     }
 
     stage('Checkout'){
-        git branch: 'testB-server', url: 'ssh://git@139.224.151.200:22022/Aibao/SimDamageApproval/frontSimManage.git'
+        git branch: 'testB-server', url: 'ssh://git@139.224.151.200:22022/xiayuting/SimDamageApproval/frontSimManage.git'
         sh 'git status'
         sh 'git branch -a'
     }

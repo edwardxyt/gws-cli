@@ -39,7 +39,7 @@ node() {
     }
 
     stage('Checkout'){
-        git branch: 'uat-server', url: 'ssh://git@139.224.151.200:22022/Aibao/AiClaim/picc-shenzhen-lossAssessment.git'
+        git branch: 'uat-server', url: 'ssh://git@139.224.151.200:22022/xiayuting/AiClaim/picc-shenzhen-lossAssessment.git'
         sh 'git fetch'
         sh 'git status'
         sh 'git branch'

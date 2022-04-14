@@ -30,7 +30,7 @@ node() {
     }
 
     stage('Checkout'){
-        git branch: 'dev-server', url: 'ssh://git@139.224.151.200:22022/Aibao/DataGroup/reimbursement/frontReimburse.git'
+        git branch: 'dev-server', url: 'ssh://git@139.224.151.200:22022/xiayuting/DataGroup/reimbursement/frontReimburse.git'
         sh 'git fetch'
         sh 'git status'
         sh 'git branch -a'
