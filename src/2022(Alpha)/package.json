@@ -1,6 +1,6 @@
 {
   "name": "website2022",
-  "version": "1.0.0",
+  "version": "3.5.6",
   "description": "这是一个web脚手架工具，用于生成基于webpack5,生成typescript+react17+mobx5+reactRouter6的应用。初衷是要解决多入口，多环境。单独编译单独运行的脚手架。做到小而美。拒绝锦上添花。",
   "keywords": [
     "react",
@@ -18,14 +18,14 @@
     }
   },
   "scripts": {
-    "prestart": "cross-env DEBUG=development:* node bin/del",
-    "start": "cross-env NODE_ENV='development' DEBUG=development:* webpack server --config ./config/webpack.development.config",
-    "prebuild": "cross-env DEBUG=production:* node bin/del",
-    "build": "cross-env NODE_ENV='production' DEBUG=production:* webpack build --config ./config/webpack.production.config",
+    "prestart": "cross-env node bin/del",
+    "start": "cross-env NODE_ENV='development' webpack server --config ./config/webpack.development.config",
+    "prebuild": "cross-env node bin/del",
+    "build": "cross-env NODE_ENV='production' webpack build --config ./config/webpack.production.config",
     "prewatch": "cross-env node bin/del",
-    "watch": "cross-env DEBUG=watch:* webpack watch --config ./config/webpack.watch.config",
-    "del": "cross-env DEBUG=development:* node bin/del",
-    "tree": "cross-env DEBUG=tree:* node bin/tree",
+    "watch": "cross-env webpack watch --config ./config/webpack.watch.config",
+    "del": "cross-env node bin/del",
+    "tree": "cross-env node bin/tree",
     "prepare": "husky install",
     "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --fix --quiet --ignore-path .eslintignore --no-error-on-unmatched-pattern",
     "lint:format": "prettier --loglevel warn --write \"./src/**/*.{js,jsx,ts,tsx,css,md,json}\" ",
@@ -125,7 +125,6 @@
     "copy-webpack-plugin": "^10.2.1",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "debug": "^4.3.3",
     "del": "^6.0.0",
     "detect-port": "^1.3.0",
     "ejs-loader": "^0.5.0",

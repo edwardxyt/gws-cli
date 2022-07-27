@@ -1,6 +1,7 @@
 const path = require('path');
 const ip = require('ip');
-const debug = require('debug');
+const chalk = require('chalk');
+const log = console.log;
 const _ = require('lodash');
 const projects = require('./project');
 const createEnvironmentHash = require('./createEnvironmentHash');
@@ -14,18 +15,22 @@ const debugging = env !== 'production';
 const api_path = projects[cluster][project].env[env].api_path;
 const cdn_path = projects[cluster][project].env[env].cdn_path;
 const Vconsole = projects[cluster][project].env[env].console;
-const echo = env === 'production' ? debug('production:config') : debug('development:config');
 
 let app_config = (rootDir = '/') => {
   if (!_.isEmpty(entry) && !_.isNull(entry)) {
-    echo(`根路径：${rootDir}`);
-    echo(`VConsole：${Vconsole}`);
-    echo(`启动项目：${cluster} - ${project}`);
-    echo(`API_PATH：${api_path}`);
-    echo(`CDN_PATH：${cdn_path}`);
-    echo(`启动环境：${env}`);
-    echo(`node环境：${process.env.NODE_ENV}`);
-    echo(`启动调试：${debugging}`);
+    log(`  ${chalk.white(`webpack:config`)} - ${chalk.green(`加载配置文件`)} `);
+    log(`
+      ${chalk.blue(`[ == 动态配置项 == ]`)}
+      根路径: ${chalk.red(`${rootDir}`)}
+      cwd: ${chalk.red(`${process.cwd()}`)}
+      VConsole：${chalk.green(`${Vconsole}`)}
+      模块: ${chalk.green(`${entry}`)}
+      启动项目：${chalk.green(`${cluster} - ${project}`)}
+      启动环境: ${chalk.yellow(`${env}`)}
+      node环境: ${chalk.yellow(`${process.env.NODE_ENV}`)}
+      API_PATH：${chalk.green(`${api_path}`)}
+      CDN_PATH：${chalk.green(`${cdn_path}`)}
+  `);
 
     return {
       // ----------------------------------
@@ -147,7 +152,7 @@ let app_config = (rootDir = '/') => {
       },
     };
   } else {
-    echo('缺少入口地址！');
+    log(chalk.white('webpack compile fail') + ' - ' + chalk.red(`缺少入口地址`));
   }
 };
 

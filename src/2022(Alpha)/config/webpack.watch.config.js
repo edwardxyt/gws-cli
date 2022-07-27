@@ -2,8 +2,8 @@ const webpack = require('webpack');
 const fs = require("fs");
 const path = require('path');
 const dayjs = require('dayjs');
-const debug = require('debug');
-const echo = debug('watch:webpack');
+const chalk = require('chalk');
+const log = console.log;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin'); //复制静态资源
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //压缩css
@@ -16,7 +16,9 @@ const BundleAnalyzerPlugin =
 const ProgressBarPlugin = require('progress-bar-webpack-plugin'); // 进度条
 
 // 加载全局配置文件
-echo('加载全局文件');
+log(`
+  ${chalk.white(`webpack:watch`)} - ${chalk.green(`加载全局文件`)}
+`);
 
 let rootDir = path.resolve(__dirname, '../');
 let app_config = require('.')(rootDir);
@@ -68,9 +70,9 @@ module.exports = async () => {
       level: 'none',
     },
     stats: {
-      preset: 'minimal',
+      preset: 'normal',
+      colors: true,
       source: true,
-      moduleTrace: true,
       errorDetails: true,
     },
     optimization: {
@@ -175,7 +177,7 @@ module.exports = async () => {
               loader: 'css-loader',
               options: {
                 modules: {
-                  mode: 'local',
+                  mode: 'global',
                   localIdentName: '[name]__[local]--[hash:base64:8]',
                 },
               },

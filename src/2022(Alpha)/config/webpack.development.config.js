@@ -3,44 +3,50 @@ const fs = require("fs");
 const path = require('path');
 const detect = require('detect-port');
 const dayjs = require('dayjs');
-const debug = require('debug');
-const echo = debug('development:webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const ReactRefreshTypeScript = require('react-refresh-typescript');
-
 const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin'); //终端日志美化工具
+const chalk = require('chalk');
+const log = console.log;
 
-// 加载全局配置文件
-echo('加载全局文件');
-
+// [================================加载全局配置文件================================]
+log(`
+  ${chalk.white(`webpack:development`)} - ${chalk.green(`加载全局文件`)}
+`);
 let rootDir = path.resolve(__dirname, '../');
 let app_config = require('.')(rootDir);
+// [================================end================================]
 
-module.exports = async () => {
-  {
-    // 启动调试工具
-    if (app_config.console) {
-      app_config.main.push(app_config.console);
-      echo('开启Vconsole');
-    }
-  }
-  {
-    // 端口监测
-    const port = app_config.devServer.port;
-    const _port = await detect(port);
-    if (port === _port) {
-      echo(`端口号: ${port} 没有被占用，放心使用。`);
-      echo('启动webpack-dev-server');
-      echo(`服务器运行在 http://${app_config.IP}:${port}`);
-    } else {
-      app_config.devServer.port = _port;
-      echo(`端口号: ${port} 已占用, 尝试使用端口号: ${_port}！`);
-      echo('启动webpack-dev-server');
-      echo(`服务器运行在 http://${app_config.IP}:${_port}`);
-    }
-  }
+// [================================端口监测================================]
+const port = app_config.devServer.port;
+let detectPort
+detect(port)
+    .then(_port => {
+      if (port == _port) {
+        log(`
+  ${chalk.blue(`[ === 启动webpack-dev-server === ]`)}
+  端口号: ${chalk.yellow(`${port} 没有被占用，放心使用。`)}
+  服务器运行在: ${chalk.red(`http://${app_config.IP}:${port}`)}
+`);
+        detectPort = port;
+      } else {
+        log(`
+  ${chalk.blue(`[ === 启动webpack-dev-server === ]`)}
+  端口号: ${chalk.yellow(`${port} 已占用, 尝试使用端口号: ${_port}！`)}
+  服务器运行在: ${chalk.red(`http://${app_config.IP}:${_port}`)}
+`);
+        detectPort = _port;
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+// [================================end================================]
+
+// [================================webpack配置参数================================]
+let initWebpackConfig = (detectPort) => {
   return {
     entry: {
       app: [...app_config.main],
@@ -50,7 +56,7 @@ module.exports = async () => {
       filename: 'scripts/[name].[contenthash:8].js',
       path: `${app_config.dist}/${app_config.entry}`,
       chunkFilename: 'scripts/[name].[contenthash:8].chunk.js',
-      assetModuleFilename: 'media/[name].[hash][ext]',
+      assetModuleFilename: 'media/[name].[hash][ext]'
     },
     target: 'web', // 配置 package.json 的 browserslist 字段会导致 webpack-dev-server 的热更新功能直接失效，为了避免这种情况需要给 webpack 配上 target 属性
     devtool: 'cheap-module-source-map',  // inline-source-map
@@ -61,7 +67,6 @@ module.exports = async () => {
       preset: 'minimal',
       colors: true,
       source: true,
-      moduleTrace: true,
       errorDetails: true,
     },
     cache: {
@@ -163,10 +168,6 @@ module.exports = async () => {
             {
               loader: 'css-loader',
               options: {
-                modules: {
-                  mode: 'local',
-                  localIdentName: '[name]__[local]--[hash:base64:8]',
-                },
               },
             },
             {
@@ -270,7 +271,7 @@ module.exports = async () => {
       },
       // allowedHosts: [], // 该选项允许将允许访问开发服务器的服务列入白名单。
       compress: true, // 启用http compression(gzip)进行数据压缩传输
-      port: app_config.devServer.port,
+      port: detectPort,
       host: app_config.IP,
       client: {
         logging: 'verbose',
@@ -293,4 +294,9 @@ module.exports = async () => {
     },
     performance: false, // Turn off performance processing
   };
+}
+// [================================end================================]
+
+module.exports = async () => {
+  return initWebpackConfig(detectPort)
 };

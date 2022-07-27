@@ -20,7 +20,7 @@ module.exports = {
         production: {
           api_path: '//:biz.xiayuting.com',
           console: false,
-          cdn_path: '/dist/activity/christmas/',
+          cdn_path: '/activity/christmas/',
         },
       },
     },
