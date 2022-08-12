@@ -462,11 +462,13 @@ module.exports = async () => {
         fix: true
       }),
       // 使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-      }),
+      // 由于qiankun引入时一来jquery 所以下面代码需要注释
+      // new webpack.ProvidePlugin({
+      //   $: 'jquery',
+      //   jQuery: 'jquery',
+      //   'window.jQuery': 'jquery',
+      // }),
+
       new ReactRefreshWebpackPlugin(),
       // HMR 实际上只开启 hot：true 就会自动识别有无声明该插件，没有则自动引入，但是怕有隐藏问题这里还是手动加上了
       // new webpack.HotModuleReplacementPlugin(),

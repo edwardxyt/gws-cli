@@ -30,7 +30,11 @@ export default class PcRouter extends Component<MainProps, {}> {
                 {/*Suspense 是配合 react.lazy使用的*/}
                 <Suspense fallback={this.fallback()}>
                     <Provider store={rootStore()}>
-                        <BrowserRouter>
+                        <BrowserRouter
+                            basename={
+                                window.__POWERED_BY_QIANKUN__ ? '/pj1' : '/'
+                            }
+                        >
                             <ErrorBoundary>
                                 <Routes>
                                     <Route path="/" element={<App />}>

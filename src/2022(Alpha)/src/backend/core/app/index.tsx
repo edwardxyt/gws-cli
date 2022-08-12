@@ -1,7 +1,7 @@
 import { HomeOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { inject, observer } from 'mobx-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -57,6 +57,10 @@ const App: React.FC<any> = ({ app }) => {
             return <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>;
         });
     };
+
+    useEffect(() => {
+        console.log(11);
+    }, []);
 
     return (
         <Layout

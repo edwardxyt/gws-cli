@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // 错误边界
 import ErrorBoundary from '../component/errorBoundary/index';
+import QKcontainer from '../QKcontainer';
 import rootStore from '../store/index';
 
 const App = lazy(() => import('../app/index'));
@@ -34,22 +35,8 @@ export default class PcRouter extends Component<PouterProps, {}> {
                                         {/*index路由是一个父节点默认的子节点*/}
                                         {/*index路由在用户还没有点击导航中的链接时渲染*/}
                                         <Route index element={<Home />} />
-                                        {/*404*/}
-                                        <Route
-                                            path="*"
-                                            element={
-                                                <main
-                                                    style={{
-                                                        padding: '1rem',
-                                                    }}
-                                                >
-                                                    <p>
-                                                        There&#39;s nothing
-                                                        here!
-                                                    </p>
-                                                </main>
-                                            }
-                                        />
+                                        {/*qiankun*/}
+                                        <Route path="*" element={<QKcontainer />} />
                                     </Route>
                                 </Routes>
                             </ErrorBoundary>

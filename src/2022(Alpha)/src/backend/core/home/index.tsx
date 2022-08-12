@@ -48,6 +48,12 @@ const Home: React.FC<any> = ({ app, user }) => {
                         表格组件案例
                     </Card>
                 </Col>
+
+                <Col span={8}>
+                    <Card title="qiankun" bordered={false}>
+                        <Link to="pj1"> pj1 </Link>
+                    </Card>
+                </Col>
             </Row>
         </div>
     );
