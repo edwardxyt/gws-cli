@@ -8,9 +8,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ErrorBoundary from '../component/errorBoundary/index';
 import rootStore from '../store/index';
 
-const App = lazy(() => import('../pcRouter/App/index'));
-const Home = lazy(() => import('../pcRouter/Home/index'));
-const Login = lazy(() => import('../pcRouter/Login/index'));
+const App = lazy(() => import('./App/index'));
+const Home = lazy(() => import('./Home/index'));
+const Login = lazy(() => import('./Login/index'));
 const List = lazy(() => import('./List/index'));
 const News = lazy(() => import('./List/News/index'));
 const Item = lazy(() => import('./List/Item/index'));

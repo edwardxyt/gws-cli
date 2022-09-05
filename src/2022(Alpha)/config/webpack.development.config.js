@@ -142,6 +142,11 @@ let initWebpackConfig = (detectPort) => {
             {
               loader: 'css-loader',
               options: {
+                // sourceMap: false,
+                // modules: {
+                //   mode: 'local',
+                //   localIdentName: '[name]__[local]--[hash:base64:8]',
+                // },
               },
             },
             {

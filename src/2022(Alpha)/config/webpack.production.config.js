@@ -168,15 +168,18 @@ module.exports = async () => {
                     test: /\.(le|c)ss$/,
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader, // 非DEV环境，这里替换style-loader，即可提取css文件
+                            // 非DEV环境，这里替换style-loader，即可提取css文件
+                            // antd-mobile 测试环境和生存环境有区别。需要优化
+                            loader: MiniCssExtractPlugin.loader,
                         },
                         {
                             loader: 'css-loader',
                             options: {
-                                modules: {
-                                    mode: 'global',
-                                    localIdentName: '[name]__[local]--[hash:base64:8]',
-                                },
+                                // sourceMap: false,
+                                // modules: {
+                                //     mode: 'local',
+                                //     localIdentName: '[name]__[local]--[hash:base64:8]',
+                                // },
                             },
                         },
                         {
