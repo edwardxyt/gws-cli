@@ -1,3 +1,4 @@
+import { MessageOutlined } from '@ant-design/icons';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { Navigate } from 'react-router-dom';
@@ -5,9 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 import avatar from '../../asset/avatar.png';
 import Logo from '../../asset/logo.svg';
-import styles from './home.module.less';
-
-import { MessageOutlined } from '@ant-design/icons';
 
 //TODO 无状态 mobx组件
 const NameDisplayer = ({ user }: any) => {
@@ -33,7 +31,6 @@ export default class Home extends React.Component {
     constructor(props: any) {
         super(props);
         console.log(this.props);
-        console.log('styles', styles);
     }
 
     state = { user: false };
@@ -42,10 +39,7 @@ export default class Home extends React.Component {
         let { user } = this.state;
         return (
             <>
-                <h1 className={styles.hone}>
-                    wo de \n
-                    <span className={styles.tow}>home</span>
-                </h1>
+                <h1>home</h1>
                 <UserNameDisplayer />
                 <MessageOutlined style={{ fontSize: '16px', color: '#08c' }} />
                 <img src={avatar} alt="" />

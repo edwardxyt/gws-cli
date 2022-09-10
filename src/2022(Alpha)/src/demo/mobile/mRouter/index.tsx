@@ -10,11 +10,7 @@ import rootStore from '../store/index';
 
 const App = lazy(() => import('./App/index'));
 const Home = lazy(() => import('./Home/index'));
-const Login = lazy(() => import('./Login/index'));
-const List = lazy(() => import('./List/index'));
-const News = lazy(() => import('./List/News/index'));
-const Item = lazy(() => import('./List/Item/index'));
-const Params = lazy(() => import('./List/Params/index'));
+const Todo = lazy(() => import('./Todo/index'));
 
 interface MainProps {}
 
@@ -38,48 +34,16 @@ export default class PcRouter extends Component<MainProps, {}> {
                             <ErrorBoundary>
                                 <Routes>
                                     <Route path="/" element={<App />}>
-                                        {/*index 默认Outlet渲染的组件*/}
-                                        {/*<Route index element={<Home />} />*/}
-                                        <Route path="home" element={<Home />} />
+                                        <Route index element={<Home />} />
                                         <Route
-                                            path="login"
+                                            path="Todo"
                                             element={
-                                                <Login
+                                                <Todo
                                                     compiler="TypeScript"
                                                     framework="React"
                                                 />
                                             }
                                         />
-                                        <Route path="list" element={<List />}>
-                                            {/*index路由渲染在父路由的outlet，而且路由地址和父路由相同*/}
-                                            {/*index路由在父路由匹配并且其他子路由不匹配的时候 匹配*/}
-                                            {/*index路由是一个父节点默认的子节点*/}
-                                            {/*index路由在用户还没有点击导航中的链接时渲染*/}
-                                            <Route
-                                                index
-                                                element={
-                                                    <main
-                                                        style={{
-                                                            padding: '1rem',
-                                                        }}
-                                                    >
-                                                        <p>Select an list</p>
-                                                    </main>
-                                                }
-                                            />
-                                            <Route
-                                                path="news"
-                                                element={<News />}
-                                            />
-                                            <Route
-                                                path="params/:id"
-                                                element={<Params />}
-                                            />
-                                            <Route
-                                                path=":id"
-                                                element={<Item />}
-                                            />
-                                        </Route>
                                         {/*404*/}
                                         <Route
                                             path="*"

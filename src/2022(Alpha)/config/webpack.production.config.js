@@ -78,7 +78,7 @@ module.exports = async () => {
         optimization: {
             minimize: true,
             minimizer: [
-                new CssMinimizerPlugin(), // 就像 optimize-css-assets-webpack-plugin 一样，但在 source maps 和 assets 中使用查询字符串会更加准确，支持缓存和并发模式下运行。
+                new CssMinimizerPlugin(), // 生产模式压缩css。
                 new TerserPlugin({
                     extractComments: false,
                     parallel: true, // 使用多进程并发运行以提高构建速度
@@ -145,7 +145,8 @@ module.exports = async () => {
             strictExportPresence: true,  // 将缺失的导出提示成错误而不是警告
             rules: [
                 {
-                    test: /\.(tsx?|jsx|js)$/,
+                    test: /\.(tsx?|jsx|js)$/i,
+                    exclude: /node_modules/,
                     use: [
                         {
                             loader: 'babel-loader',
@@ -155,17 +156,17 @@ module.exports = async () => {
                             loader: 'ts-loader',
                         },
                     ],
-                    exclude: /node_modules/,
                 },
                 {
-                    test: /\.ejs$/,
+                    test: /\.ejs$/i,
+                    include: /templates/,
                     loader: 'ejs-loader',
                     options: {
                         esModule: false,
                     },
                 },
                 {
-                    test: /\.(le|c)ss$/,
+                    test: /\.(le|c)ss$/i,
                     use: [
                         {
                             // 非DEV环境，这里替换style-loader，即可提取css文件
@@ -174,24 +175,12 @@ module.exports = async () => {
                         },
                         {
                             loader: 'css-loader',
-                            options: {
-                                // sourceMap: false,
-                                // modules: {
-                                //     mode: 'local',
-                                //     localIdentName: '[name]__[local]--[hash:base64:8]',
-                                // },
-                            },
-                        },
-                        {
-                            loader: 'less-loader',
-                            options: {
-                                lessOptions: {
-                                    strictMath: true,
-                                },
-                            },
                         },
                         {
                             loader: 'postcss-loader',
+                        },
+                        {
+                            loader: 'less-loader',
                         },
                     ],
                 },
@@ -207,11 +196,11 @@ module.exports = async () => {
                     },
                 },
                 {
-                    test: /\.(eot|svg|ttf|woff|woff2?)$/,
+                    test: /\.(eot|svg|ttf|woff|woff2?)$/i,
                     type: 'asset/resource',
                 },
                 {
-                    test: /\.md$/,
+                    test: /\.md$/i,
                     type: 'asset/source'
                 }
             ],
@@ -238,8 +227,8 @@ module.exports = async () => {
             new webpack.DefinePlugin(app_config.inject),
             // 和 style-loader 功能一样，只是打包后会单独生成 css 文件而非直接写在 html 文件中，用于生产环境，开发环境不需要另外生成文件使用 style-loader 即可
             new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash:8].css',
-                chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+                filename: 'styles/[name].[contenthash:8].css',
+                chunkFilename: 'styles/[id].[contenthash:8].chunk.css',
             }),
             // 打包时忽略本地化内容
             // Moment.js是一个非常流行的库，它捆绑了大型locale文件

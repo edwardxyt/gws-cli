@@ -38,8 +38,6 @@ export default class PcRouter extends Component<MainProps, {}> {
                             <ErrorBoundary>
                                 <Routes>
                                     <Route path="/" element={<App />}>
-                                        {/*index 默认Outlet渲染的组件*/}
-                                        {/*<Route index element={<Home />} />*/}
                                         <Route path="home" element={<Home />} />
                                         <Route
                                             path="login"

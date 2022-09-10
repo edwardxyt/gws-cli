@@ -106,6 +106,7 @@ let initWebpackConfig = (detectPort) => {
         },
         {
           test: /\.(tsx?|jsx|js)$/,
+          exclude: /node_modules/,
           use: [
             {
               loader: 'babel-loader',
@@ -123,39 +124,26 @@ let initWebpackConfig = (detectPort) => {
               },
             }
           ],
-          exclude: /node_modules/,
         },
         {
           test: /\.ejs$/,
+          include: /templates/,
           loader: 'ejs-loader',
           options: {
             esModule: false,
           },
-          exclude: /node_modules/,
         },
         {
-          test: /\.(le|c)ss$/,
+          test: /\.(le|c)ss$/i,
           use: [
             {
               loader: 'style-loader',
             },
             {
               loader: 'css-loader',
-              options: {
-                // sourceMap: false,
-                // modules: {
-                //   mode: 'local',
-                //   localIdentName: '[name]__[local]--[hash:base64:8]',
-                // },
-              },
             },
             {
               loader: 'less-loader',
-              options: {
-                lessOptions: {
-                  strictMath: true,
-                },
-              },
             },
             {
               loader: 'postcss-loader',
@@ -383,7 +371,7 @@ module.exports = async () => {
           loader: require.resolve('source-map-loader'),
         },
         {
-          test: /\.(tsx?|jsx|js)$/,
+          test: /\.(tsx?|jsx|js)$/i,
           use: [
             {
               loader: 'babel-loader',
@@ -404,7 +392,7 @@ module.exports = async () => {
           exclude: /node_modules/,
         },
         {
-          test: /\.ejs$/,
+          test: /\.ejs$/i,
           loader: 'ejs-loader',
           options: {
             esModule: false,
@@ -412,7 +400,7 @@ module.exports = async () => {
           exclude: /node_modules/,
         },
         {
-          test: /\.(le|c)ss$/,
+          test: /\.(le|c)ss$/i,
           use: [
             {
               loader: 'style-loader',
@@ -423,15 +411,15 @@ module.exports = async () => {
               },
             },
             {
+              loader: 'postcss-loader',
+            },
+            {
               loader: 'less-loader',
               options: {
                 lessOptions: {
                   strictMath: true,
                 },
               },
-            },
-            {
-              loader: 'postcss-loader',
             },
           ],
         },
@@ -447,11 +435,11 @@ module.exports = async () => {
           },
         },
         {
-          test: /\.(eot|svg|ttf|woff|woff2?)$/,
+          test: /\.(eot|svg|ttf|woff|woff2?)$/i,
           type: 'asset/resource',
         },
         {
-          test: /\.md$/,
+          test: /\.md$/i,
           type: 'asset/source'
         }
       ],
